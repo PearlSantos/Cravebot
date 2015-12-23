@@ -2,25 +2,36 @@ package cravebot.work.pearlsantos.cravebot;
 
 
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     String[] data;
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
-
+    String TAG;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +63,24 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        // create RangeSeekBar as Integer range between 20 and 75
+        final RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(0, 300, this);
+        seekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
+                // handle changed range values
+
+            }
+        });
+
+// add RangeSeekBar to pre-defined layout
+        ImageButton goButton = (ImageButton) findViewById(R.id.goButton);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
+        RelativeLayout.LayoutParams seekParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        seekParam.addRule(RelativeLayout.BELOW, goButton.getId());
+        seekParam.setMargins(5, 0, 5, 0);
+        layout.addView(seekBar, seekParam);
 
 
     }
@@ -135,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 }
 
 

@@ -5,10 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- The main content view -->
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/goButton"
+            android:src="@drawable/main_button_selector"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="41dp" />
+
+    </RelativeLayout>
     <!-- The navigation drawer -->
     <ListView android:id="@+id/drawer"
         android:layout_width="240dp"
