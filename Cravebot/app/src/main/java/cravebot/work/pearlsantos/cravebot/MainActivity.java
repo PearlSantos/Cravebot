@@ -1,7 +1,9 @@
 package cravebot.work.pearlsantos.cravebot;
 
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,19 +17,29 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
-    String[] data;
+    Integer[] imgRes;
+    Integer[] imgRes2;
+    String[] holder;
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
@@ -37,11 +49,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        data = getResources().getStringArray(R.array.data_array);
+        holder = new String[] {"o","o","o","o","o","o","o","o","o","o","o","o"};
+        imgRes = new Integer[] {R.drawable.beef,
+                  R.drawable.beverages,
+                R.drawable.burger_sandwiches,
+                R.drawable.chicken,
+                R.drawable.desserts_pastries,
+                R.drawable.fruits_vegetables,
+                R.drawable.noodles_soup,
+                R.drawable.pizza_pasta,
+                R.drawable.pork,
+                R.drawable.seafood,
+                R.drawable.setmeals,
+                R.drawable.snacks};
+        imgRes2 = new Integer[] {R.mipmap.beef_g,
+                R.mipmap.beverages_g,
+                R.mipmap.burger_sandwiches_g,
+                R.mipmap.chicken_g,
+                R.mipmap.desserts_pastries_g,
+                R.mipmap.fruits_vegetables_g,
+                R.mipmap.noodles_soup_g,
+                R.mipmap.pizza_pasta_g,
+                R.mipmap.pork_g,
+                R.mipmap.seafood_g,
+                R.mipmap.setmeals_g,
+                R.mipmap.snacks_g};
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer);
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.custom_drawer_item, data));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        // public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid)
+        mDrawerList.setAdapter(new CustomListAdapter(this, holder, imgRes));
+        mDrawerList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //changeBackground(position);
+//                view = (ImageView) findViewById(R.id.choices);
+//                view.setImageResource(imgRes2[position]);
+//            }
+//        });
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
@@ -153,12 +198,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void changeBackground(int position){
+        ImageView imageView = (ImageView) findViewById(R.id.choices);
+        imageView.setImageResource(imgRes2[position]);
+    }
+
     private class DrawerItemClickListener implements
             ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
-            SelectItem(position);
+            //SelectItem(position);
 
         }
 
@@ -168,4 +218,33 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
+class CustomListAdapter extends ArrayAdapter<String> {
 
+    private final Activity context;
+    private final String[] itemname;
+    private final Integer[] imgid;
+
+    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
+        super(context, R.layout.custom_drawer_item, itemname);
+        // TODO Auto-generated constructor stub
+
+        this.context=context;
+        this.itemname=itemname;
+        this.imgid=imgid;
+    }
+
+    public View getView(int position,View view,ViewGroup parent) {
+        LayoutInflater inflater=context.getLayoutInflater();
+        View rowView=inflater.inflate(R.layout.custom_drawer_item, null,true);
+
+        //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.choices);
+        //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
+
+        //txtTitle.setText(itemname[position]);
+        imageView.setImageResource(imgid[position]);
+        //extratxt.setText("Description "+itemname[position]);
+        return rowView;
+
+    };
+}

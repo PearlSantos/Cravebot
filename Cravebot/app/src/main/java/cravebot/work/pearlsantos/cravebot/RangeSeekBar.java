@@ -31,8 +31,10 @@ import android.widget.ImageView;
  */
 public class RangeSeekBar<T extends Number> extends ImageView {
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.drawable.seek_thumb_normal);
+    private Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.mipmap.max_slider);
     private Bitmap thumbPressedImage = BitmapFactory.decodeResource(getResources(), R.drawable.seek_thumb_pressed);
+    private int maxThumb = R.mipmap.max_slider;
+    private int minThumb = R.mipmap.min_slider;
     private final float thumbWidth = thumbImage.getWidth();
     private final float thumbHalfWidth = 0.5f * thumbWidth;
     private final float thumbHalfHeight = 0.5f * thumbImage.getHeight();
@@ -351,7 +353,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(widthMeasureSpec)) {
             width = MeasureSpec.getSize(widthMeasureSpec);
         }
-        int height = thumbImage.getHeight();
+        int height = (thumbImage.getHeight())*2;
         if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(heightMeasureSpec)) {
             height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
         }
@@ -366,7 +368,8 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         super.onDraw(canvas);
 
         // draw seek bar background line
-        final RectF rect = new RectF(padding, 0.5f * (getHeight() - lineHeight), getWidth() - padding, 0.5f * (getHeight() + lineHeight));
+        final RectF rect = new RectF(padding, (0.5f * getHeight())  - lineHeight, getWidth() - padding, 0.5f * getHeight());
+        //final RectF rect = new RectF(padding, 0.5f * (getHeight() - thumbHalfHeight), getWidth() - padding, getHeight() - (0.5f * getHeight()));
         paint.setStyle(Style.FILL);
         paint.setColor(Color.GRAY);
         paint.setAntiAlias(true);
@@ -377,14 +380,14 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         rect.right = normalizedToScreen(normalizedMaxValue);
 
         // orange color
-        paint.setColor(DEFAULT_COLOR);
-        canvas.drawRect(rect, paint);
+//        paint.setColor(DEFAULT_COLOR);
+//        canvas.drawRect(rect, paint);
 
         // draw minimum thumb
-        drawThumb(normalizedToScreen(normalizedMinValue), Thumb.MIN.equals(pressedThumb), canvas, writeOnDrawable(R.drawable.seek_thumb_pressed, getSelectedMinValue() + "").getBitmap(), writeOnDrawable(R.drawable.seek_thumb_normal, "P" + (int) (normalizedMinValue * absoluteMaxValuePrim) + "").getBitmap());
+        drawThumb(normalizedToScreen(normalizedMinValue),(0.5f * getHeight()) - lineHeight, canvas, writeOnDrawable(minThumb, "P" + (int) (normalizedMinValue * absoluteMaxValuePrim) + "", thumbHalfHeight + thumbHalfHeight/2).getBitmap());
 
         // draw maximum thumb
-        drawThumb(normalizedToScreen(normalizedMaxValue), Thumb.MAX.equals(pressedThumb), canvas, writeOnDrawable(R.drawable.seek_thumb_pressed, getSelectedMaxValue() + "").getBitmap(), writeOnDrawable(R.drawable.seek_thumb_normal, "P" + (int) (normalizedMaxValue * absoluteMaxValuePrim) + "").getBitmap());
+        drawThumb(normalizedToScreen(normalizedMaxValue),(float) (( 0.5f * (getHeight() + lineHeight)) - thumbImage.getHeight()), canvas, writeOnDrawable(maxThumb, "P" + (int) (normalizedMaxValue * absoluteMaxValuePrim) + "", thumbHalfHeight).getBitmap());
     }
 
     /**
@@ -415,13 +418,14 @@ public class RangeSeekBar<T extends Number> extends ImageView {
      *
      * @param screenCoord
      *            The x-coordinate in screen space where to draw the image.
-     * @param pressed
-     *            Is the thumb currently in "pressed" state?
+     * @param yCoord
+     *            The y-coordinate (fixed) of the thumb
      * @param canvas
      *            The canvas to draw upon.
      */
-    private void drawThumb(float screenCoord, boolean pressed, Canvas canvas, Bitmap thumbPressed, Bitmap thumbUnpressed) {
-        canvas.drawBitmap(pressed ? thumbPressed : thumbUnpressed, screenCoord - thumbHalfWidth, (float) ((0.5f * getHeight()) - thumbHalfHeight), paint);
+    private void drawThumb(float screenCoord, float yCoord, Canvas canvas, Bitmap thumb) {
+        canvas.drawBitmap(thumb, screenCoord - thumbHalfWidth, yCoord, paint);
+        //(float) ((0.5f * getHeight()) - thumbHalfHeight)
     }
 
     /**
@@ -614,17 +618,17 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     }
 
 
-    public BitmapDrawable writeOnDrawable(int drawableId, String text){
+    public BitmapDrawable writeOnDrawable(int drawableId, String text, float yCoord){
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(), drawableId).copy(Bitmap.Config.ARGB_8888, true);
 
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.BLACK); //Change this if you want other color of text
+        paint.setColor(Color.WHITE); //Change this if you want other color of text
         paint.setTextSize(30); //Change this if you want bigger/smaller font
 
         Canvas canvas = new Canvas(bm);
-        canvas.drawText(text, 0, bm.getHeight(), paint); //Change the position of the text here
+        canvas.drawText(text, bm.getWidth()/6, yCoord, paint); //Change the position of the text here
 
         return new BitmapDrawable(bm);
     }
