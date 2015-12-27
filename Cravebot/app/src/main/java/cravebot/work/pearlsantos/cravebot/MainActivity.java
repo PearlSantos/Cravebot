@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
+    private boolean[] filterClicked;
     String TAG;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,26 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList = (ListView) findViewById(R.id.drawer);
         // public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid)
         mDrawerList.setAdapter(new CustomListAdapter(this, holder, imgRes));
-        mDrawerList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        filterClicked = new boolean[imgRes.length];
+        for(int i=0; i<imgRes.length;i++){
+            filterClicked[i] = false;
+        }
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ImageView im = (ImageView) view.findViewById(R.id.choices);
+                if(!filterClicked[position]) {
+                    im.setImageResource(imgRes2[position]);
+                    filterClicked[position] = true;
+                }
+                else{
+                    im.setImageResource(imgRes[position]);
+                    filterClicked[position] = false;
+                }
+
+            }
+        });
+//        mDrawerList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);z
 //        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -214,15 +235,48 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+//
+//class CustomListAdapter extends ArrayAdapter<String> {
+//
+//    private final Activity context;
+//    private final String[] itemname;
+//    private final Integer[] imgid;
+//
+//    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
+//        super(context, R.layout.custom_drawer_item, itemname);
+//        // TODO Auto-generated constructor stub
+//
+//        this.context=context;
+//        this.itemname=itemname;
+//        this.imgid=imgid;
+//    }
+//
+//    public View getView(int position,View view,ViewGroup parent) {
+//        LayoutInflater inflater=context.getLayoutInflater();
+//        View rowView=inflater.inflate(R.layout.custom_drawer_item, null,true);
+//
+//        final int pos = position;
+//        //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
+//        imageView = (ImageView) rowView.findViewById(R.id.choices);
+//        //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
+//
+//        //txtTitle.setText(itemname[position]);
+//        imageView.setImageResource(imgid[pos]);
+//
+//        //extratxt.setText("Description "+itemname[position]);
+//        return rowView;
+//
+//    };
+//}
 
-class CustomListAdapter extends ArrayAdapter<String> {
+class CustomListAdapter extends BaseAdapter {
 
     private final Activity context;
     private final String[] itemname;
     private final Integer[] imgid;
+    private ImageView imageView;
 
     public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
-        super(context, R.layout.custom_drawer_item, itemname);
         // TODO Auto-generated constructor stub
 
         this.context=context;
@@ -230,17 +284,35 @@ class CustomListAdapter extends ArrayAdapter<String> {
         this.imgid=imgid;
     }
 
+    @Override
+    public int getCount() {
+        // TODO Auto-generated method stub
+        return imgid.length;
+    }
+
+    @Override
+    public Object getItem(int index) {
+        // TODO Auto-generated method stub
+        return imgid[index];
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
     public View getView(int position,View view,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.custom_drawer_item, null,true);
 
+        final int pos = position;
         //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.choices);
+        imageView = (ImageView) rowView.findViewById(R.id.choices);
         //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         //txtTitle.setText(itemname[position]);
-        imageView.setImageResource(imgid[position]);
-        //extratxt.setText("Description "+itemname[position]);
+        imageView.setImageResource(imgid[pos]);
+      //extratxt.setText("Description "+itemname[position]);
         return rowView;
 
     };

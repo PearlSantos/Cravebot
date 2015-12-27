@@ -8,7 +8,6 @@ android:gravity = "center">
     android:layout_height="match_parent"
     android:id="@+id/root_frame"
     android:animateLayoutChanges="true"
-    android:visibility="gone"
     >
 
     <ImageView
@@ -123,7 +122,8 @@ android:gravity = "center">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/root_frameInfo"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="match_parent"
