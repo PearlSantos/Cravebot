@@ -2,6 +2,7 @@ package cravebot.work.pearlsantos.cravebot;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -31,10 +32,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.elysi.results.CardLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cravebot.R;
 
 public class MainActivity extends AppCompatActivity {
     Integer[] imgRes;
@@ -121,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
 // add RangeSeekBar to pre-defined layout
         ImageButton goButton = (ImageButton) findViewById(R.id.goButton);
+        goButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CardLayout.class);
+                startActivity(intent);
+            }
+        });
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
         RelativeLayout.LayoutParams seekParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
         seekParam.addRule(RelativeLayout.BELOW, goButton.getId());
