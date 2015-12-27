@@ -9,7 +9,7 @@
         android:icon="@mipmap/cravebot_ic"
         android:label="@string/app_name">
         <activity
-            android:name="cravebot.work.pearlsantos.cravebot.MainActivity"
+            android:name=".work.pearlsantos.cravebot.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.elysi.results.CardLayout"
+            android:name=".results.elysi.results.CardLayout"
             android:label="@string/app_name"
             android:largeHeap="true"
             android:screenOrientation="portrait"

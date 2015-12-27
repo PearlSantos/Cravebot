@@ -1,4 +1,4 @@
-package com.example.elysi.results;
+package cravebot.results.elysi.results;
 
 import android.content.Context;
 import android.graphics.Point;

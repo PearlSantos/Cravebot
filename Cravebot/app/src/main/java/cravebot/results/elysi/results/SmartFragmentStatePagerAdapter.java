@@ -1,4 +1,4 @@
-package com.example.elysi.results;
+package cravebot.results.elysi.results;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

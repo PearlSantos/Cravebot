@@ -1,4 +1,4 @@
-package com.example.elysi.results;
+package cravebot.results.elysi.results;
 
 /**
  * Created by elysi on 12/23/2015.

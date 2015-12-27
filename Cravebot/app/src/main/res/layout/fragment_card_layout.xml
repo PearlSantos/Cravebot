@@ -8,6 +8,7 @@ android:gravity = "center">
     android:layout_height="match_parent"
     android:id="@+id/root_frame"
     android:animateLayoutChanges="true"
+    android:visibility="gone"
     >
 
     <ImageView
@@ -122,8 +123,7 @@ android:gravity = "center">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/root_frameInfo"
-        android:animateLayoutChanges="true"
-        android:visibility="gone">
+        android:animateLayoutChanges="true">
 
         <ImageView
             android:layout_width="match_parent"
@@ -180,7 +180,7 @@ android:gravity = "center">
 
                         <LinearLayout
                             android:layout_width="match_parent" android:layout_height="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             android:orientation="vertical">
                             </LinearLayout>
 
@@ -200,7 +200,7 @@ android:gravity = "center">
 
                         <LinearLayout
                             android:layout_width="match_parent" android:layout_height="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             android:orientation="vertical">
                         </LinearLayout>
 
@@ -209,7 +209,7 @@ android:gravity = "center">
 
                     <LinearLayout
                         android:layout_width="match_parent" android:layout_height="match_parent"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.3"
                         android:orientation="vertical">
                     </LinearLayout>
 

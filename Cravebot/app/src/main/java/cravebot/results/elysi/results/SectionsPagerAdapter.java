@@ -1,6 +1,7 @@
-package com.example.elysi.results;
+package cravebot.results.elysi.results;
 
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -88,8 +89,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             TextView restoName = (TextView) view.findViewById(R.id.restoName);
             TextView price = (TextView) view.findViewById(R.id.price);
 
-            Typeface hat = Typeface.createFromAsset(getContext().getAssets(), "fonts/HATTEN.TTF");
-            Typeface gad = Typeface.createFromAsset(getContext().getAssets(), "fonts/gadugi.ttf");
+            Typeface hat = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "fonts/HATTEN.TTF");
+            Typeface gad = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "fonts/gadugi.ttf");
 
             foodName.setTypeface(hat);
             restoName.setTypeface(gad);
@@ -104,9 +105,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 //            restoName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
 
             foodImage = (ImageView) view.findViewById(R.id.foodImage);
+//            ((BitmapDrawable)foodImage.getDrawable()).getBitmap().recycle();
 
             UrlImageViewHelper helper = new UrlImageViewHelper();
             UrlImageViewHelper.setUrlDrawable(foodImage, APIFood + singleItem.getPhoto());
+            foodImage.invalidate();
 
             Button testMore = (Button) view.findViewById(R.id.testMore);
 ////            testMore.setOnClickListener(this.lis);
@@ -250,6 +253,32 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             });
 
             return view;
+        }
+
+        public void onDestroy(){
+            super.onDestroy();
+            unbindDrawables(view.findViewById(R.id.fragmentLayoutWhole));
+            System.gc();
+
+        }
+
+
+        private void unbindDrawables(View view) {
+            if (view.getBackground() != null) {
+                view.getBackground().setCallback(null);
+            }
+            if (view instanceof ViewGroup) {
+                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                    unbindDrawables(((ViewGroup) view).getChildAt(i));
+                }
+                ((ViewGroup) view).removeAllViews();
+            }
+        }
+
+        public void onStop()
+        {
+            super.onStop();
+            foodImage.setImageBitmap(null);
         }
 
     }

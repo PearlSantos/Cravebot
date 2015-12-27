@@ -1,4 +1,4 @@
-package com.example.elysi.results;
+package cravebot.results.elysi.results;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -232,6 +232,7 @@ public class CardLayout extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });
