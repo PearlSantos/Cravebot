@@ -1,13 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:id="@+id/fragmentLayoutWhole"
-android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
 android:orientation="vertical"
-android:gravity = "center">
+    android:gravity = "center">
+
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/root_frame"
-    android:animateLayoutChanges="true"
     >
 
     <ImageView
@@ -16,6 +18,7 @@ android:gravity = "center">
         android:id="@+id/background"
         android:scaleType="fitXY"
         android:src="@drawable/card" />
+
 
 
 
@@ -62,7 +65,8 @@ android:gravity = "center">
             android:layout_weight="3"
             android:orientation="vertical">
 
-            <TextView
+            <cravebot.customfont.TextViewPlus
+            style="@style/textViewCustomFont1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/darkGray"
@@ -72,7 +76,8 @@ android:gravity = "center">
 
             />
 
-            <TextView
+            <cravebot.customfont.TextViewPlus
+                style="@style/textViewCustomFont2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -96,7 +101,8 @@ android:gravity = "center">
             android:orientation="horizontal">
             </LinearLayout>
 
-        <TextView
+        <cravebot.customfont.TextViewPlus
+            style="@style/textViewCustomFont1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/darkGray"
@@ -116,13 +122,23 @@ android:gravity = "center">
     </LinearLayout>
 
 </LinearLayout>
+    <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        fab:fab_colorNormal="@android:color/holo_red_dark"
+        fab:fab_colorPressed="@android:color/holo_red_dark"
+        fab:fab_colorRipple="@android:color/holo_red_light"
+        app:backgroundTint="@android:color/holo_red_dark"
+        app:layout_anchor="@id/fragmentLayoutWhole"
+        app:layout_anchorGravity="top|end"
+        />
 </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/root_frameInfo"
-        android:animateLayoutChanges="true"
         android:visibility="gone">
 
         <ImageView
@@ -258,8 +274,8 @@ android:gravity = "center">
                         android:layout_weight="3"
                         android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont1" android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:textColor="@color/darkGray"
@@ -268,8 +284,9 @@ android:gravity = "center">
                         android:id="@+id/foodNameInfo"
                         android:gravity="start"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
+                        <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
+                        android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="RestoName"
@@ -287,7 +304,8 @@ android:gravity = "center">
                         android:orientation="vertical">
                     </LinearLayout>
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkGray"
@@ -308,7 +326,8 @@ android:gravity = "center">
                     android:orientation="vertical">
                 </LinearLayout>
 
-                <TextView
+                <cravebot.customfont.TextViewPlus
+                    style="@style/textViewCustomFont2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -328,7 +347,8 @@ android:gravity = "center">
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -346,7 +366,8 @@ android:gravity = "center">
 
                     </LinearLayout>
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkGray"
@@ -367,7 +388,8 @@ android:gravity = "center">
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -384,7 +406,8 @@ android:gravity = "center">
 
                     </LinearLayout>
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkGray"
@@ -403,7 +426,8 @@ android:gravity = "center">
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -421,7 +445,8 @@ android:gravity = "center">
 
                     </LinearLayout>
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkGray"
@@ -440,7 +465,8 @@ android:gravity = "center">
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -458,7 +484,8 @@ android:gravity = "center">
 
                     </LinearLayout>
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkGray"
@@ -477,7 +504,8 @@ android:gravity = "center">
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -495,7 +523,8 @@ android:gravity = "center">
 
                     </LinearLayout>
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkGray"
@@ -514,7 +543,8 @@ android:gravity = "center">
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -532,7 +562,8 @@ android:gravity = "center">
 
                     </LinearLayout>
 
-                    <TextView
+                    <cravebot.customfont.TextViewPlus
+                        style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/darkGray"
@@ -560,5 +591,18 @@ android:gravity = "center">
 
             </LinearLayout>
         </LinearLayout>
+        <android.support.design.widget.FloatingActionButton android:id="@+id/fab2"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            fab:fab_colorNormal="@android:color/holo_red_dark"
+            fab:fab_colorPressed="@android:color/holo_red_dark"
+            fab:fab_colorRipple="@android:color/holo_red_light"
+            app:backgroundTint="@android:color/holo_red_dark"
+            app:layout_anchor="@id/fragmentLayoutWhole"
+            app:layout_anchorGravity="top|end"
+            />
     </FrameLayout>
+
+
 </LinearLayout>
