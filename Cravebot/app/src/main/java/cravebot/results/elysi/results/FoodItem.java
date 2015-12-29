@@ -1,14 +1,19 @@
 package cravebot.results.elysi.results;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by elysi on 12/23/2015.
+ * Edited by christofferkho 12/29/2015
  */
-public class FoodItem {
+public class FoodItem implements Parcelable {
     private String restoName, restoLogo, notes, itemName, description, option1, price1, option2, price2,
             option3, price3, option4, price4, option5, price5, option6, price6, photo;
-    private float price;
+    private double price;
 
-    public FoodItem(String restoName, String restoLogo, String notes, String itemName, float price, String description,
+    public FoodItem(){}
+    public FoodItem(String restoName, String restoLogo, String notes, String itemName, double price, String description,
                     String option1, String price1, String option2, String price2, String option3, String price3,
                     String option4, String price4, String option5, String price5, String option6, String price6,
                     String photo) {
@@ -177,11 +182,74 @@ public class FoodItem {
         this.photo = photo;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setPrice(double d) {
+        this.price = d;
     }
+
+    private FoodItem(Parcel in) {
+        restoName = in.readString();
+        restoLogo = in.readString();
+        notes = in.readString();
+        itemName = in.readString();
+        description = in.readString();
+        option1 = in.readString();
+        price1 = in.readString();
+        option2 = in.readString();
+        price2 = in.readString();
+        option3 = in.readString();
+        price3 = in.readString();
+        option4 = in.readString();
+        price4 = in.readString();
+        option5 = in.readString();
+        price5 = in.readString();
+        option6 = in.readString();
+        price6 = in.readString();
+        photo = in.readString();
+        price = in.readDouble();
+    }
+
+
+
+    @Override
+    public int describeContents() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(restoName);
+        out.writeString(restoLogo);
+        out.writeString(notes);
+        out.writeString(itemName);
+        out.writeString(description);
+        out.writeString(option1);
+        out.writeString(price1);
+        out.writeString(option2);
+        out.writeString(price2);
+        out.writeString(option3);
+        out.writeString(price3);
+        out.writeString(option4);
+        out.writeString(price4);
+        out.writeString(option5);
+        out.writeString(price5);
+        out.writeString(option6);
+        out.writeString(price6);
+        out.writeString(photo);
+        out.writeDouble(price);
+    }
+
+    public static final Parcelable.Creator<FoodItem> CREATOR = new Parcelable.Creator<FoodItem>() {
+        public FoodItem createFromParcel(Parcel in) {
+            return new FoodItem(in);
+        }
+
+        public FoodItem[] newArray(int size) {
+            return new FoodItem[size];
+        }
+    };
 }

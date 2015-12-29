@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import android.widget.RelativeLayout;
 import cravebot.results.elysi.results.CardLayout;
 
 import cravebot.R;
+import cravebot.results.elysi.results.GoTask;
 
 public class MainActivity extends AppCompatActivity {
     Integer[] imgRes;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("MainActivity", "activity created");
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         holder = new String[] {"o","o","o","o","o","o","o","o","o","o","o","o"};
@@ -135,8 +138,11 @@ public class MainActivity extends AppCompatActivity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CardLayout.class);
-                startActivity(intent);
+                double min = seekBar.getSelectedMinValue();
+                double max = seekBar.getSelectedMaxValue();
+                Log.d("MainActivity", "button pressed");
+                new GoTask(getApplicationContext(), filterClicked, min, max).execute("test");
+
             }
         });
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
