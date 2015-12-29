@@ -5,14 +5,19 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
@@ -22,7 +27,10 @@ import cravebot.R;
 import cravebot.customfont.TextViewPlus;
 
 /**
- * Created by elysi on 12/24/2015.
+ *  /**
+ * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+ * one of the sections/tabs/pages.
+* Created by elysi on 12/24/2015.
  */
 
 public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
@@ -54,14 +62,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     public static class PlaceholderFragment extends Fragment {
 
         private final static String ARG_SECTION_NUMBER = "section_number";
-
-        private int width, height;
         private ImageView foodImage, background, backgroundInfo;
-        private static FoodItem singleItem;
-        private View.OnClickListener lis;
-        View view;
-        private String fontHatten ="fonts/HATTEN.TTF";
-        private String fontGadugi = "fonts/gadugi.ttf";
+        private FoodItem singleItem;
+        private View view;
+        private GestureDetector mGestureDetector;
+        private FrameLayout moreInfo, place;
 
 
 
@@ -118,63 +123,29 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             background.invalidate();
             backgroundInfo.invalidate();
 
-            Button testMore = (Button) view.findViewById(R.id.testMore);
-////            testMore.setOnClickListener(this.lis);
-            testMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    FrameLayout moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
-                    moreInfo.setVisibility(View.VISIBLE);
-
-                    for (int i = 0; i < moreInfo.getChildCount(); i++) {
-                        View child = moreInfo.getChildAt(i);
-                        child.setVisibility(View.VISIBLE);
-                        child.postInvalidate();
-                    }
-
-                    FrameLayout place = (FrameLayout) view.findViewById(R.id.root_frame);
-                    place.setVisibility(View.GONE);
-
-                    for (int i = 0; i < place.getChildCount(); i++) {
-                        View child = place.getChildAt(i);
-                        child.setVisibility(View.GONE);
-                        child.postInvalidate();
-                    }
-
-                    //   FragmentTransaction trans = getChildFragmentManager()
-//                            .beginTransaction();
-//
-//
-//				/*
-//				 * IMPORTANT: We use the "root frame" defined in
-//				 * "root_fragment.xml" as the reference to replace fragment
-//				 */
-//
-//                    trans.replace(R.id.root_frame, new MoreInfoFragment().newInstance(getArguments().
-//                            getInt(ARG_SECTION_NUMBER)));
-//
-//				/*
-//				 * IMPORTANT: The following lines allow us to add the fragment
-//				 * to the stack and return to it later, by pressing back
-//				 */
-//                    trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                    trans.addToBackStack(null);
-//
-//                    trans.commit();
-                }
-            });
+            moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
+            place = (FrameLayout) view.findViewById(R.id.root_frame);
 
             TextViewPlus foodNameInfo = (TextViewPlus) view.findViewById(R.id.foodNameInfo);
             TextViewPlus restoNameInfo = (TextViewPlus) view.findViewById(R.id.restoNameInfo);
             TextViewPlus priceInfo = (TextViewPlus) view.findViewById(R.id.priceInfo);
 
+//            Button test = (Button) view.findViewById(R.id.testMore);
+//            test.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if(!(moreInfo.getVisibility()==View.VISIBLE)) {
+//                        changeVisibility(getMoreInfo(), getPlace());
+//                    }
+//                    else {
+//                        changeVisibility(getPlace(), getMoreInfo());
+//                    }
+//                }
+//            });
 
 //            foodNameInfo.setTypeface(hat);
 //            restoNameInfo.setTypeface(gad);
 //            priceInfo.setTypeface(hat);
-
-
 
             foodNameInfo.setText(singleItem.getItemName().trim());
             restoNameInfo.setText(singleItem.getRestoName().trim());
@@ -223,25 +194,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             back.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    FrameLayout place = (FrameLayout) view.findViewById(R.id.root_frame);
-                    place.setVisibility(View.VISIBLE);
-
-                    for (int i = 0; i < place.getChildCount(); i++) {
-                        View child = place.getChildAt(i);
-                        child.setVisibility(View.VISIBLE);
-                        child.postInvalidate();
-                    }
-
-                    FrameLayout moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
-                    moreInfo.setVisibility(View.GONE);
-
-                    for (int i = 0; i < moreInfo.getChildCount(); i++) {
-                        View child = moreInfo.getChildAt(i);
-                        child.setVisibility(View.GONE);
-                        child.postInvalidate();
-                    }
-
+                    changeVisibility(place, moreInfo);
 
                 }
             });
@@ -292,7 +245,37 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             background.setImageBitmap(null);
         }
 
+
+        public void changeVisibility(FrameLayout visible, FrameLayout gone){
+            visible.setVisibility(View.VISIBLE);
+
+            for (int i = 0; i < visible.getChildCount(); i++) {
+                View child = visible.getChildAt(i);
+                child.setVisibility(View.VISIBLE);
+                child.postInvalidate();
+            }
+
+            gone.setVisibility(View.GONE);
+
+            for (int i = 0; i < gone.getChildCount(); i++) {
+                View child = gone.getChildAt(i);
+                child.setVisibility(View.GONE);
+                child.postInvalidate();
+            }
+
+        }
+
+        public FrameLayout getMoreInfo(){
+            return moreInfo;
+        }
+
+        public FrameLayout getPlace(){
+            return place;
+        }
     }
+
+
+
 
 
 

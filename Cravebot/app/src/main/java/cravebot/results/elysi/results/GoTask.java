@@ -269,9 +269,9 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
         if(result.size() != 0){
             try {
                 Log.d("doInBackGround", "size " + Integer.toString(result.size()));
-                Intent intent = new Intent(context, TestResult.class);
+                //Intent intent = new Intent(context, TestResult.class);
                 Log.d("doInBackGround", "new intent");
-                //Intent intent = new Intent(context, CardLayout.class);
+                Intent intent = new Intent(context, CardLayout.class);
                 intent.putParcelableArrayListExtra(LIST_KEY, result);
                 Log.d("doInBackGround", "put in arraylist");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
