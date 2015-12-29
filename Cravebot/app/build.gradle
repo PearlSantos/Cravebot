@@ -17,9 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.3.2'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile files('libs/urlimageviewhelper-1.0.4.jar')
+    compile 'com.android.support:design:23.1.1'
 }

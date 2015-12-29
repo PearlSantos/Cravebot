@@ -294,4 +294,11 @@
         <color name="primary_dark">@color/indigo_700</color>
         <color name="accent">@color/pink_A200</color>
 
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#55000000</color>
+    <color name="darkGray">#ff444444</color>
+    <color name="whiteBack">#FFFFFFFF</color>
+
     </resources>
