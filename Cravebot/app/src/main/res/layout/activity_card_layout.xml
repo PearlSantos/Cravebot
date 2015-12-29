@@ -23,18 +23,18 @@
 
     </cravebot.results.elysi.results.PagerContainer>
 
-    <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="center" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        fab:fab_colorNormal="@color/fab_primary"
-        fab:fab_colorPressed="@color/fab_pressed"
-        fab:fab_colorRipple="@color/fab_ripple"
-        app:layout_anchor="@id/viewPager"
-        app:layout_anchorGravity="top|end"
-        android:paddingRight="@dimen/activity_vertical_margin"
-        android:paddingTop="@dimen/activity_horizontal_margin"
-        />
+    <!--<android.support.design.widget.FloatingActionButton android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center" android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@android:drawable/ic_menu_close_clear_cancel"-->
+        <!--fab:fab_colorNormal="@color/fab_primary"-->
+        <!--fab:fab_colorPressed="@color/fab_pressed"-->
+        <!--fab:fab_colorRipple="@color/fab_ripple"-->
+        <!--app:layout_anchor="@id/viewPager"-->
+        <!--app:layout_anchorGravity="top|end"-->
+        <!--android:paddingRight="@dimen/activity_vertical_margin"-->
+        <!--android:paddingTop="@dimen/activity_horizontal_margin"-->
+        <!--/>-->
 
 
 </android.support.design.widget.CoordinatorLayout>

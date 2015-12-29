@@ -33,18 +33,15 @@ public class CardLayout extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    public static ViewPager mViewPager;
-    private static ArrayList<FoodItem> sample;
+    public ViewPager mViewPager;
+    private ArrayList<FoodItem> sample;
     private PagerContainer mContainer;
 
-    private static boolean end = false;
-    private static boolean start = false;
+    private boolean end = false;
+    private boolean start = false;
 
-    private static String APIFood = "http://cravebot.ph/photos/";
-    private static String APIResto = "http://cravebot.ph/photos/logos/";
-
-    public static int width;
-    public static int height;
+    private final String APIFood = "http://cravebot.ph/photos/";
+    private final String APIResto = "http://cravebot.ph/photos/logos/";
 
     public CardLayout(){
 
@@ -97,12 +94,12 @@ public class CardLayout extends AppCompatActivity {
                     @Override
                     public void onGlobalLayout() {
                         //now we can retrieve the width and height
-                        height = mContainer.getHeight();
+                        int height = mContainer.getHeight();
 
                         double heightSize =  height * 0.8;
                         height = (int) heightSize;
                         double widthSize = height*0.6;
-                        width = (int) widthSize;
+                        int width = (int) widthSize;
 
 
                         mViewPager.setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
@@ -228,14 +225,14 @@ public class CardLayout extends AppCompatActivity {
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                finish();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                finish();
+//            }
+//        });
 
 
 
