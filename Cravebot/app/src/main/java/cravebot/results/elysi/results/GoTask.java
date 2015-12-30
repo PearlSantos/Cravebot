@@ -6,6 +6,7 @@ package cravebot.results.elysi.results;
         import java.net.URI;
         import java.net.URL;
         import java.util.ArrayList;
+        import java.util.List;
 
         import org.apache.http.HttpResponse;
         import org.apache.http.client.HttpClient;
@@ -15,12 +16,24 @@ package cravebot.results.elysi.results;
         import org.json.JSONArray;
         import org.json.JSONObject;
 
+        import android.app.ProgressDialog;
         import android.content.Context;
         import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.graphics.Bitmap;
         import android.os.AsyncTask;
+        import android.os.Parcelable;
         import android.util.Log;
+        import android.view.View;
         import android.widget.Toast;
 
+        import com.nostra13.universalimageloader.core.DisplayImageOptions;
+        import com.nostra13.universalimageloader.core.ImageLoader;
+        import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+        import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+        import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+        import cravebot.R;
         import cravebot.results.elysi.results.TestResult;
 
 /**
@@ -31,7 +44,10 @@ package cravebot.results.elysi.results;
 public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
     //to get the data in the CardLayout, use this key LIST_KEY
     public static final String LIST_KEY = "FoodItemList";
+    private static ProgressDialog progressDialog;
 
+    private final String APIFood = "http://cravebot.ph/photos/";
+    private final String APIResto = "http://cravebot.ph/photos/logos/";
     //this is the main activity, considering that this asynctask will only be accessed from
     //the go button
     Context context;
@@ -146,10 +162,13 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
     }
 
     @Override
-    protected void onPreExecute(){
-        //start a loading dialog or spinner (the robot gif? can also just be a spinner)
-    }
+    protected void onPreExecute()
+    {
+        //Create a new progress dialog
 
+       // progressDialog = ProgressDialog.show(context.getWindow().getContext(), "GETTING FOOD ITEMS", "Please wait . . .", false, false);
+        //Display the progress dialog
+    }
     //All communication with the database is done here
     //Please consult Kitop before changing something here!
     @Override
@@ -234,6 +253,7 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
                         newFoodItem.setPrice6(newFood.getString("price6"));
                         newFoodItem.setPhoto(newFood.getString("photo"));
 
+
                         int restoId = newFood.getInt("restoid");
                         for(Resto r: restoList){
                             if(r.getRestoId() == restoId){
@@ -250,9 +270,9 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
 
                 Log.d("doInBackGround", "done");
             }
-
             return list;
         }
+
 
         catch(Exception e){
             Log.d("doInBackGround", e.toString());
@@ -266,6 +286,7 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
     protected void onPostExecute(ArrayList<FoodItem> result){
         //if you used a loading dialog/spinner in onPreExecute(), make sure to disable it here.
 
+       // progressDialog.dismiss();
         if(result.size() != 0){
             try {
                 Log.d("doInBackGround", "size " + Integer.toString(result.size()));

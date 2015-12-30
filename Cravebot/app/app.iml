@@ -97,7 +97,9 @@
     <orderEntry type="library" exported="" name="commons-logging-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="httpcore-4.2.4" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-23.1.1" level="project" />
+    <orderEntry type="library" exported="" name="android-query-full.0.26.8" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.3.2" level="project" />
+    <orderEntry type="library" exported="" name="universal-image-loader-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="urlimageviewhelper-1.0.4" level="project" />
     <orderEntry type="library" exported="" name="design-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-23.1.1" level="project" />
@@ -106,6 +108,7 @@
     <orderEntry type="library" exported="" name="httpclient-4.2.5" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
+    <orderEntry type="library" exported="" name="universal-3.2.1-r321_v20060905" level="project" />
     <orderEntry type="library" exported="" name="commons-codec-1.9" level="project" />
   </component>
 </module>

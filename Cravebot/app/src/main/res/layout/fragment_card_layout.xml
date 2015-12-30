@@ -6,23 +6,20 @@ android:id="@+id/fragmentLayoutWhole"
 android:orientation="vertical"
     android:gravity = "center">
 
-<FrameLayout
+
+    <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root_frame"
-    >
+    android:id="@+id/root_frame">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/background"
-        android:scaleType="fitXY"
-        android:src="@drawable/card" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/background"
+            android:scaleType="fitXY" />
 
 
-
-
-    <LinearLayout
+        <LinearLayout
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity = "center"
@@ -39,7 +36,9 @@ android:orientation="vertical"
         android:scaleType="centerCrop">
 
     </ImageView>
-        <LinearLayout
+
+
+            <LinearLayout
             android:layout_width="match_parent" android:layout_height="0dp"
             android:layout_weight="0.05"
             android:orientation="horizontal">
@@ -139,7 +138,7 @@ android:orientation="vertical"
             android:layout_height="match_parent"
             android:id="@+id/backgroundInfo"
             android:scaleType="fitXY"
-            android:src="@drawable/card" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent" android:layout_height="match_parent"
@@ -219,7 +218,22 @@ android:orientation="vertical"
                     <LinearLayout
                         android:layout_width="match_parent" android:layout_height="match_parent"
                         android:layout_weight="0.3"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp" android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:scaleType="fitXY"
+                            android:id="@+id/restoLogo"
+
+                            android:gravity="end"/>
+
                     </LinearLayout>
 
 
@@ -236,14 +250,6 @@ android:orientation="vertical"
                     <!--android:paddingTop="@dimen/activity_horizontal_margin"-->
                     <!--/>-->
 
-                    <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/back_button"-->
-                    <!--android:layout_weight="0.2"-->
-                    <!--android:id="@+id/restoLogo"-->
-                    <!-- -->
-                    <!--android:gravity="end"/>-->
 
                 </LinearLayout>
             </LinearLayout>

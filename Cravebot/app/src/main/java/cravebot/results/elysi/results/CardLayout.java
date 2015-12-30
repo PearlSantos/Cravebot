@@ -1,10 +1,13 @@
 package cravebot.results.elysi.results;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
@@ -16,6 +19,18 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
+import java.io.File;
 import java.util.ArrayList;
 
 import cravebot.R;
@@ -24,6 +39,8 @@ public class CardLayout extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private GestureDetector mGestureDetector;
+    private LruCache<String, Bitmap> mMemoryCache;
+
 
 
     /**
@@ -67,7 +84,6 @@ public class CardLayout extends AppCompatActivity {
 
         sample = getIntent().getParcelableArrayListExtra(GoTask.LIST_KEY);
 
-
         mContainer = (PagerContainer) findViewById(R.id.pager_container);
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -104,7 +120,8 @@ public class CardLayout extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         //Necessary or the pager will only have one extra page to show
         // make this at least however many pages you can see
-        mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
+       // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
+        mViewPager.setOffscreenPageLimit(3);
 
 
         //If hardware acceleration is enabled, you should also remove
@@ -179,42 +196,13 @@ public class CardLayout extends AppCompatActivity {
 
     }
 
-    public void onBackPressed() {
-
-        int count = getFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            super.onBackPressed();
-            //additional code
-        } else {
-            getFragmentManager().popBackStack();
-        }
+    public static ImageLoaderConfiguration getImageLoaderConfiguration(Context context) {
+        return new ImageLoaderConfiguration.Builder(context)
+                .memoryCacheSizePercentage(15)
+                .imageDownloader(new BaseImageDownloader(context, 40000, 40000))
+                .build();
 
     }
 
-
-//    public boolean onTouchEvent(MotionEvent ev){
-//        boolean event = ges.onTouchEvent(ev);
-//        if(OnSwipeListener.swipe=="up"){
-//            //more info
-//            Toast.makeText(TabbedActivity.this, "SWIPE UP", Toast.LENGTH_SHORT).show();
-//        }
-//        else if(OnSwipeListener.swipe=="down"){
-//            finish();
-//        }
-//        else if(OnSwipeListener.swipe=="left" && start ==true){
-//            mViewPager.setCurrentItem(mViewPager.getAdapter().getCount()-1, true);
-//            start = false;
-//            end = true;
-//        }
-//        else if(OnSwipeListener.swipe=="right" && end ==true){
-//            mViewPager.setCurrentItem(0, true);
-//            start = true;
-//            end = false;
-//        }
-//
-//
-//        return event;
-//    }
 
 }

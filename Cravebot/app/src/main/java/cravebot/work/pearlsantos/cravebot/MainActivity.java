@@ -4,6 +4,7 @@ package cravebot.work.pearlsantos.cravebot;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,10 +25,25 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
+import java.io.File;
+
 import cravebot.results.elysi.results.CardLayout;
 
 import cravebot.R;
 import cravebot.results.elysi.results.GoTask;
+import cravebot.results.elysi.results.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     Integer[] imgRes;
@@ -43,6 +59,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("MainActivity", "activity created");
         setContentView(R.layout.activity_main);
+        File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());//for caching
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .showImageOnLoading(R.drawable.back_button) // resource or drawable
+                .showImageForEmptyUri(R.drawable.back_button) // resource or drawable
+                .showImageOnFail(R.drawable.back_button)
+                .showImageOnLoading(R.drawable.back_button)//display stub image until image is loaded
+                .displayer(new FadeInBitmapDisplayer(20))
+                .build();
+
+        final ImageLoader imageLoader = ImageLoader.getInstance();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .memoryCacheSizePercentage(13) // default
+                .diskCacheExtraOptions(480, 800, null)
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCache(new UnlimitedDiskCache(cacheDir)) // default
+                .diskCacheSize(50 * 1024 * 1024)
+                .diskCacheFileCount(100)
+                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
+                .imageDownloader(new BaseImageDownloader(getApplicationContext())) // default
+                .threadPriority(Thread.MAX_PRIORITY)
+                .threadPoolSize(5)
+                .imageDecoder(new BaseImageDecoder(false)) // default
+                .defaultDisplayImageOptions(options)
+                .build();
+
+        imageLoader.init(config);
+
         getSupportActionBar().hide();
         holder = new String[] {"o","o","o","o","o","o","o","o","o","o","o","o"};
         imgRes = new Integer[] {R.drawable.beef,

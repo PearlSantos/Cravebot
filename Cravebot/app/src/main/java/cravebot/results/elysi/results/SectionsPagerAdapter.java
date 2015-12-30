@@ -1,12 +1,18 @@
 package cravebot.results.elysi.results;
 
+import android.app.ProgressDialog;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,9 +25,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
+import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import cravebot.R;
 import cravebot.customfont.TextViewPlus;
@@ -37,7 +59,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     private static ArrayList<FoodItem> items;
     private static String APIFood, APIResto;
 
-    public SectionsPagerAdapter(FragmentManager fm, ArrayList<FoodItem> items, String APIFood, String APIResto) {
+    public SectionsPagerAdapter(FragmentManager fm, ArrayList<FoodItem> items,
+            String APIFood, String APIResto) {
         super(fm);
         this.items = items;
         this.APIFood = APIFood;
@@ -62,13 +85,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     public static class PlaceholderFragment extends Fragment {
 
         private final static String ARG_SECTION_NUMBER = "section_number";
-        private ImageView foodImage, background, backgroundInfo;
+        private ImageView foodImage, background, backgroundInfo, restoLogo;
         private FoodItem singleItem;
         private View view;
-        private GestureDetector mGestureDetector;
         private FrameLayout moreInfo, place;
-
-
+        public DisplayImageOptions options;
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -90,6 +111,17 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             singleItem = items.get(getArguments().getInt(ARG_SECTION_NUMBER));
 
 
+            options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                    .showImageOnLoading(R.drawable.card) // resource or drawable
+                    .showImageForEmptyUri(R.drawable.card) // resource or drawable
+                    .showImageOnFail(R.drawable.card)
+                    .showImageOnLoading(R.drawable.back_button)//display stub image until image is loaded
+                    .displayer(new FadeInBitmapDisplayer(20))
+                    .build();
 
             System.out.println("PRINT: SHOW" + singleItem.getItemName());
             TextViewPlus foodName = (TextViewPlus) view.findViewById(R.id.foodName);
@@ -104,8 +136,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 //            price.setTypeface(hat);
 
 
-
-
             foodName.setText(singleItem.getItemName());
             restoName.setText(singleItem.getRestoName());
             price.setText("P " + Double.toString(singleItem.getPrice()));
@@ -117,11 +147,30 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             foodImage = (ImageView) view.findViewById(R.id.foodImage);
             background = (ImageView) view.findViewById(R.id.background);
             backgroundInfo = (ImageView) view.findViewById(R.id.backgroundInfo);
-            UrlImageViewHelper helper = new UrlImageViewHelper();
-            UrlImageViewHelper.setUrlDrawable(foodImage, APIFood + singleItem.getPhoto());
-            foodImage.invalidate();
-            background.invalidate();
-            backgroundInfo.invalidate();
+//            UrlImageViewHelper helper = new UrlImageViewHelper();
+//            UrlImageViewHelper.setUrlDrawable(foodImage, APIFood + singleItem.getPhoto());
+//            foodImage.invalidate();
+//            background.invalidate();
+//            backgroundInfo.invalidate();
+
+            String foodImg = APIFood + singleItem.getPhoto();
+
+            loadBitmapFromRes(R.drawable.card, background);
+            loadBitmapFromRes(R.drawable.card, backgroundInfo);
+           // foodImage.setImageBitmap(images.get(getArguments().getInt(ARG_SECTION_NUMBER)));
+            ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
+                boolean cacheFound;
+                ProgressDialog progressDialog;
+                @Override
+                public void onLoadingStarted(String url, View view) {
+                                    }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                }
+            });
+
+//          loadBitmapFromURL(APIFood+singleItem.getPhoto(), foodImage);
 
             moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
             place = (FrameLayout) view.findViewById(R.id.root_frame);
@@ -130,23 +179,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             TextViewPlus restoNameInfo = (TextViewPlus) view.findViewById(R.id.restoNameInfo);
             TextViewPlus priceInfo = (TextViewPlus) view.findViewById(R.id.priceInfo);
 
-//            Button test = (Button) view.findViewById(R.id.testMore);
-//            test.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(!(moreInfo.getVisibility()==View.VISIBLE)) {
-//                        changeVisibility(getMoreInfo(), getPlace());
-//                    }
-//                    else {
-//                        changeVisibility(getPlace(), getMoreInfo());
-//                    }
-//                }
-//            });
-
-//            foodNameInfo.setTypeface(hat);
-//            restoNameInfo.setTypeface(gad);
-//            priceInfo.setTypeface(hat);
-
             foodNameInfo.setText(singleItem.getItemName().trim());
             restoNameInfo.setText(singleItem.getRestoName().trim());
             priceInfo.setText("P " + Double.toString(singleItem.getPrice()).trim());
@@ -154,10 +186,37 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             TextViewPlus description = (TextViewPlus) view.findViewById(R.id.description);
             description.setText(singleItem.getDescription().trim());
 
-            //restoLogo = (ImageView) view.findViewById(R.id.restoLogo);
+            restoLogo = (ImageView) view.findViewById(R.id.restoLogo);
+            ImageLoader.getInstance().displayImage(APIResto+singleItem.getRestoLogo(), restoLogo, options, new SimpleImageLoadingListener() {
+                boolean cacheFound;
+
+                @Override
+                public void onLoadingStarted(String url, View view) {
+                    List<String> memCache = MemoryCacheUtils.findCacheKeysForImageUri(url, ImageLoader.getInstance().getMemoryCache());
+                    cacheFound = !memCache.isEmpty();
+                    if (!cacheFound) {
+                        File discCache = DiskCacheUtils.findInCache(url, ImageLoader.getInstance().getDiskCache());
+                        if (discCache != null) {
+                            System.out.println("IS CACHED");
+                            cacheFound = discCache.exists();
+                        }
+                    }
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    if (cacheFound) {
+                        MemoryCacheUtils.removeFromCache(imageUri, ImageLoader.getInstance().getMemoryCache());
+                        DiskCacheUtils.removeFromCache(imageUri, ImageLoader.getInstance().getDiskCache());
+                        ImageLoader.getInstance().displayImage(imageUri, (ImageView) view);
+                    }
+                }
+            });
+
 
 //            UrlImageViewHelper helper = new UrlImageViewHelper();
 //            helper.setUrlDrawable(restoLogo, APIResto+singleItem.getRestoLogo());
+            //      UrlImageViewHelper.setUrlDrawable(restoLogo, APIResto+singleItem.getRestoLogo(), null, 60000);
 
 
             TextViewPlus option1 = (TextViewPlus) view.findViewById(R.id.option1);
@@ -201,11 +260,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+                @Override
+                public void onClick(View view) {
+                    getActivity().finish();
+                }
+            });
             FloatingActionButton fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
             fab2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -217,7 +276,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             return view;
         }
 
-        public void onDestroy(){
+        public void onDestroy() {
             super.onDestroy();
             unbindDrawables(view.findViewById(R.id.fragmentLayoutWhole));
             System.gc();
@@ -237,8 +296,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             }
         }
 
-        public void onStop()
-        {
+        public void onStop() {
             super.onStop();
             foodImage.setImageBitmap(null);
             backgroundInfo.setImageBitmap(null);
@@ -246,7 +304,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         }
 
 
-        public void changeVisibility(FrameLayout visible, FrameLayout gone){
+        public void changeVisibility(FrameLayout visible, FrameLayout gone) {
             visible.setVisibility(View.VISIBLE);
 
             for (int i = 0; i < visible.getChildCount(); i++) {
@@ -265,21 +323,59 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
         }
 
-        public FrameLayout getMoreInfo(){
+        public void displayFoodImage(String url){
+
+        }
+
+        public void displayRestoLogo(String url){
+        }
+
+
+        public FrameLayout getMoreInfo() {
             return moreInfo;
         }
 
-        public FrameLayout getPlace(){
+        public FrameLayout getPlace() {
             return place;
         }
+
+
+        public void loadBitmapFromRes(int resId, ImageView imageView) {
+//            BitmapWorkerTask task = new BitmapWorkerTask(getContext().getApplicationContext(),imageView);
+//            final String imageKey = String.valueOf(resId);
+//
+//            final Bitmap bitmap = task.getBitmapFromMemCache(imageKey);
+//            if (bitmap != null) {
+//                imageView.setImageBitmap(bitmap);
+//            } else {
+//                imageView.setImageResource(R.drawable.back_button);
+//                task = new BitmapWorkerTask(getContext().getApplicationContext(),imageView);
+//                task.execute(resId);
+//            }
+            final BitmapWorkerTaskT task = new BitmapWorkerTaskT(getContext().getApplicationContext(), imageView);
+            Bitmap bm = task.decodeBitmapFromResource(resId);
+            imageView.setImageBitmap(bm);
+
+        }
+
+
+        public void loadBitmapFromURL(String resId, ImageView imageView) {
+            if (BitmapWorkerTaskT.cancelPotentialWork(resId, imageView)) {
+                final BitmapWorkerTaskT task = new BitmapWorkerTaskT(getContext().getApplicationContext(), imageView);
+                Bitmap mPlaceHolderBitmap = task.decodeBitmapFromResource(R.drawable.back_button);
+                final BitmapWorkerTaskT.AsyncDrawableT asyncDrawable =
+                        new BitmapWorkerTaskT.AsyncDrawableT(getResources(), mPlaceHolderBitmap, task);
+                imageView.setImageDrawable(asyncDrawable);
+                task.execute(resId);
+            }
+        }
+
+
     }
 
 
-
-
-
-
-
 }
+
+
 
 
