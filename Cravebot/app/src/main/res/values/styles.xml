@@ -34,6 +34,7 @@
         <item name="font">fonts/Avenir Next Condensed.ttc</item>
     </style>
 
+    <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar.Horizontal"/>
 
 
 </resources>

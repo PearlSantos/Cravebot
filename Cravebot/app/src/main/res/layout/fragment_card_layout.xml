@@ -10,7 +10,8 @@ android:orientation="vertical"
     <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root_frame">
+    android:id="@+id/root_frame"
+        android:layoutAnimation="@anim/layout_animation">
 
         <ImageView
             android:layout_width="match_parent"
@@ -34,9 +35,22 @@ android:orientation="vertical"
         android:id="@+id/foodImage"
         android:gravity ="center"
         android:scaleType="centerCrop">
-
     </ImageView>
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1.1"
+            android:id="@+id/progress"
+            android:orientation="vertical"
+            android:gravity = "center"
+            >
 
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:gravity="center"
+                style="?android:attr/progressBarStyle" />
+            </LinearLayout>
 
             <LinearLayout
             android:layout_width="match_parent" android:layout_height="0dp"
@@ -85,7 +99,14 @@ android:orientation="vertical"
                 android:id="@+id/restoName"
                 />
 
-            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Test Gridview"
+                android:id="@+id/testGridView"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp" android:layout_height="match_parent"
@@ -131,7 +152,8 @@ android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/root_frameInfo"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:layoutAnimation="@anim/layout_animation">
 
         <ImageView
             android:layout_width="match_parent"
@@ -160,8 +182,7 @@ android:orientation="vertical"
             <LinearLayout
                 android:layout_width="match_parent" android:layout_height="0dp"
                 android:layout_weight="0.1"
-                android:orientation="horizontal"
-                android:background="@color/white">
+                android:orientation="horizontal">
 
             </LinearLayout>
 
@@ -169,8 +190,7 @@ android:orientation="vertical"
             <LinearLayout
                 android:layout_width="match_parent" android:layout_height="0dp"
                 android:layout_weight="0.7"
-                android:orientation="vertical"
-                android:background="@color/white">
+                android:orientation="vertical">
 
 
 
@@ -178,8 +198,7 @@ android:orientation="vertical"
                     android:layout_width="match_parent" android:layout_height="0dp"
                     android:layout_weight="1"
                     android:id="@+id/llTop"
-                    android:orientation="horizontal"
-                    android:background="@color/white">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent" android:layout_height="match_parent"
@@ -233,6 +252,15 @@ android:orientation="vertical"
                             android:id="@+id/restoLogo"
 
                             android:gravity="end"/>
+
+                            <ProgressBar
+                                android:layout_width="0dp" android:layout_height="match_parent"
+                                android:id="@+id/progressInfo"
+                                android:layout_weight="0.5"
+                                android:indeterminate="true"
+                                android:gravity="center"
+                                style="?android:attr/progressBarStyle" />
+
 
                     </LinearLayout>
 

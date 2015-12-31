@@ -1,7 +1,6 @@
 package cravebot.work.pearlsantos.cravebot;
 
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -34,17 +33,14 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-import cravebot.results.elysi.results.CardLayout;
-
 import cravebot.R;
-import cravebot.results.elysi.results.GoTask;
-import cravebot.results.elysi.results.SectionsPagerAdapter;
+import cravebot.results.elysi.cardlayoutview.GoTask;
 
 public class MainActivity extends AppCompatActivity {
     Integer[] imgRes;
@@ -63,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());//for caching
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                .cacheInMemory(true)
+                .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY)
@@ -71,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
         final ImageLoader imageLoader = ImageLoader.getInstance();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-//                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-//                .memoryCacheSize(2 * 1024 * 1024)
-//                .memoryCacheSizePercentage(13) // default
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .memoryCacheSizePercentage(13) // default
                 .diskCacheExtraOptions(480, 320, null)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCache(new UnlimitedDiskCache(cacheDir)) // default
@@ -89,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         imageLoader.init(config);
+
+        ImageLoader.getInstance().clearMemoryCache();
+        ImageLoader.getInstance().clearDiskCache();
 
         getSupportActionBar().hide();
         holder = new String[] {"o","o","o","o","o","o","o","o","o","o","o","o"};
@@ -297,40 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
 }
 //
-//class CustomListAdapter extends ArrayAdapter<String> {
-//
-//    private final Activity context;
-//    private final String[] itemname;
-//    private final Integer[] imgid;
-//
-//    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
-//        super(context, R.layout.custom_drawer_item, itemname);
-//        // TODO Auto-generated constructor stub
-//
-//        this.context=context;
-//        this.itemname=itemname;
-//        this.imgid=imgid;
-//    }
-//
-//    public View getView(int position,View view,ViewGroup parent) {
-//        LayoutInflater inflater=context.getLayoutInflater();
-//        View rowView=inflater.inflate(R.layout.custom_drawer_item, null,true);
-//
-//        final int pos = position;
-//        //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-//        imageView = (ImageView) rowView.findViewById(R.id.choices);
-//        //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
-//
-//        //txtTitle.setText(itemname[position]);
-//        imageView.setImageResource(imgid[pos]);
-//
-//        //extratxt.setText("Description "+itemname[position]);
-//        return rowView;
-//
-//    };
-//}
-
-class CustomListAdapter extends BaseAdapter {
+class CustomListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] itemname;
@@ -338,6 +304,7 @@ class CustomListAdapter extends BaseAdapter {
     private ImageView imageView;
 
     public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
+        super(context, R.layout.custom_drawer_item, itemname);
         // TODO Auto-generated constructor stub
 
         this.context=context;
@@ -345,23 +312,6 @@ class CustomListAdapter extends BaseAdapter {
         this.imgid=imgid;
     }
 
-    @Override
-    public int getCount() {
-        // TODO Auto-generated method stub
-        return imgid.length;
-    }
-
-    @Override
-    public Object getItem(int index) {
-        // TODO Auto-generated method stub
-        return imgid[index];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        // TODO Auto-generated method stub
-        return position;
-    }
     public View getView(int position,View view,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.custom_drawer_item, null,true);
@@ -369,13 +319,14 @@ class CustomListAdapter extends BaseAdapter {
         final int pos = position;
         //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
         imageView = (ImageView) rowView.findViewById(R.id.choices);
+        //Picasso.with(context).load(imgid[pos]).fit().into(imageView);
         //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         //txtTitle.setText(itemname[position]);
         imageView.setImageResource(imgid[pos]);
-      //extratxt.setText("Description "+itemname[position]);
+
+        //extratxt.setText("Description "+itemname[position]);
         return rowView;
 
     };
-
 }
