@@ -32,6 +32,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
@@ -62,27 +63,23 @@ public class MainActivity extends AppCompatActivity {
         File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());//for caching
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
+//                .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-                .showImageOnLoading(R.drawable.back_button) // resource or drawable
-                .showImageForEmptyUri(R.drawable.back_button) // resource or drawable
-                .showImageOnFail(R.drawable.back_button)
-                .showImageOnLoading(R.drawable.back_button)//display stub image until image is loaded
-                .displayer(new FadeInBitmapDisplayer(20))
+                .imageScaleType(ImageScaleType.EXACTLY)
                 .build();
 
         final ImageLoader imageLoader = ImageLoader.getInstance();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-                .memoryCacheSize(2 * 1024 * 1024)
-                .memoryCacheSizePercentage(13) // default
-                .diskCacheExtraOptions(480, 800, null)
+//                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+//                .memoryCacheSize(2 * 1024 * 1024)
+//                .memoryCacheSizePercentage(13) // default
+                .diskCacheExtraOptions(480, 320, null)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCache(new UnlimitedDiskCache(cacheDir)) // default
                 .diskCacheSize(50 * 1024 * 1024)
                 .diskCacheFileCount(100)
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
                 .imageDownloader(new BaseImageDownloader(getApplicationContext())) // default
                 .threadPriority(Thread.MAX_PRIORITY)
@@ -289,6 +286,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Clearing caches
+    public void onDestroy(){
+        super.onDestroy();
+        ImageLoader.getInstance().clearMemoryCache();
+        ImageLoader.getInstance().clearDiskCache();
+    }
+
+
 
 }
 //
@@ -372,4 +377,5 @@ class CustomListAdapter extends BaseAdapter {
         return rowView;
 
     };
+
 }

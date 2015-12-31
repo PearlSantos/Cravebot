@@ -28,6 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
@@ -193,14 +194,6 @@ public class CardLayout extends AppCompatActivity {
                 }
                 });
 
-
-    }
-
-    public static ImageLoaderConfiguration getImageLoaderConfiguration(Context context) {
-        return new ImageLoaderConfiguration.Builder(context)
-                .memoryCacheSizePercentage(15)
-                .imageDownloader(new BaseImageDownloader(context, 40000, 40000))
-                .build();
 
     }
 

@@ -1,52 +1,32 @@
 package cravebot.results.elysi.results;
 
 import android.app.ProgressDialog;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.utils.DiskCacheUtils;
-import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
-import com.nostra13.universalimageloader.utils.StorageUtils;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import cravebot.R;
-import cravebot.customfont.TextViewPlus;
+import cravebot.customstuff.BitmapWorkerTaskT;
+import cravebot.customstuff.LoadingImages;
+import cravebot.customstuff.TextViewPlus;
 
 /**
  *  /**
@@ -112,15 +92,15 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
 
             options = new DisplayImageOptions.Builder()
-                    .cacheInMemory(true)
+//                    .cacheInMemory(true)
                     .cacheOnDisk(true)
                     .bitmapConfig(Bitmap.Config.RGB_565)
-                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-                    .showImageOnLoading(R.drawable.card) // resource or drawable
+                    .resetViewBeforeLoading(true)
+                    .imageScaleType(ImageScaleType.EXACTLY)
                     .showImageForEmptyUri(R.drawable.card) // resource or drawable
                     .showImageOnFail(R.drawable.card)
                     .showImageOnLoading(R.drawable.back_button)//display stub image until image is loaded
-                    .displayer(new FadeInBitmapDisplayer(20))
+                    .displayer(new FadeInBitmapDisplayer(100))
                     .build();
 
             System.out.println("PRINT: SHOW" + singleItem.getItemName());
@@ -155,15 +135,17 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             String foodImg = APIFood + singleItem.getPhoto();
 
-            loadBitmapFromRes(R.drawable.card, background);
-            loadBitmapFromRes(R.drawable.card, backgroundInfo);
+            LoadingImages li = new LoadingImages(getContext().getApplicationContext());
+            li.loadBitmapFromRes(R.drawable.card, background, 150, 150);
+            li.loadBitmapFromRes(R.drawable.card, backgroundInfo, 150, 150);
            // foodImage.setImageBitmap(images.get(getArguments().getInt(ARG_SECTION_NUMBER)));
             ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
                 boolean cacheFound;
                 ProgressDialog progressDialog;
                 @Override
                 public void onLoadingStarted(String url, View view) {
-                                    }
+
+                }
 
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
@@ -192,24 +174,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
                 @Override
                 public void onLoadingStarted(String url, View view) {
-                    List<String> memCache = MemoryCacheUtils.findCacheKeysForImageUri(url, ImageLoader.getInstance().getMemoryCache());
-                    cacheFound = !memCache.isEmpty();
-                    if (!cacheFound) {
-                        File discCache = DiskCacheUtils.findInCache(url, ImageLoader.getInstance().getDiskCache());
-                        if (discCache != null) {
-                            System.out.println("IS CACHED");
-                            cacheFound = discCache.exists();
-                        }
-                    }
+
                 }
 
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    if (cacheFound) {
-                        MemoryCacheUtils.removeFromCache(imageUri, ImageLoader.getInstance().getMemoryCache());
-                        DiskCacheUtils.removeFromCache(imageUri, ImageLoader.getInstance().getDiskCache());
-                        ImageLoader.getInstance().displayImage(imageUri, (ImageView) view);
-                    }
                 }
             });
 
@@ -340,35 +309,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         }
 
 
-        public void loadBitmapFromRes(int resId, ImageView imageView) {
-//            BitmapWorkerTask task = new BitmapWorkerTask(getContext().getApplicationContext(),imageView);
-//            final String imageKey = String.valueOf(resId);
-//
-//            final Bitmap bitmap = task.getBitmapFromMemCache(imageKey);
-//            if (bitmap != null) {
-//                imageView.setImageBitmap(bitmap);
-//            } else {
-//                imageView.setImageResource(R.drawable.back_button);
-//                task = new BitmapWorkerTask(getContext().getApplicationContext(),imageView);
-//                task.execute(resId);
-//            }
-            final BitmapWorkerTaskT task = new BitmapWorkerTaskT(getContext().getApplicationContext(), imageView);
-            Bitmap bm = task.decodeBitmapFromResource(resId);
-            imageView.setImageBitmap(bm);
 
-        }
-
-
-        public void loadBitmapFromURL(String resId, ImageView imageView) {
-            if (BitmapWorkerTaskT.cancelPotentialWork(resId, imageView)) {
-                final BitmapWorkerTaskT task = new BitmapWorkerTaskT(getContext().getApplicationContext(), imageView);
-                Bitmap mPlaceHolderBitmap = task.decodeBitmapFromResource(R.drawable.back_button);
-                final BitmapWorkerTaskT.AsyncDrawableT asyncDrawable =
-                        new BitmapWorkerTaskT.AsyncDrawableT(getResources(), mPlaceHolderBitmap, task);
-                imageView.setImageDrawable(asyncDrawable);
-                task.execute(resId);
-            }
-        }
 
 
     }

@@ -64,7 +64,7 @@ android:orientation="vertical"
             android:layout_weight="3"
             android:orientation="vertical">
 
-            <cravebot.customfont.TextViewPlus
+            <cravebot.customstuff.TextViewPlus
             style="@style/textViewCustomFont1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@ android:orientation="vertical"
 
             />
 
-            <cravebot.customfont.TextViewPlus
+            <cravebot.customstuff.TextViewPlus
                 style="@style/textViewCustomFont2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +93,7 @@ android:orientation="vertical"
             android:orientation="horizontal">
             </LinearLayout>
 
-        <cravebot.customfont.TextViewPlus
+        <cravebot.customstuff.TextViewPlus
             style="@style/textViewCustomFont1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -229,7 +229,7 @@ android:orientation="vertical"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
-                            android:scaleType="fitXY"
+                            android:scaleType="fitCenter"
                             android:id="@+id/restoLogo"
 
                             android:gravity="end"/>
@@ -273,7 +273,7 @@ android:orientation="vertical"
                         android:layout_weight="3"
                         android:orientation="vertical">
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont1" android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -283,7 +283,7 @@ android:orientation="vertical"
                         android:id="@+id/foodNameInfo"
                         android:gravity="start"/>
 
-                        <cravebot.customfont.TextViewPlus
+                        <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="match_parent"
                             android:layout_height="0dp"
@@ -303,7 +303,7 @@ android:orientation="vertical"
                         android:orientation="vertical">
                     </LinearLayout>
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -325,7 +325,7 @@ android:orientation="vertical"
                     android:orientation="vertical">
                 </LinearLayout>
 
-                <cravebot.customfont.TextViewPlus
+                <cravebot.customstuff.TextViewPlus
                     style="@style/textViewCustomFont2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -346,7 +346,7 @@ android:orientation="vertical"
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -365,7 +365,7 @@ android:orientation="vertical"
 
                     </LinearLayout>
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -387,7 +387,7 @@ android:orientation="vertical"
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -405,7 +405,7 @@ android:orientation="vertical"
 
                     </LinearLayout>
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -425,7 +425,7 @@ android:orientation="vertical"
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -444,7 +444,7 @@ android:orientation="vertical"
 
                     </LinearLayout>
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -464,7 +464,7 @@ android:orientation="vertical"
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -483,7 +483,7 @@ android:orientation="vertical"
 
                     </LinearLayout>
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -503,7 +503,7 @@ android:orientation="vertical"
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -522,7 +522,7 @@ android:orientation="vertical"
 
                     </LinearLayout>
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -542,7 +542,7 @@ android:orientation="vertical"
                     android:layout_weight="0.1"
                     android:orientation="horizontal">
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -561,7 +561,7 @@ android:orientation="vertical"
 
                     </LinearLayout>
 
-                    <cravebot.customfont.TextViewPlus
+                    <cravebot.customstuff.TextViewPlus
                         style="@style/textViewCustomFont2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

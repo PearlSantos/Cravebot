@@ -26,11 +26,12 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="textViewCustomFont1" parent="@android:style/Widget.TextView">
-        <item name="font">fonts/HATTEN.TTF</item>
+        <item name="font">fonts/BebasNeue.otf</item>
     </style>
     <style name="textViewCustomFont2" parent="@android:style/Widget.TextView">
-        <item name="font">fonts/gadugi.ttf</item>
+        <item name="font">fonts/Avenir Next Condensed.ttc</item>
     </style>
 
 
