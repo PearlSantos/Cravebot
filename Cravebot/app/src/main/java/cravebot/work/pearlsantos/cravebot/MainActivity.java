@@ -1,14 +1,26 @@
 package cravebot.work.pearlsantos.cravebot;
 
 
+<<<<<<< HEAD
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.support.design.widget.FloatingActionButton;
+=======
+import android.content.res.Configuration;
+import android.app.Activity;
+import android.graphics.Bitmap;
+>>>>>>> upstream/master
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,13 +28,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -49,13 +63,22 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
+    ActionBar mActionBar;
     private boolean[] filterClicked;
-    String TAG;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("MainActivity", "activity created");
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.myToolbar);
+        setSupportActionBar(toolbar);
+        mActionBar = getSupportActionBar();
+        mActionBar.setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.
+                mipmap.ic_sidebar_button);
+        TextView title = (TextView)toolbar.findViewById(R.id.title);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
+        title.setTypeface(custom_font);
         File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());//for caching
 
         DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -89,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         ImageLoader.getInstance().clearMemoryCache();
         ImageLoader.getInstance().clearDiskCache();
 
-        getSupportActionBar().hide();
         holder = new String[] {"o","o","o","o","o","o","o","o","o","o","o","o"};
         imgRes = new Integer[] {R.drawable.beef,
                   R.drawable.beverages,
@@ -105,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.snacks};
         imgRes2 = new Integer[] {R.mipmap.beef_g,
                 R.mipmap.beverages_g,
-                R.mipmap.burger_sandwiches_g,
+                R.mipmap.burgers_sandwiches_g,
                 R.mipmap.chicken_g,
                 R.mipmap.desserts_pastries_g,
                 R.mipmap.fruits_vegetables_g,
@@ -113,12 +135,15 @@ public class MainActivity extends AppCompatActivity {
                 R.mipmap.pizza_pasta_g,
                 R.mipmap.pork_g,
                 R.mipmap.seafood_g,
-                R.mipmap.setmeals_g,
+                R.mipmap.set_meals_g,
                 R.mipmap.snacks_g};
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer);
-        // public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid)
         mDrawerList.setAdapter(new CustomListAdapter(this, holder, imgRes));
+//        LayoutInflater inflater = getLayoutInflater();
+//        View listHeaderView = inflater.inflate(R.layout.header_view,null, false);
+//
+//        mDrawerList.addHeaderView(listHeaderView);
         filterClicked = new boolean[imgRes.length];
         for(int i=0; i<imgRes.length;i++){
             filterClicked[i] = false;
@@ -138,15 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-//        mDrawerList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);z
-//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                //changeBackground(position);
-//                view = (ImageView) findViewById(R.id.choices);
-//                view.setImageResource(imgRes2[position]);
-//            }
-//        });
+
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
@@ -170,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         // create RangeSeekBar as Integer range between 20 and 75
-        final RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(0, 300, this);
+        final RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(0, 999, this);
         seekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
@@ -211,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.action_button_menu, menu);
         return true;
     }
 
@@ -236,51 +253,44 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         // Handle your other action bar items...
+        switch(item.getItemId()){
+            case R.id.tutorials:
+
+                break;
+            case R.id.contact_info:
+                final Dialog dialog = new Dialog(this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.contact_dialog);
+                dialog.setTitle("CraveBot");
+                Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc");
+                TextView website = (TextView)dialog.findViewById(R.id.website);
+                website.setTypeface(custom_font);
+                TextView email = (TextView)dialog.findViewById(R.id.email);
+                email.setTypeface(custom_font);
+                TextView fb = (TextView)dialog.findViewById(R.id.fb);
+                fb.setTypeface(custom_font);
+                TextView emailLabel = (TextView)dialog.findViewById(R.id.email_label);
+                emailLabel.setTypeface(custom_font);
+                TextView fbLabel = (TextView)dialog.findViewById(R.id.fb_label);
+                fbLabel.setTypeface(custom_font);
+                FloatingActionButton close = (FloatingActionButton)dialog.findViewById(R.id.close_contact_dialog);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v){
+                        dialog.dismiss();
+                    }
+
+                });
+                dialog.show();
+                break;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void SelectItem(int possition) {
 
-        Fragment fragment = null;
-        Bundle args = new Bundle();
-        switch (possition) {
-            case 0:
-                fragment = new SampleFragment();
-                break;
-            case 1:
-                fragment = new SampleFragment();
-                break;
-            case 2:
-                fragment = new SampleFragment();
-                break;
-            default:
-                break;
-        }
 
-        fragment.setArguments(args);
-        FragmentManager frgManager = getSupportFragmentManager();
-        frgManager.beginTransaction().replace(R.id.content_frame, fragment)
-                .commit();
 
-        mDrawerList.setItemChecked(possition, true);
-        mDrawerLayout.closeDrawer(mDrawerList);
-
-    }
-
-    public void changeBackground(int position){
-        ImageView imageView = (ImageView) findViewById(R.id.choices);
-        imageView.setImageResource(imgRes2[position]);
-    }
-
-    private class DrawerItemClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            //SelectItem(position);
-
-        }
 
 
     }
@@ -294,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-}
+
 //
 class CustomListAdapter extends ArrayAdapter<String> {
 
@@ -328,5 +338,10 @@ class CustomListAdapter extends ArrayAdapter<String> {
         //extratxt.setText("Description "+itemname[position]);
         return rowView;
 
+<<<<<<< HEAD
+    }
+}
+=======
     };
 }
+>>>>>>> upstream/master

@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -386,10 +387,10 @@ public class RangeSeekBar<T extends Number> extends ImageView {
 //        canvas.drawRect(rect, paint);
 
         // draw minimum thumb
-        drawThumb(normalizedToScreen(normalizedMinValue),(0.5f * getHeight()) - lineHeight, canvas, writeOnDrawable(minThumb, "P" + (int) (normalizedMinValue * absoluteMaxValuePrim) + "", thumbHalfHeight + thumbHalfHeight/2).getBitmap());
+        drawThumb(normalizedToScreen(normalizedMinValue),(0.5f * getHeight()) - lineHeight, canvas, writeOnDrawable(minThumb, "PHP" + (int) (normalizedMinValue * absoluteMaxValuePrim) + "", thumbHalfHeight + thumbHalfHeight/2).getBitmap());
 
         // draw maximum thumb
-        drawThumb(normalizedToScreen(normalizedMaxValue),(float) (( 0.5f * (getHeight() + lineHeight)) - thumbImage.getHeight()), canvas, writeOnDrawable(maxThumb, "P" + (int) (normalizedMaxValue * absoluteMaxValuePrim) + "", thumbHalfHeight).getBitmap());
+        drawThumb(normalizedToScreen(normalizedMaxValue),(float) (( 0.5f * (getHeight() + lineHeight)) - thumbImage.getHeight()), canvas, writeOnDrawable(maxThumb, "PHP" + (int) (normalizedMaxValue * absoluteMaxValuePrim) + "", thumbHalfHeight).getBitmap());
     }
 
     /**
@@ -625,12 +626,14 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         Bitmap bm = BitmapFactory.decodeResource(getResources(), drawableId).copy(Bitmap.Config.ARGB_8888, true);
 
         Paint paint = new Paint();
+        Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(), "fonts/avenir_next_condensed.ttc");
+        paint.setTypeface(custom_font);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE); //Change this if you want other color of text
-        paint.setTextSize(30); //Change this if you want bigger/smaller font
+        paint.setTextSize(23); //Change this if you want bigger/smaller font
 
         Canvas canvas = new Canvas(bm);
-        canvas.drawText(text, bm.getWidth()/6, yCoord, paint); //Change the position of the text here
+        canvas.drawText(text, bm.getWidth()/8, yCoord, paint); //Change the position of the text here
 
         return new BitmapDrawable(bm);
     }

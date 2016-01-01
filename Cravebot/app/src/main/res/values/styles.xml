@@ -1,13 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <!-- Customize your theme here. -->
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
     <style name="Theme.Transparent" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
@@ -32,6 +26,9 @@
     </style>
     <style name="textViewCustomFont2" parent="@android:style/Widget.TextView">
         <item name="font">fonts/Avenir Next Condensed.ttc</item>
+    </style>
+    <style name="textViewCustomFont3" parent="@android:style/Widget.TextView">
+        <item name="font">fonts/avenir_next_condensed.ttc</item>
     </style>
 
     <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar.Horizontal"/>

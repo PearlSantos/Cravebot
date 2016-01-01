@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tutorials"
+        android:icon="@mipmap/ic_help_real"
+        android:title="Need help?"
+        app:showAsAction="ifRoom"
+        android:visible="true"/>
+    <item
+        android:id="@+id/contact_info"
+        android:icon="@mipmap/ic_about_us"
+        android:title="Contact us"
+        app:showAsAction="ifRoom"
+        android:visible="true"/>
+</menu>
