@@ -1,6 +1,7 @@
-package cravebot.results.elysi.results;
+package cravebot.results.elysi.cardlayoutview;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,41 +11,49 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import cravebot.R;
-import cravebot.customstuff.BitmapWorkerTaskT;
 import cravebot.customstuff.LoadingImages;
 import cravebot.customstuff.TextViewPlus;
+import cravebot.results.elysi.gridview.GridViewLayout;
 
 /**
- *  /**
+ * /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
-* Created by elysi on 12/24/2015.
+ * Created by elysi on 12/24/2015.
  */
 
 public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     private static ArrayList<FoodItem> items;
-    private static String APIFood, APIResto;
 
-    public SectionsPagerAdapter(FragmentManager fm, ArrayList<FoodItem> items,
-            String APIFood, String APIResto) {
+    private final static String APIFood = "http://cravebot.ph/photos/";
+    private final static String APIResto = "http://cravebot.ph/photos/logos/";
+
+    public SectionsPagerAdapter(FragmentManager fm, ArrayList<FoodItem> items) {
         super(fm);
         this.items = items;
-        this.APIFood = APIFood;
-        this.APIResto = APIResto;
     }
 
     @Override
@@ -69,7 +78,9 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         private FoodItem singleItem;
         private View view;
         private FrameLayout moreInfo, place;
-        public DisplayImageOptions options;
+        private DisplayImageOptions options;
+        private LinearLayout progress;
+        private ProgressBar progressInfo;
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -88,8 +99,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             view = inflater.inflate(R.layout.fragment_card_layout, container, false);
-            singleItem = items.get(getArguments().getInt(ARG_SECTION_NUMBER));
-
+            final int position = getArguments().getInt(ARG_SECTION_NUMBER);
+            singleItem = items.get(position);
 
             options = new DisplayImageOptions.Builder()
 //                    .cacheInMemory(true)
@@ -99,7 +110,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     .imageScaleType(ImageScaleType.EXACTLY)
                     .showImageForEmptyUri(R.drawable.card) // resource or drawable
                     .showImageOnFail(R.drawable.card)
-                    .showImageOnLoading(R.drawable.back_button)//display stub image until image is loaded
+                    .showImageOnLoading(R.drawable.card)//display stub image until image is loaded
                     .displayer(new FadeInBitmapDisplayer(100))
                     .build();
 
@@ -125,37 +136,43 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 //            restoName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
 
             foodImage = (ImageView) view.findViewById(R.id.foodImage);
+            foodImage.setVisibility(View.GONE);
+
             background = (ImageView) view.findViewById(R.id.background);
             backgroundInfo = (ImageView) view.findViewById(R.id.backgroundInfo);
-//            UrlImageViewHelper helper = new UrlImageViewHelper();
-//            UrlImageViewHelper.setUrlDrawable(foodImage, APIFood + singleItem.getPhoto());
-//            foodImage.invalidate();
-//            background.invalidate();
-//            backgroundInfo.invalidate();
+            progress = (LinearLayout) view.findViewById(R.id.progress);
 
             String foodImg = APIFood + singleItem.getPhoto();
+            Picasso.with(getContext().getApplicationContext()).load(R.drawable.card).fit().into(background);
 
-            LoadingImages li = new LoadingImages(getContext().getApplicationContext());
-            li.loadBitmapFromRes(R.drawable.card, background, 150, 150);
-            li.loadBitmapFromRes(R.drawable.card, backgroundInfo, 150, 150);
-           // foodImage.setImageBitmap(images.get(getArguments().getInt(ARG_SECTION_NUMBER)));
+            Picasso.with(getContext().getApplicationContext()).load(R.drawable.card).fit().into(backgroundInfo);
+
             ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
-                boolean cacheFound;
-                ProgressDialog progressDialog;
+
+
                 @Override
                 public void onLoadingStarted(String url, View view) {
+                    foodImage.setVisibility(View.GONE);
+                    progress.setVisibility(View.VISIBLE);
 
                 }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    progress.setVisibility(View.GONE);
+                    foodImage.setVisibility(View.VISIBLE);
+
+                }
+
 
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    foodImage.setVisibility(View.VISIBLE);
+                    progress.setVisibility(View.GONE);
+
                 }
             });
 
-//          loadBitmapFromURL(APIFood+singleItem.getPhoto(), foodImage);
-
-            moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
-            place = (FrameLayout) view.findViewById(R.id.root_frame);
 
             TextViewPlus foodNameInfo = (TextViewPlus) view.findViewById(R.id.foodNameInfo);
             TextViewPlus restoNameInfo = (TextViewPlus) view.findViewById(R.id.restoNameInfo);
@@ -168,19 +185,30 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             TextViewPlus description = (TextViewPlus) view.findViewById(R.id.description);
             description.setText(singleItem.getDescription().trim());
 
+            progressInfo = (ProgressBar) view.findViewById(R.id.progressInfo);
+
             restoLogo = (ImageView) view.findViewById(R.id.restoLogo);
-            ImageLoader.getInstance().displayImage(APIResto+singleItem.getRestoLogo(), restoLogo, options, new SimpleImageLoadingListener() {
-                boolean cacheFound;
+            restoLogo.setVisibility(View.GONE);
+            ImageLoader.getInstance().displayImage
+                    (APIResto + singleItem.getRestoLogo(), restoLogo, options, new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String url, View view) {
+                            restoLogo.setVisibility(View.GONE);
+                            progressInfo.setVisibility(View.VISIBLE);
+                        }
 
-                @Override
-                public void onLoadingStarted(String url, View view) {
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            progressInfo.setVisibility(View.GONE);
+                            foodImage.setVisibility(View.VISIBLE);
 
-                }
+                        }
 
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                }
-            });
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            restoLogo.setVisibility(View.VISIBLE);
+                            progressInfo.setVisibility(View.GONE);
+                        }
+                    });
 
 
 //            UrlImageViewHelper helper = new UrlImageViewHelper();
@@ -242,39 +270,27 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 }
             });
 
+            Button testGridView = (Button) view.findViewById(R.id.testGridView);
+            testGridView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getContext(), GridViewLayout.class);
+                    i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
+                    startActivity(i);
+                    //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+                    getActivity().finish();
+                }
+            });
+
+            moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
+            place = (FrameLayout) view.findViewById(R.id.root_frame);
+
             return view;
         }
 
-        public void onDestroy() {
-            super.onDestroy();
-            unbindDrawables(view.findViewById(R.id.fragmentLayoutWhole));
-            System.gc();
-
-        }
-
-
-        private void unbindDrawables(View view) {
-            if (view.getBackground() != null) {
-                view.getBackground().setCallback(null);
-            }
-            if (view instanceof ViewGroup) {
-                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                    unbindDrawables(((ViewGroup) view).getChildAt(i));
-                }
-                ((ViewGroup) view).removeAllViews();
-            }
-        }
-
-        public void onStop() {
-            super.onStop();
-            foodImage.setImageBitmap(null);
-            backgroundInfo.setImageBitmap(null);
-            background.setImageBitmap(null);
-        }
-
-
         public void changeVisibility(FrameLayout visible, FrameLayout gone) {
             visible.setVisibility(View.VISIBLE);
+
 
             for (int i = 0; i < visible.getChildCount(); i++) {
                 View child = visible.getChildAt(i);
@@ -290,13 +306,16 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 child.postInvalidate();
             }
 
+            visible.clearAnimation();
+            visible.startLayoutAnimation();
+
         }
 
-        public void displayFoodImage(String url){
+        public void displayFoodImage(String url) {
 
         }
 
-        public void displayRestoLogo(String url){
+        public void displayRestoLogo(String url) {
         }
 
 
@@ -307,9 +326,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         public FrameLayout getPlace() {
             return place;
         }
-
-
-
 
 
     }

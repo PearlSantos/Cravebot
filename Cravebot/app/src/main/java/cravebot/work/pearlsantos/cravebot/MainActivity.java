@@ -1,6 +1,7 @@
 package cravebot.work.pearlsantos.cravebot;
 
 
+<<<<<<< HEAD
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -8,6 +9,11 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
+=======
+import android.content.res.Configuration;
+import android.app.Activity;
+import android.graphics.Bitmap;
+>>>>>>> upstream/master
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +22,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,9 +38,23 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import cravebot.results.elysi.results.CardLayout;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import cravebot.R;
+import cravebot.results.elysi.cardlayoutview.GoTask;
 
 public class MainActivity extends AppCompatActivity {
     Integer[] imgRes;
@@ -47,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("MainActivity", "activity created");
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
@@ -57,6 +79,39 @@ public class MainActivity extends AppCompatActivity {
         TextView title = (TextView)toolbar.findViewById(R.id.title);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
         title.setTypeface(custom_font);
+        File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());//for caching
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .build();
+
+        final ImageLoader imageLoader = ImageLoader.getInstance();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .memoryCacheSizePercentage(13) // default
+                .diskCacheExtraOptions(480, 320, null)
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCache(new UnlimitedDiskCache(cacheDir)) // default
+                .diskCacheSize(50 * 1024 * 1024)
+                .diskCacheFileCount(100)
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
+                .imageDownloader(new BaseImageDownloader(getApplicationContext())) // default
+                .threadPriority(Thread.MAX_PRIORITY)
+                .threadPoolSize(5)
+                .imageDecoder(new BaseImageDecoder(false)) // default
+                .defaultDisplayImageOptions(options)
+                .build();
+
+        imageLoader.init(config);
+
+        ImageLoader.getInstance().clearMemoryCache();
+        ImageLoader.getInstance().clearDiskCache();
+
         holder = new String[] {"o","o","o","o","o","o","o","o","o","o","o","o"};
         imgRes = new Integer[] {R.drawable.beef,
                   R.drawable.beverages,
@@ -146,8 +201,11 @@ public class MainActivity extends AppCompatActivity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CardLayout.class);
-                startActivity(intent);
+                double min = seekBar.getSelectedMinValue();
+                double max = seekBar.getSelectedMaxValue();
+                Log.d("MainActivity", "button pressed");
+                new GoTask(getApplicationContext(), filterClicked, min, max).execute("test");
+
             }
         });
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
@@ -237,43 +295,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Clearing caches
+    public void onDestroy(){
+        super.onDestroy();
+        ImageLoader.getInstance().clearMemoryCache();
+        ImageLoader.getInstance().clearDiskCache();
+    }
+
+
 
 
 //
-//class CustomListAdapter extends ArrayAdapter<String> {
-//
-//    private final Activity context;
-//    private final String[] itemname;
-//    private final Integer[] imgid;
-//
-//    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
-//        super(context, R.layout.custom_drawer_item, itemname);
-//        // TODO Auto-generated constructor stub
-//
-//        this.context=context;
-//        this.itemname=itemname;
-//        this.imgid=imgid;
-//    }
-//
-//    public View getView(int position,View view,ViewGroup parent) {
-//        LayoutInflater inflater=context.getLayoutInflater();
-//        View rowView=inflater.inflate(R.layout.custom_drawer_item, null,true);
-//
-//        final int pos = position;
-//        //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-//        imageView = (ImageView) rowView.findViewById(R.id.choices);
-//        //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
-//
-//        //txtTitle.setText(itemname[position]);
-//        imageView.setImageResource(imgid[pos]);
-//
-//        //extratxt.setText("Description "+itemname[position]);
-//        return rowView;
-//
-//    };
-//}
-
-class CustomListAdapter extends BaseAdapter {
+class CustomListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] itemname;
@@ -281,6 +314,7 @@ class CustomListAdapter extends BaseAdapter {
     private ImageView imageView;
 
     public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
+        super(context, R.layout.custom_drawer_item, itemname);
         // TODO Auto-generated constructor stub
 
         this.context=context;
@@ -288,23 +322,6 @@ class CustomListAdapter extends BaseAdapter {
         this.imgid=imgid;
     }
 
-    @Override
-    public int getCount() {
-        // TODO Auto-generated method stub
-        return imgid.length;
-    }
-
-    @Override
-    public Object getItem(int index) {
-        // TODO Auto-generated method stub
-        return imgid[index];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        // TODO Auto-generated method stub
-        return position;
-    }
     public View getView(int position,View view,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.custom_drawer_item, null,true);
@@ -312,12 +329,19 @@ class CustomListAdapter extends BaseAdapter {
         final int pos = position;
         //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
         imageView = (ImageView) rowView.findViewById(R.id.choices);
+        //Picasso.with(context).load(imgid[pos]).fit().into(imageView);
         //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         //txtTitle.setText(itemname[position]);
         imageView.setImageResource(imgid[pos]);
-      //extratxt.setText("Description "+itemname[position]);
+
+        //extratxt.setText("Description "+itemname[position]);
         return rowView;
 
+<<<<<<< HEAD
     }
 }
+=======
+    };
+}
+>>>>>>> upstream/master
