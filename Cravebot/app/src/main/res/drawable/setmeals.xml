@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true" android:state_pressed="true"
-        android:drawable="@mipmap/setmeals_g" /> <!-- pressed -->
+        android:drawable="@mipmap/set_meals_g" /> <!-- pressed -->
     <item android:state_focused="false" android:state_pressed="true"
-        android:drawable="@mipmap/setmeals_g" /> <!-- focused -->
-    <item android:drawable="@mipmap/setmeals_r" /> <!-- default -->
+        android:drawable="@mipmap/set_meals_g" /> <!-- focused -->
+    <item android:drawable="@mipmap/set_meals_r" /> <!-- default -->
 </selector>
