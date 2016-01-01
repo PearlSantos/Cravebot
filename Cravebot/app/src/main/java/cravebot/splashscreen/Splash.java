@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import cravebot.R;
 import cravebot.customstuff.LoadingImages;
-import cravebot.results.elysi.results.SectionsPagerAdapter;
+import cravebot.results.elysi.cardlayoutview.SectionsPagerAdapter;
 import cravebot.work.pearlsantos.cravebot.MainActivity;
 
 /**

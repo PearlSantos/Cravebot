@@ -79,8 +79,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         private View view;
         private FrameLayout moreInfo, place;
         private DisplayImageOptions options;
-        private LinearLayout progress;
-        private ProgressBar progressInfo;
+        private ProgressBar progressBar, progressBarInfo;
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -140,7 +139,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             background = (ImageView) view.findViewById(R.id.background);
             backgroundInfo = (ImageView) view.findViewById(R.id.backgroundInfo);
-            progress = (LinearLayout) view.findViewById(R.id.progress);
+            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
             Picasso.with(getContext().getApplicationContext()).load(R.drawable.card).fit().into(background);
@@ -153,13 +152,13 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 @Override
                 public void onLoadingStarted(String url, View view) {
                     foodImage.setVisibility(View.GONE);
-                    progress.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
 
                 }
 
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    progress.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                     foodImage.setVisibility(View.VISIBLE);
 
                 }
@@ -168,7 +167,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     foodImage.setVisibility(View.VISIBLE);
-                    progress.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
 
                 }
             });
@@ -185,7 +184,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             TextViewPlus description = (TextViewPlus) view.findViewById(R.id.description);
             description.setText(singleItem.getDescription().trim());
 
-            progressInfo = (ProgressBar) view.findViewById(R.id.progressInfo);
+            progressBarInfo = (ProgressBar) view.findViewById(R.id.progressBarInfo);
 
             restoLogo = (ImageView) view.findViewById(R.id.restoLogo);
             restoLogo.setVisibility(View.GONE);
@@ -194,11 +193,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                         @Override
                         public void onLoadingStarted(String url, View view) {
                             restoLogo.setVisibility(View.GONE);
-                            progressInfo.setVisibility(View.VISIBLE);
+                            progressBarInfo.setVisibility(View.VISIBLE);
                         }
 
                         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            progressInfo.setVisibility(View.GONE);
+                            progressBarInfo.setVisibility(View.GONE);
                             foodImage.setVisibility(View.VISIBLE);
 
                         }
@@ -206,7 +205,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                             restoLogo.setVisibility(View.VISIBLE);
-                            progressInfo.setVisibility(View.GONE);
+                            progressBarInfo.setVisibility(View.GONE);
                         }
                     });
 

@@ -1,7 +1,6 @@
 package cravebot.work.pearlsantos.cravebot;
 
 
-<<<<<<< HEAD
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -9,11 +8,11 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
-=======
+
 import android.content.res.Configuration;
 import android.app.Activity;
 import android.graphics.Bitmap;
->>>>>>> upstream/master
+
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle mDrawerToggle;
     ActionBar mActionBar;
     private boolean[] filterClicked;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mActionBar.setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.
                 mipmap.ic_sidebar_button);
-        TextView title = (TextView)toolbar.findViewById(R.id.title);
+        TextView title = (TextView) toolbar.findViewById(R.id.title);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
         title.setTypeface(custom_font);
         File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());//for caching
@@ -112,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
         ImageLoader.getInstance().clearMemoryCache();
         ImageLoader.getInstance().clearDiskCache();
 
-        holder = new String[] {"o","o","o","o","o","o","o","o","o","o","o","o"};
-        imgRes = new Integer[] {R.drawable.beef,
-                  R.drawable.beverages,
+        holder = new String[]{"o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"};
+        imgRes = new Integer[]{R.drawable.beef,
+                R.drawable.beverages,
                 R.drawable.burger_sandwiches,
                 R.drawable.chicken,
                 R.drawable.desserts_pastries,
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.seafood,
                 R.drawable.setmeals,
                 R.drawable.snacks};
-        imgRes2 = new Integer[] {R.mipmap.beef_g,
+        imgRes2 = new Integer[]{R.mipmap.beef_g,
                 R.mipmap.beverages_g,
                 R.mipmap.burgers_sandwiches_g,
                 R.mipmap.chicken_g,
@@ -145,18 +146,17 @@ public class MainActivity extends AppCompatActivity {
 //
 //        mDrawerList.addHeaderView(listHeaderView);
         filterClicked = new boolean[imgRes.length];
-        for(int i=0; i<imgRes.length;i++){
+        for (int i = 0; i < imgRes.length; i++) {
             filterClicked[i] = false;
         }
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ImageView im = (ImageView) view.findViewById(R.id.choices);
-                if(!filterClicked[position]) {
+                if (!filterClicked[position]) {
                     im.setImageResource(imgRes2[position]);
                     filterClicked[position] = true;
-                }
-                else{
+                } else {
                     im.setImageResource(imgRes[position]);
                     filterClicked[position] = false;
                 }
@@ -209,15 +209,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
-        RelativeLayout.LayoutParams seekParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams seekParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         seekParam.addRule(RelativeLayout.BELOW, goButton.getId());
         seekParam.setMargins(5, 0, 5, 0);
         layout.addView(seekBar, seekParam);
 
 
     }
-
-
 
 
     // Set the adapter for the list view
@@ -253,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         // Handle your other action bar items...
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.tutorials:
 
                 break;
@@ -263,20 +261,20 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.contact_dialog);
                 dialog.setTitle("CraveBot");
                 Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc");
-                TextView website = (TextView)dialog.findViewById(R.id.website);
+                TextView website = (TextView) dialog.findViewById(R.id.website);
                 website.setTypeface(custom_font);
-                TextView email = (TextView)dialog.findViewById(R.id.email);
+                TextView email = (TextView) dialog.findViewById(R.id.email);
                 email.setTypeface(custom_font);
-                TextView fb = (TextView)dialog.findViewById(R.id.fb);
+                TextView fb = (TextView) dialog.findViewById(R.id.fb);
                 fb.setTypeface(custom_font);
-                TextView emailLabel = (TextView)dialog.findViewById(R.id.email_label);
+                TextView emailLabel = (TextView) dialog.findViewById(R.id.email_label);
                 emailLabel.setTypeface(custom_font);
-                TextView fbLabel = (TextView)dialog.findViewById(R.id.fb_label);
+                TextView fbLabel = (TextView) dialog.findViewById(R.id.fb_label);
                 fbLabel.setTypeface(custom_font);
-                FloatingActionButton close = (FloatingActionButton)dialog.findViewById(R.id.close_contact_dialog);
+                FloatingActionButton close = (FloatingActionButton) dialog.findViewById(R.id.close_contact_dialog);
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         dialog.dismiss();
                     }
 
@@ -289,20 +287,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-    }
-
     //Clearing caches
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         ImageLoader.getInstance().clearMemoryCache();
         ImageLoader.getInstance().clearDiskCache();
     }
-
-
+}
 
 
 //
@@ -317,14 +308,14 @@ class CustomListAdapter extends ArrayAdapter<String> {
         super(context, R.layout.custom_drawer_item, itemname);
         // TODO Auto-generated constructor stub
 
-        this.context=context;
-        this.itemname=itemname;
-        this.imgid=imgid;
+        this.context = context;
+        this.itemname = itemname;
+        this.imgid = imgid;
     }
 
-    public View getView(int position,View view,ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.custom_drawer_item, null,true);
+    public View getView(int position, View view, ViewGroup parent) {
+        LayoutInflater inflater = context.getLayoutInflater();
+        View rowView = inflater.inflate(R.layout.custom_drawer_item, null, true);
 
         final int pos = position;
         //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
@@ -338,10 +329,5 @@ class CustomListAdapter extends ArrayAdapter<String> {
         //extratxt.setText("Description "+itemname[position]);
         return rowView;
 
-<<<<<<< HEAD
     }
 }
-=======
-    };
-}
->>>>>>> upstream/master
