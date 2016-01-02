@@ -58,14 +58,14 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
         this.seekBarMax = seekBarMax;
 
         //get filters
-        if(filterClicked[0] == true && isFirst == true){
+        if(filterClicked[0] && isFirst){
             link += "beef=1";
             isFirst = false;
         }
-        else if(filterClicked[0] == true && isFirst == false)
+        else if(filterClicked[0] && !isFirst)
             link += "&beef=1";
 
-        if(filterClicked[1] == true && isFirst == true){
+        if(filterClicked[1] && isFirst){
             link += "beverage=1";
             isFirst = false;
         }
@@ -221,18 +221,18 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
                         newFoodItem.setItemName(newFood.getString("itemname"));
                         Log.d("doInBackGround", newFoodItem.getItemName());
                         newFoodItem.setDescription(newFood.getString("description"));
-                        newFoodItem.setOption1(newFood.getString("option1"));
-                        newFoodItem.setPrice1(newFood.getString("price1"));
-                        newFoodItem.setOption2(newFood.getString("option2"));
-                        newFoodItem.setPrice2(newFood.getString("price2"));
-                        newFoodItem.setOption3(newFood.getString("option3"));
-                        newFoodItem.setPrice3(newFood.getString("price3"));
-                        newFoodItem.setOption4(newFood.getString("option4"));
-                        newFoodItem.setPrice4(newFood.getString("price4"));
-                        newFoodItem.setOption5(newFood.getString("option5"));
-                        newFoodItem.setPrice5(newFood.getString("price5"));
-                        newFoodItem.setOption6(newFood.getString("option6"));
-                        newFoodItem.setPrice6(newFood.getString("price6"));
+                        newFoodItem.setOptions(1, newFood.getString("option1"));
+                        newFoodItem.setPrices(1, newFood.getString("price1"));
+                        newFoodItem.setOptions(2, newFood.getString("option2"));
+                        newFoodItem.setPrices(2,newFood.getString("price2"));
+                        newFoodItem.setOptions(3,newFood.getString("option3"));
+                        newFoodItem.setPrices(3,newFood.getString("price3"));
+                        newFoodItem.setOptions(4,newFood.getString("option4"));
+                        newFoodItem.setPrices(4, newFood.getString("price4"));
+                        newFoodItem.setOptions(5,newFood.getString("option5"));
+                        newFoodItem.setPrices(5,newFood.getString("price5"));
+                        newFoodItem.setOptions(6,newFood.getString("option6"));
+                        newFoodItem.setPrices(6,newFood.getString("price6"));
                         newFoodItem.setPhoto(newFood.getString("photo"));
 
 
