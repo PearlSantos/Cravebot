@@ -5,6 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "cravebot.work.pearlsantos.cravebot"
         minSdkVersion 17
         targetSdkVersion 23
@@ -30,7 +31,7 @@ repositories{
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    //compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.android.support:cardview-v7:23.1.1'

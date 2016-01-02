@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="debug"><source path="C:\Users\elysi\Documents\Team Project Cravebot\Cravebot\Cravebot\libraries\SlidingMenu\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="C:\Users\elysi\Documents\Team Project Cravebot\Cravebot\Cravebot\libraries\SlidingMenu\src\androidTest\assets"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="debug"><source path="C:\Users\Pearl Santos\Documents\GitHub\Cravebot\Cravebot\libraries\SlidingMenu\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="C:\Users\Pearl Santos\Documents\GitHub\Cravebot\Cravebot\libraries\SlidingMenu\src\androidTest\assets"/></dataSet></merger>
+>>>>>>> 9395be7a8bcba045ac557c4aaf6327843bbdfd9d
