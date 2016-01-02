@@ -111,7 +111,7 @@ public class CardLayout extends AppCompatActivity {
 
         int pos = getIntent().getIntExtra("position", -1);
         if (pos != -1) {
-            mViewPager.setCurrentItem(pos + 1, false);
+            mViewPager.setCurrentItem(pos, false);
         }
 
 

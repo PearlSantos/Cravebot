@@ -3,11 +3,15 @@ package cravebot.results.elysi.cardlayoutview;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -74,11 +80,10 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     public static class PlaceholderFragment extends Fragment {
 
         private final static String ARG_SECTION_NUMBER = "section_number";
-        private ImageView foodImage, background, backgroundInfo, restoLogo;
+        private ImageView foodImage, background, restoLogo;
         private FoodItem singleItem;
         private View view;
         private FrameLayout moreInfo, place;
-        private DisplayImageOptions options;
         private ProgressBar progressBar, progressBarInfo;
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
@@ -98,10 +103,9 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             view = inflater.inflate(R.layout.fragment_card_layout, container, false);
-            final int position = getArguments().getInt(ARG_SECTION_NUMBER);
-            singleItem = items.get(position);
+            singleItem = items.get(getArguments().getInt(ARG_SECTION_NUMBER));
 
-            options = new DisplayImageOptions.Builder()
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
 //                    .cacheInMemory(true)
                     .cacheOnDisk(true)
                     .bitmapConfig(Bitmap.Config.RGB_565)
@@ -113,81 +117,49 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     .displayer(new FadeInBitmapDisplayer(100))
                     .build();
 
-            System.out.println("PRINT: SHOW" + singleItem.getItemName());
-            TextViewPlus foodName = (TextViewPlus) view.findViewById(R.id.foodName);
-            TextViewPlus restoName = (TextViewPlus) view.findViewById(R.id.restoName);
-            TextViewPlus price = (TextViewPlus) view.findViewById(R.id.price);
 
-//            Typeface hat = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "fonts/HATTEN.TTF");
-//            Typeface gad = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "fonts/gadugi.ttf");
-
-//            foodName.setTypeface(hat);
-//            restoName.setTypeface(gad);
-//            price.setTypeface(hat);
-
-
-            foodName.setText(singleItem.getItemName());
-            restoName.setText(singleItem.getRestoName());
-            price.setText("P " + Double.toString(singleItem.getPrice()));
-
-//            foodName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-//            price.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-//            restoName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            ((TextViewPlus) view.findViewById(R.id.foodName)).setText(singleItem.getItemName());
+            ((TextViewPlus) view.findViewById(R.id.restoName)).setText(singleItem.getRestoName());
+            ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + Double.toString(singleItem.getPrice()));
 
             foodImage = (ImageView) view.findViewById(R.id.foodImage);
-            foodImage.setVisibility(View.GONE);
 
             background = (ImageView) view.findViewById(R.id.background);
-            backgroundInfo = (ImageView) view.findViewById(R.id.backgroundInfo);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
             Picasso.with(getContext().getApplicationContext()).load(R.drawable.card).fit().into(background);
 
-            Picasso.with(getContext().getApplicationContext()).load(R.drawable.card).fit().into(backgroundInfo);
-
             ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
-
-
                 @Override
                 public void onLoadingStarted(String url, View view) {
                     foodImage.setVisibility(View.GONE);
                     progressBar.setVisibility(View.VISIBLE);
 
                 }
-
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                     progressBar.setVisibility(View.GONE);
                     foodImage.setVisibility(View.VISIBLE);
 
                 }
-
-
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     foodImage.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
-
                 }
             });
 
 
-            TextViewPlus foodNameInfo = (TextViewPlus) view.findViewById(R.id.foodNameInfo);
-            TextViewPlus restoNameInfo = (TextViewPlus) view.findViewById(R.id.restoNameInfo);
-            TextViewPlus priceInfo = (TextViewPlus) view.findViewById(R.id.priceInfo);
+            ((TextViewPlus) view.findViewById(R.id.foodNameInfo)).setText(singleItem.getItemName().trim());
+            ((TextViewPlus) view.findViewById(R.id.restoNameInfo)).setText(singleItem.getRestoName().trim());
+            ((TextViewPlus) view.findViewById(R.id.priceInfo)).setText("P " + Double.toString(singleItem.getPrice()).trim());
 
-            foodNameInfo.setText(singleItem.getItemName().trim());
-            restoNameInfo.setText(singleItem.getRestoName().trim());
-            priceInfo.setText("P " + Double.toString(singleItem.getPrice()).trim());
-
-            TextViewPlus description = (TextViewPlus) view.findViewById(R.id.description);
-            description.setText(singleItem.getDescription().trim());
+            ((TextViewPlus) view.findViewById(R.id.description)).setText(singleItem.getDescription().trim());
 
             progressBarInfo = (ProgressBar) view.findViewById(R.id.progressBarInfo);
 
             restoLogo = (ImageView) view.findViewById(R.id.restoLogo);
-            restoLogo.setVisibility(View.GONE);
             ImageLoader.getInstance().displayImage
                     (APIResto + singleItem.getRestoLogo(), restoLogo, options, new SimpleImageLoadingListener() {
                         @Override
@@ -210,43 +182,49 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     });
 
 
-//            UrlImageViewHelper helper = new UrlImageViewHelper();
-//            helper.setUrlDrawable(restoLogo, APIResto+singleItem.getRestoLogo());
-            //      UrlImageViewHelper.setUrlDrawable(restoLogo, APIResto+singleItem.getRestoLogo(), null, 60000);
+            LinearLayout putOptions = (LinearLayout) view.findViewById(R.id.putOptions);
+            int paddingBottom = putOptions.getPaddingBottom();
+            float textS = ((TextViewPlus) view.findViewById(R.id.description)).getTextSize();
+            int i = 1;
+            while(i<=6 && !singleItem.getOptions(i).trim().equals("")){
+                String option = singleItem.getOptions(i).trim();
+                if(!option.equals("")){
+                    LinearLayout layoutOptions = new LinearLayout(getContext().getApplicationContext());
+                    layoutOptions.setOrientation(LinearLayout.HORIZONTAL);
+                    layoutOptions.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                            , ViewGroup.LayoutParams.WRAP_CONTENT));
+                    layoutOptions.setPadding(0, 0, 0, paddingBottom);
 
+                    TextViewPlus optionText = new TextViewPlus(getContext().getApplicationContext());
+                    optionText.setGravity(Gravity.START);
+                    optionText.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+                    optionText.setPadding(0, 0, paddingBottom, 0);
+                    optionText.setTextColor(ContextCompat.getColor(getContext().getApplicationContext(),
+                            R.color.darkGray));
+                    optionText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
+                    optionText.setText(option);
 
-            TextViewPlus option1 = (TextViewPlus) view.findViewById(R.id.option1);
-            TextViewPlus option2 = (TextViewPlus) view.findViewById(R.id.option2);
-            TextViewPlus option3 = (TextViewPlus) view.findViewById(R.id.option3);
-            TextViewPlus option4 = (TextViewPlus) view.findViewById(R.id.option4);
-            TextViewPlus option5 = (TextViewPlus) view.findViewById(R.id.option5);
-            TextViewPlus option6 = (TextViewPlus) view.findViewById(R.id.option6);
+                    TextViewPlus optionPrice = new TextViewPlus(getContext().getApplicationContext());
+                    optionPrice.setGravity(Gravity.END);
+                    optionPrice.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.3f));
+                    optionPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
+                    optionPrice.setTextColor(ContextCompat.getColor(getContext().getApplicationContext(),
+                            R.color.darkGray));
+                    String prices = singleItem.getPrices(i).trim();
+                    if(prices.substring(0).equals("P"))
+                        optionPrice.setText(prices);
+                    else optionPrice.setText("P " +prices);
 
-            TextViewPlus price1 = (TextViewPlus) view.findViewById(R.id.price1);
-            TextViewPlus price2 = (TextViewPlus) view.findViewById(R.id.price2);
-            TextViewPlus price3 = (TextViewPlus) view.findViewById(R.id.price3);
-            TextViewPlus price4 = (TextViewPlus) view.findViewById(R.id.price4);
-            TextViewPlus price5 = (TextViewPlus) view.findViewById(R.id.price5);
-            TextViewPlus price6 = (TextViewPlus) view.findViewById(R.id.price6);
+                    layoutOptions.addView(optionText);
+                    layoutOptions.addView(optionPrice);
 
+                    putOptions.addView(layoutOptions);
 
-            option1.setText(singleItem.getOption1().trim());
-            option2.setText(singleItem.getOption2().trim());
-            option3.setText(singleItem.getOption3().trim());
-            option4.setText(singleItem.getOption4().trim());
-            option5.setText(singleItem.getOption5().trim());
-            option6.setText(singleItem.getOption6().trim());
+                    i++;
+                }
+            }
 
-            price1.setText(singleItem.getPrice1().trim());
-            price2.setText(singleItem.getPrice2().trim());
-            price3.setText(singleItem.getPrice3().trim());
-            price4.setText(singleItem.getPrice4().trim());
-            price5.setText(singleItem.getPrice5().trim());
-            price6.setText(singleItem.getPrice6().trim());
-
-
-            ImageButton back = (ImageButton) view.findViewById(R.id.back);
-            back.setOnClickListener(new View.OnClickListener() {
+            ((ImageButton) view.findViewById(R.id.back)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     changeVisibility(place, moreInfo);
@@ -254,15 +232,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 }
             });
 
-            FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getActivity().finish();
-                }
-            });
-            FloatingActionButton fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
-            fab2.setOnClickListener(new View.OnClickListener() {
+            ((FloatingActionButton) view.findViewById(R.id.fab)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     getActivity().finish();
@@ -270,7 +240,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             });
 
             Button testGridView = (Button) view.findViewById(R.id.testGridView);
-            testGridView.setOnClickListener(new View.OnClickListener() {
+            ((Button) view.findViewById(R.id.testGridView)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getContext(), GridViewLayout.class);

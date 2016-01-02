@@ -1,37 +1,34 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/tools"
     android:id="@+id/fragmentLayoutWhole"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:gravity="center">
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
 
     <FrameLayout
         android:id="@+id/root_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutAnimation="@anim/layout_animation">
-
-        <ImageView
-            android:id="@+id/background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY" />
+        android:layoutAnimation="@anim/layout_animation"
+        >
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="vertical">
-
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.1"
+                android:layout_height="@dimen/_260sdp"
                 android:gravity="center">
 
                 <ImageView
@@ -39,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:scaleType="centerCrop"></ImageView>
+                    android:scaleType="centerCrop" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -50,105 +47,79 @@
                     android:indeterminate="true" />
             </FrameLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:orientation="horizontal">
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/_10sdp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:orientation="vertical">
-
-                    <cravebot.customstuff.TextViewPlus
-                        android:id="@+id/foodName"
-                        style="@style/textViewCustomFont1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Food Name"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/darkGray"
-
-                        />
-
-                    <cravebot.customstuff.TextViewPlus
-                        android:id="@+id/restoName"
-                        style="@style/textViewCustomFont2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Restaurant Name"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/darkGray" />
-
-                    <Button
-                        android:id="@+id/testGridView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Test Gridview" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.6"
-                    android:orientation="horizontal"></LinearLayout>
+                <cravebot.customstuff.TextViewPlus
+                    android:id="@+id/foodName"
+                    style="@style/textViewCustomFont1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
+                    android:text="Food Name"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/darkGray" />
 
                 <cravebot.customstuff.TextViewPlus
                     android:id="@+id/price"
                     style="@style/textViewCustomFont1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_15sdp"
                     android:gravity="end"
+                    android:paddingLeft="@dimen/_10sdp"
                     android:text="Price"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/darkGray" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-
             </LinearLayout>
+
+            <cravebot.customstuff.TextViewPlus
+                android:id="@+id/restoName"
+                style="@style/textViewCustomFont2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:textSize="@dimen/_11sdp"
+                android:text="Restaurant Name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/darkGray" />
+
+            <Button
+                android:id="@+id/testGridView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Test Gridview" />
+
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_gravity="top|end"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            app:backgroundTint="@android:color/holo_red_dark"
-            app:layout_anchor="@id/fragmentLayoutWhole"
-            app:layout_anchorGravity="top|end"
-            fab:fab_colorNormal="@android:color/holo_red_dark"
-            fab:fab_colorPressed="@android:color/holo_red_dark"
-            fab:fab_colorRipple="@android:color/holo_red_light" />
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab"-->
+            <!--android:layout_width="56dp"-->
+            <!--android:layout_height="56dp"-->
+            <!--android:layout_gravity="top|end"-->
+            <!--android:src="@android:drawable/ic_menu_close_clear_cancel"-->
+            <!--app:backgroundTint="@android:color/holo_red_dark"-->
+            <!--app:layout_anchor="@id/root_frame"-->
+            <!--app:layout_anchorGravity="top|end"-->
+            <!--fab:fab_colorNormal="@android:color/holo_red_dark"-->
+            <!--fab:fab_colorPressed="@android:color/holo_red_dark"-->
+            <!--fab:fab_colorRipple="@android:color/holo_red_light" />-->
+
     </FrameLayout>
+
+    <!--MORE INFO -->
 
     <FrameLayout
         android:id="@+id/root_frameInfo"
@@ -157,490 +128,137 @@
         android:layoutAnimation="@anim/layout_animation"
         android:visibility="gone">
 
-        <ImageView
-            android:id="@+id/backgroundInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY" />
+        <!--<ImageView-->
+            <!--android:id="@+id/backgroundInfo"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scaleType="fitXY" />-->
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
                 android:orientation="horizontal">
 
+                <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/back_button"
+                    android:scaleType="fitXY" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/restoLogo"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        android:layout_gravity="end|center"
+                        android:scaleType="fitCenter" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBarInfo"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        android:layout_gravity="end|center"
+                        android:indeterminate="true" />
+                </FrameLayout>
             </LinearLayout>
 
-
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:id="@+id/putOptions"
+                android:paddingBottom="@dimen/_10sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.1"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.7"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:id="@+id/llTop"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="3"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="0.2"
-                                android:orientation="vertical"></LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="0.2"
-                                android:orientation="vertical">
-
-                                <ImageButton
-                                    android:id="@+id/back"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="start"
-                                    android:background="@drawable/back_button"
-                                    android:scaleType="fitXY" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="0.2"
-                                android:orientation="vertical"></LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.3"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical"></LinearLayout>
-
-                                <ImageView
-                                    android:id="@+id/restoLogo"
-                                    android:layout_height="match_parent"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="0.5"
-                                    android:scaleType="fitCenter" />
-
-                                <ProgressBar
-                                    android:id="@+id/progressBarInfo"
-                                    style="?android:attr/progressBarStyle"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="0.5"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:indeterminate="true" />
-
-                        </LinearLayout>
-
-
-                        <!--<android.support.design.widget.FloatingActionButton android:id="@+id/fab"-->
-                        <!--android:layout_width="wrap_content" android:layout_height="wrap_content"-->
-                        <!--android:layout_gravity="center" android:layout_margin="@dimen/fab_margin"-->
-                        <!--android:src="@android:drawable/ic_menu_close_clear_cancel"-->
-                        <!--fab:fab_colorNormal="@color/fab_primary"-->
-                        <!--fab:fab_colorPressed="@color/fab_pressed"-->
-                        <!--fab:fab_colorRipple="@color/fab_ripple"-->
-                        <!--app:layout_anchor="@id/llTop"-->
-                        <!--app:layout_anchorGravity="left|center"-->
-                        <!--android:paddingRight="@dimen/activity_vertical_margin"-->
-                        <!--android:paddingTop="@dimen/activity_horizontal_margin"-->
-                        <!--/>-->
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:orientation="vertical">
-
-                    <!--Food and Price-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.15"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:orientation="vertical">
-
-                            <cravebot.customstuff.TextViewPlus
-                                android:id="@+id/foodNameInfo"
-                                style="@style/textViewCustomFont1"
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="start"
-                                android:text="Food Name"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:textColor="@color/darkGray" />
-
-                            <cravebot.customstuff.TextViewPlus
-                                android:id="@+id/restoNameInfo"
-                                style="@style/textViewCustomFont2"
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:gravity="start"
-                                android:text="RestoName"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/darkGray" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical"></LinearLayout>
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/priceInfo"
-                            style="@style/textViewCustomFont1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="Price"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/darkGray" />
-
-                    </LinearLayout>
-
-                    <!--Description-->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.07"
-                        android:orientation="vertical"></LinearLayout>
 
                     <cravebot.customstuff.TextViewPlus
-                        android:id="@+id/description"
-                        style="@style/textViewCustomFont2"
-                        android:layout_width="match_parent"
+                        android:id="@+id/foodNameInfo"
+                        style="@style/textViewCustomFont1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:gravity="start"
-                        android:text="Description"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_weight="2"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:textSize="@dimen/_15sdp"
+                        android:text="Food Name"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/darkGray" />
 
+                    <cravebot.customstuff.TextViewPlus
+                        android:id="@+id/priceInfo"
+                        style="@style/textViewCustomFont1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:textSize="@dimen/_15sdp"
+                        android:gravity="end"
+                        android:text="Price"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/darkGray" />
 
-                    <!--Options-->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.1"
-                        android:orientation="horizontal">
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/option1"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Option1"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                        </LinearLayout>
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/price1"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="Price1"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.1"
-                        android:orientation="horizontal">
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/option2"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Option2"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                        </LinearLayout>
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/price2"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="Price2"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.1"
-                        android:orientation="horizontal">
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/option3"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Option3"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                        </LinearLayout>
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/price3"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="Price3"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.1"
-                        android:orientation="horizontal">
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/option4"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Option4"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                        </LinearLayout>
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/price4"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="Price4"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.1"
-                        android:orientation="horizontal">
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/option5"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Option5"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                        </LinearLayout>
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/price5"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="Price5"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.1"
-                        android:orientation="horizontal">
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/option6"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="Option6"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                        </LinearLayout>
-
-                        <cravebot.customstuff.TextViewPlus
-                            android:id="@+id/price6"
-                            style="@style/textViewCustomFont2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="Price6"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/darkGray" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <cravebot.customstuff.TextViewPlus
+                    android:id="@+id/restoNameInfo"
+                    style="@style/textViewCustomFont2"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.2"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_11sdp"
+                    android:gravity="start"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="RestoName"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/darkGray" />
 
-                </LinearLayout>
+
+                <cravebot.customstuff.TextViewPlus
+                    android:id="@+id/description"
+                    style="@style/textViewCustomFont2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_11sdp"
+                    android:gravity="start"
+                    android:text="Description"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:paddingBottom="@dimen/_13sdp"
+                    android:textColor="@color/darkGray" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:orientation="horizontal">
-
-            </LinearLayout>
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            app:backgroundTint="@android:color/holo_red_dark"
-            app:layout_anchor="@id/fragmentLayoutWhole"
-            app:layout_anchorGravity="top|end"
-            fab:fab_colorNormal="@android:color/holo_red_dark"
-            fab:fab_colorPressed="@android:color/holo_red_dark"
-            fab:fab_colorRipple="@android:color/holo_red_light" />
+
     </FrameLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_gravity="top|end"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:backgroundTint="@android:color/holo_red_dark"
+        app:layout_anchor="@id/fragmentLayoutWhole"
+        app:layout_anchorGravity="top|end"
+        fab:fab_colorNormal="@android:color/holo_red_dark"
+        fab:fab_colorPressed="@android:color/holo_red_dark"
+        fab:fab_colorRipple="@android:color/holo_red_light" />
 
-</LinearLayout>
+
+</FrameLayout>
