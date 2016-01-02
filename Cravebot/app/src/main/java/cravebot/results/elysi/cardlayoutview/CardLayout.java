@@ -15,9 +15,6 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-
 import java.util.ArrayList;
 
 import cravebot.R;
@@ -46,22 +43,6 @@ public class CardLayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         setContentView(R.layout.activity_card_layout);
-
-//        sample = new ArrayList<>();
-//        sample.add(new FoodItem("Ayo Makan", "Ayo Makan.png", "AM002", "Beef Shawarma Plate", 100,
-//                "Juicy Beef Shawarma with fresh tomatoes, onion and cucumber \nrolled in crisp" +
-//                        "Pita bread with Yogurt sauce\n", "Any Side Dish + Iced Tea / Water", "130", " ", "",
-//                " ", " ", " ", " ", " ", " ", " ", " ", "e78f005f81190f8c51b0ba1b93a7725f.jpg "));
-//        sample.add(new FoodItem("Ayo Makan", "Ayo Makan.png","","Beef Shawarma Wrap",75,"Beef Shawarma"
-//                +"Wrap with fresh tomatoes, onion and cucumber \nrolled in crisp Pita bread with Yogurt sauce\n",""
-//                ,"","","","","","","","","","","","0c88af560aaf120e0468976635cc3dcd.jpg"));
-//        sample.add(new FoodItem("Chicks 2 Go", "Chicks 2 Go.png","","Potato Croquettes (5 pcs)",50,"Choice of any sauce" +
-//        "(White Garlic, Cheezy Jalapeno, Honey Mustard, Barbeque, Gravy, Lemon Butter)\n",
-//        "","","","","","","","","","","","",
-//        "1ad13f9f0253c0a8107ac1072adbdfb3.jpg"));
-//        sample.add(new FoodItem("Chicks 2 Go", "Chicks 2 Go.png","","Graham Balls (5 pcs)",35,
-//                "Marshmallows coated with crushed grahams\n","","","",""
-//                ,"","","","","","","","","cf773842f3c0763c0a46074bb13f8557.jpg"));
 
         sample = getIntent().getParcelableArrayListExtra(GoTask.LIST_KEY);
 

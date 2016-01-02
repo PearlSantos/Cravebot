@@ -1,6 +1,9 @@
 package cravebot.results.elysi.cardlayoutview;
 
+        import java.io.IOException;
+        import java.net.HttpURLConnection;
         import java.net.URI;
+        import java.net.URL;
         import java.util.ArrayList;
 
         import org.apache.http.HttpResponse;
@@ -11,9 +14,13 @@ package cravebot.results.elysi.cardlayoutview;
         import org.json.JSONArray;
         import org.json.JSONObject;
 
+        import android.app.AlertDialog;
         import android.app.ProgressDialog;
         import android.content.Context;
+        import android.content.DialogInterface;
         import android.content.Intent;
+        import android.net.ConnectivityManager;
+        import android.net.NetworkInfo;
         import android.os.AsyncTask;
         import android.util.Log;
         import android.widget.Toast;

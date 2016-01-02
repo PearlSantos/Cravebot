@@ -1,9 +1,7 @@
 package cravebot.results.elysi.cardlayoutview;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,8 +13,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -24,11 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableRow;
-import android.widget.TextView;
 
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -40,7 +33,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import cravebot.R;
-import cravebot.customstuff.LoadingImages;
 import cravebot.customstuff.TextViewPlus;
 import cravebot.results.elysi.gridview.GridViewLayout;
 
@@ -128,7 +120,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
-            Picasso.with(getContext().getApplicationContext()).load(R.drawable.card).fit().into(background);
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
 
             ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
                 @Override
@@ -189,26 +181,26 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             while(i<=6 && !singleItem.getOptions(i).trim().equals("")){
                 String option = singleItem.getOptions(i).trim();
                 if(!option.equals("")){
-                    LinearLayout layoutOptions = new LinearLayout(getContext().getApplicationContext());
+                    LinearLayout layoutOptions = new LinearLayout(getActivity().getApplicationContext());
                     layoutOptions.setOrientation(LinearLayout.HORIZONTAL);
                     layoutOptions.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                             , ViewGroup.LayoutParams.WRAP_CONTENT));
                     layoutOptions.setPadding(0, 0, 0, paddingBottom);
 
-                    TextViewPlus optionText = new TextViewPlus(getContext().getApplicationContext());
+                    TextViewPlus optionText = new TextViewPlus(getActivity().getApplicationContext());
                     optionText.setGravity(Gravity.START);
                     optionText.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
                     optionText.setPadding(0, 0, paddingBottom, 0);
-                    optionText.setTextColor(ContextCompat.getColor(getContext().getApplicationContext(),
+                    optionText.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),
                             R.color.darkGray));
                     optionText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
                     optionText.setText(option);
 
-                    TextViewPlus optionPrice = new TextViewPlus(getContext().getApplicationContext());
+                    TextViewPlus optionPrice = new TextViewPlus(getActivity().getApplicationContext());
                     optionPrice.setGravity(Gravity.END);
                     optionPrice.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.3f));
                     optionPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
-                    optionPrice.setTextColor(ContextCompat.getColor(getContext().getApplicationContext(),
+                    optionPrice.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),
                             R.color.darkGray));
                     String prices = singleItem.getPrices(i).trim();
                     if(prices.substring(0).equals("P"))
@@ -243,7 +235,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             ((Button) view.findViewById(R.id.testGridView)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(getContext(), GridViewLayout.class);
+                    Intent i = new Intent(getActivity().getApplicationContext(), GridViewLayout.class);
                     i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
                     startActivity(i);
                     //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);

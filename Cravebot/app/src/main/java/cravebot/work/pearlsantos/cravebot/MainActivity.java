@@ -1,12 +1,17 @@
 package cravebot.work.pearlsantos.cravebot;
 
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.FloatingActionButton;
 
 import android.content.res.Configuration;
@@ -52,6 +57,9 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import cravebot.R;
 import cravebot.results.elysi.cardlayoutview.GoTask;
@@ -204,7 +212,19 @@ public class MainActivity extends AppCompatActivity {
                 double min = seekBar.getSelectedMinValue();
                 double max = seekBar.getSelectedMaxValue();
                 Log.d("MainActivity", "button pressed");
-                new GoTask(getApplicationContext(), filterClicked, min, max).execute("test");
+                if(hasActiveInternetConnection()) {
+                    new GoTask(getApplicationContext(), filterClicked, min, max).execute("test");
+                }
+                else{
+                    new AlertDialog.Builder(getApplicationContext())
+                            .setTitle("No Internet Connection")
+                            .setMessage("Please connect to the internet to use the application's services.")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    arg0.dismiss();
+                                }
+                            }).create().show();
+                }
 
             }
         });
@@ -287,6 +307,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public boolean hasActiveInternetConnection() {
+        if (isNetworkAvailable()) {
+            try {
+                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
+                urlc.setRequestProperty("User-Agent", "Test");
+                urlc.setRequestProperty("Connection", "close");
+                urlc.setConnectTimeout(1500);
+                urlc.connect();
+                return (urlc.getResponseCode() == 200);
+            } catch (IOException e) {
+                Log.e("LOG", "Error checking internet connection", e);
+            }
+        } else {
+            Log.d("LOG", "No network available!");
+        }
+        return false;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+
     //Clearing caches
     public void onDestroy() {
         super.onDestroy();
@@ -330,4 +376,5 @@ class CustomListAdapter extends ArrayAdapter<String> {
         return rowView;
 
     }
+
 }
