@@ -2,6 +2,7 @@ package cravebot.work.pearlsantos.cravebot;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +22,13 @@ import cravebot.customstuff.LoadingImages;
  * Created by elysi on 12/31/2015.
  */
 
-public class Splash extends AppCompatActivity{
-    private final int SPLASH_DISPLAY_LENGTH = 2000;
+public class Splash extends AppCompatActivity {
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
     private ImageView background, cravebot;
-    /** Called when the activity is first created. */
+
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -61,23 +65,39 @@ public class Splash extends AppCompatActivity{
 
         Picasso.with(getApplicationContext()).load(R.drawable.cravebot_start).fit().into(cravebot);
 
-//        LoadingImages loadingImages = new LoadingImages(getApplicationContext());
-//        loadingImages.loadBitmapFromRes(R.drawable.wot, background, 150, 150);
-//        loadingImages.loadBitmapFromRes(R.drawable.cravebot_start, cravebot, 100, 100);
+        new CheckingStart(getApplicationContext(), Splash.this).execute();
 
-        /* New Handler to start the Menu-Activity
-         * and close this Splash-Screen after some seconds.*/
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(Splash.this, MainActivity.class);
-                Splash.this.startActivity(mainIntent);
-                Splash.this.overridePendingTransition(R.anim.pull_in_right,
-                        R.anim.push_out_left);
-                Splash.this.finish();
+//                /* Create an Intent that will start the Menu-Activity. */
+//                Intent mainIntent = new Intent(Splash.this, CheckingStart.class);
+//                Splash.this.startActivity(mainIntent);
+//                Splash.this.overridePendingTransition(R.anim.pull_in_right,
+//                        R.anim.push_out_left);
+//                Splash.this.finish();
+
             }
         }, SPLASH_DISPLAY_LENGTH);
+
+
+
+//        LoadingImages loadingImages = new LoadingImages(getApplicationContext());
+//        loadingImages.loadBitmapFromRes(R.drawable.wot, background, 150, 150);
+//        loadingImages.loadBitmapFromRes(R.drawable.cravebot_start, cravebot, 100, 100);
+        /* New Handler to start the Menu-Activity
+         * and close this Splash-Screen after some seconds.*/
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                /* Create an Intent that will start the Menu-Activity. */
+//                Intent mainIntent = new Intent(Splash.this, CheckingStart.class);
+//                Splash.this.startActivity(mainIntent);
+//                Splash.this.overridePendingTransition(R.anim.pull_in_right,
+//                        R.anim.push_out_left);
+//                Splash.this.finish();
+//            }
+//        }, SPLASH_DISPLAY_LENGTH);
     }
 
     public void onDestroy() {

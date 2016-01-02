@@ -43,7 +43,7 @@
         <activity
             android:name=".work.pearlsantos.cravebot.InstructionSlides"
             android:label="@string/title_activity_intstruction_slides"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/Theme.Transparent" >
         </activity>
 
         for trying the sliding menu

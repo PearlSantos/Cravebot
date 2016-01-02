@@ -121,6 +121,22 @@ public class MainActivity extends AppCompatActivity {
         ImageLoader.getInstance().clearMemoryCache();
         ImageLoader.getInstance().clearDiskCache();
 
+        int nextAction = getIntent().getIntExtra(CheckingStart.WHAT_TO_DO, -1);
+        if(nextAction==1) {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("No Internet Connection")
+                    .setMessage("Please connect to the internet to use the application's services.")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            MainActivity.this.finish();
+                            arg0.dismiss();
+                        }
+                    }).create().show();
+        }
+        else if(nextAction==2){
+            MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
+        }
+
         holder = new String[]{"o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"};
         imgRes = new Integer[]{R.drawable.beef,
                 R.drawable.beverages,
@@ -212,20 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 double min = seekBar.getSelectedMinValue();
                 double max = seekBar.getSelectedMaxValue();
                 Log.d("MainActivity", "button pressed");
-                if(hasActiveInternetConnection()) {
-                    new GoTask(getApplicationContext(), filterClicked, min, max).execute("test");
-                }
-                else{
-                    new AlertDialog.Builder(getApplicationContext())
-                            .setTitle("No Internet Connection")
-                            .setMessage("Please connect to the internet to use the application's services.")
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    arg0.dismiss();
-                                }
-                            }).create().show();
-                }
-
+                new GoTask(getApplicationContext(), filterClicked, min, max).execute("test");
             }
         });
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
@@ -273,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle your other action bar items...
         switch (item.getItemId()) {
             case R.id.tutorials:
-
+                MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
                 break;
             case R.id.contact_info:
                 final Dialog dialog = new Dialog(this);
@@ -306,31 +309,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public boolean hasActiveInternetConnection() {
-        if (isNetworkAvailable()) {
-            try {
-                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
-                urlc.setRequestProperty("User-Agent", "Test");
-                urlc.setRequestProperty("Connection", "close");
-                urlc.setConnectTimeout(1500);
-                urlc.connect();
-                return (urlc.getResponseCode() == 200);
-            } catch (IOException e) {
-                Log.e("LOG", "Error checking internet connection", e);
-            }
-        } else {
-            Log.d("LOG", "No network available!");
-        }
-        return false;
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null;
-    }
 
 
     //Clearing caches

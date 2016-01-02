@@ -2,8 +2,4 @@
 <com.jeremyfeinstein.slidingmenu.lib.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slidingmenumain"
     android:layout_width="fill_parent"
-<<<<<<< HEAD
     android:layout_height="fill_parent" /><!-- From: file:/C:/Users/elysi/Documents/Team%20Project%20Cravebot/Cravebot/Cravebot/libraries/SlidingMenu/res/layout/slidingmenumain.xml -->
-=======
-    android:layout_height="fill_parent" /><!-- From: file:/C:/Users/Pearl%20Santos/Documents/GitHub/Cravebot/Cravebot/libraries/SlidingMenu/res/layout/slidingmenumain.xml -->
->>>>>>> 9395be7a8bcba045ac557c4aaf6327843bbdfd9d
