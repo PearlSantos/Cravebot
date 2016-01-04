@@ -61,9 +61,13 @@ public class Splash extends AppCompatActivity {
                     }
                 });
 
-        Picasso.with(getApplicationContext()).load(R.drawable.wot).fit().into(background);
+//        Picasso.with(getApplicationContext()).load(R.drawable.wot).fit().into(background);
+//
+//        Picasso.with(getApplicationContext()).load(R.drawable.cravebot_start).fit().into(cravebot);
+        LoadingImages loadingImages = new LoadingImages(getApplicationContext());
+        loadingImages.loadBitmapFromRes(R.drawable.wot, background, 150, 150);
+        loadingImages.loadBitmapFromRes(R.drawable.cravebot_start, cravebot, 150, 150);
 
-        Picasso.with(getApplicationContext()).load(R.drawable.cravebot_start).fit().into(cravebot);
 
         new CheckingStart(getApplicationContext(), Splash.this).execute();
 
@@ -82,9 +86,6 @@ public class Splash extends AppCompatActivity {
 
 
 
-//        LoadingImages loadingImages = new LoadingImages(getApplicationContext());
-//        loadingImages.loadBitmapFromRes(R.drawable.wot, background, 150, 150);
-//        loadingImages.loadBitmapFromRes(R.drawable.cravebot_start, cravebot, 100, 100);
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
 //        new Handler().postDelayed(new Runnable() {

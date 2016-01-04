@@ -72,6 +72,8 @@ public class GridViewLayout extends AppCompatActivity {
     public class ImageAdapter extends BaseAdapter {
         private Context mContext;
         private ImageView imageView;
+        private ProgressBar progressBar;
+        private View v;
         private LayoutInflater inflater;
 
         private DisplayImageOptions options;
@@ -108,28 +110,28 @@ public class GridViewLayout extends AppCompatActivity {
         // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
             final ViewHolder holder;
-            View view = convertView;
-            if (view == null) {
+//            View view = convertView;
+            if (convertView == null) {
                 // if it's not recycled, initialize some attributes
-                view = inflater.inflate(R.layout.gridview_layout, parent, false);
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE );
+                v = inflater.inflate(R.layout.gridview_layout, parent, false);
                 holder = new ViewHolder();
-                assert view != null;
-                holder.imageView = (ImageView) view.findViewById(R.id.image);
-                holder.progressBar = (ProgressBar) view.findViewById(R.id.progress);
-                view.setTag(holder);
-                holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                int width = gridview.getWidth();
-                int margins = (width / 4) / 5;
-                gridview.setHorizontalSpacing(margins);
-                gridview.setVerticalSpacing(margins);
-                // gridview.setColumnWidth(width / 4);
-                double widthSize = width / 3.5;
-                width = (int) widthSize;
-                holder.imageView.setLayoutParams(new FrameLayout.LayoutParams(width, width));
+                v.setTag(holder);
             } else {
-                holder = (ViewHolder) view.getTag();
+                v = (View) convertView;
+                holder = (ViewHolder) v.getTag();
             }
 
+            holder.imageView = (ImageView) v.findViewById(R.id.image);
+            holder.progressBar = (ProgressBar) v.findViewById(R.id.progress);
+            int width = gridview.getWidth();
+            int margins = (width / 4) / 5;
+            gridview.setHorizontalSpacing(margins);
+            gridview.setVerticalSpacing(margins);
+            // gridview.setColumnWidth(width / 4);
+            double widthSize = width / 3.5;
+            width = (int) widthSize;
+            holder.imageView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, width));
 
             FoodItem singleItem = items.get(position);
             ImageLoader.getInstance().displayImage(APIFood + singleItem.getPhoto(), holder.imageView,
@@ -160,11 +162,10 @@ public class GridViewLayout extends AppCompatActivity {
             );
 
 
-            return view;
+            return v;
         }
 
     }
-
     static class ViewHolder {
         ImageView imageView;
         ProgressBar progressBar;

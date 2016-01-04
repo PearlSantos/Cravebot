@@ -94,12 +94,12 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/darkGray" />
 
-            <Button
-                android:id="@+id/testGridView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Test Gridview" />
+            <!--<Button-->
+                <!--android:id="@+id/testGridView"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:text="Test Gridview" />-->
 
 
         </LinearLayout>
@@ -170,8 +170,8 @@
                     <ProgressBar
                         android:id="@+id/progressBarInfo"
                         style="?android:attr/progressBarStyle"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_90sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="end|center"
                         android:indeterminate="true" />
                 </FrameLayout>

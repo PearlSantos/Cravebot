@@ -1,6 +1,7 @@
 package cravebot.results.elysi.cardlayoutview;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.util.LruCache;
@@ -18,6 +19,7 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 
 import cravebot.R;
+import cravebot.results.elysi.gridview.GridViewLayout;
 
 public class CardLayout extends AppCompatActivity {
 
@@ -105,8 +107,7 @@ public class CardLayout extends AppCompatActivity {
 //            }
 //        });
 
-
-        mGestureDetector = new GestureDetector(this, new OnSwipeListener() {
+        mGestureDetector = new GestureDetector(this, new OnSwipeListener(CardLayout.this, sample) {
             @Override
             public boolean onSwipe(Direction d) {
                 super.onSwipe(d);
@@ -141,6 +142,7 @@ public class CardLayout extends AppCompatActivity {
                     return true;
                 }
             }
+
         });
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override

@@ -1,14 +1,31 @@
 package cravebot.results.elysi.cardlayoutview;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.ImageView;
+
+import java.util.ArrayList;
+
+import cravebot.results.elysi.gridview.GridViewLayout;
 
 /**
  * From: http://stackoverflow.com/questions/13095494/how-to-detect-swipe-direction-between-left-right-and-up-down
  * Class determines if user swipes left, right, up or down.
  * Created by elysi on 12/29/2015.
  */
-public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener{
+public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener {
+
+    private Activity activity;
+    // private ImageView imageView;
+    private ArrayList<FoodItem> items;
+
+    public OnSwipeListener(Activity act, ArrayList<FoodItem> item) {
+        activity = act;
+        //  imageView = iv;
+        items = item;
+    }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -40,30 +57,57 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener{
 
         System.out.println("Why is this null? " + x1);
 
-        Direction direction = getDirection(x1,y1,x2,y2);
+        Direction direction = getDirection(x1, y1, x2, y2);
         return onSwipe(direction);
     }
 
-    public boolean onSwipe(Direction direction){
+    public boolean onDoubleTap(MotionEvent e) {
+        Intent i = new Intent(activity, GridViewLayout.class);
+        i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
+        activity.startActivity(i);
+        //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+        activity.finish();
+
+        return true;
+
+    }
+
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        //if the second tap hadn't been released and it's being moved
+        if (e.getAction() == MotionEvent.ACTION_MOVE) {
+            System.out.println("DOUBLE TAPPED");
+        } else if (e.getAction() == MotionEvent.ACTION_UP)//user released the screen
+        {
+            Intent i = new Intent(activity, GridViewLayout.class);
+            i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
+            activity.startActivity(i);
+            //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+            activity.finish();
+
+        }
+        return true;
+    }
+
+    public boolean onSwipe(Direction direction) {
         return false;
     }
 
     /**
      * Given two points in the plane p1=(x1, x2) and p2=(y1, y1), this method
      * returns the direction that an arrow pointing from p1 to p2 would have.
+     *
      * @param x1 the x position of the first point
      * @param y1 the y position of the first point
      * @param x2 the x position of the second point
      * @param y2 the y position of the second point
      * @return the direction
      */
-    public Direction getDirection(float x1, float y1, float x2, float y2){
+    public Direction getDirection(float x1, float y1, float x2, float y2) {
         double angle = getAngle(x1, y1, x2, y2);
         return Direction.get(angle);
     }
 
     /**
-     *
      * Finds the angle between two points in the plane (x1,y1) and (x2, y2)
      * The angle is measured with 0/360 being the X-axis to the right, angles
      * increase counter clockwise.
@@ -76,12 +120,12 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener{
      */
     public double getAngle(float x1, float y1, float x2, float y2) {
 
-        double rad = Math.atan2(y1-y2,x2-x1) + Math.PI;
-        return (rad*180/Math.PI + 180)%360;
+        double rad = Math.atan2(y1 - y2, x2 - x1) + Math.PI;
+        return (rad * 180 / Math.PI + 180) % 360;
     }
 
 
-    public enum Direction{
+    public enum Direction {
         up,
         down,
         left,
@@ -90,7 +134,7 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener{
         /**
          * Returns a direction given an angle.
          * Directions are defined as follows:
-         *
+         * <p/>
          * Up: [45, 135]
          * Right: [0,45] and [315, 360]
          * Down: [225, 315]
@@ -99,17 +143,14 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener{
          * @param angle an angle from 0 to 360 - e
          * @return the direction of an angle
          */
-        public static Direction get(double angle){
-            if(inRange(angle, 45, 135)){
+        public static Direction get(double angle) {
+            if (inRange(angle, 45, 135)) {
                 return Direction.up;
-            }
-            else if(inRange(angle, 0,45) || inRange(angle, 315, 360)){
+            } else if (inRange(angle, 0, 45) || inRange(angle, 315, 360)) {
                 return Direction.right;
-            }
-            else if(inRange(angle, 225, 315)){
+            } else if (inRange(angle, 225, 315)) {
                 return Direction.down;
-            }
-            else{
+            } else {
                 return Direction.left;
             }
 
@@ -117,11 +158,11 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener{
 
         /**
          * @param angle an angle
-         * @param init the initial bound
-         * @param end the final bound
+         * @param init  the initial bound
+         * @param end   the final bound
          * @return returns true if the given angle is in the interval [init, end).
          */
-        private static boolean inRange(double angle, float init, float end){
+        private static boolean inRange(double angle, float init, float end) {
             return (angle >= init) && (angle < end);
         }
     }
