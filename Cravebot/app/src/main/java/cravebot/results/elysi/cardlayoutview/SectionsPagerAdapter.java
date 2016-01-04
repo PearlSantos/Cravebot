@@ -2,15 +2,19 @@ package cravebot.results.elysi.cardlayoutview;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -77,6 +81,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         private View view;
         private FrameLayout moreInfo, place;
         private ProgressBar progressBar, progressBarInfo;
+        private GestureDetector ges;
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -129,12 +134,14 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     progressBar.setVisibility(View.VISIBLE);
 
                 }
+
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                     progressBar.setVisibility(View.GONE);
                     foodImage.setVisibility(View.VISIBLE);
 
                 }
+
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     foodImage.setVisibility(View.VISIBLE);
@@ -216,13 +223,41 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 }
             }
 
-            ((ImageButton) view.findViewById(R.id.back)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    changeVisibility(place, moreInfo);
+            ImageButton back = (ImageButton) view.findViewById(R.id.back);
+//            back.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    changeVisibility(place, moreInfo);
+//
+//                }
+//            });
+            back.setOnTouchListener(new View.OnTouchListener() {
 
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            ImageButton view = (ImageButton) v;
+                            view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                            v.invalidate();
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP:
+                            changeVisibility(place, moreInfo);
+                            // Your action here on button click
+
+                        case MotionEvent.ACTION_CANCEL: {
+                            ImageButton view = (ImageButton) v;
+                            view.getBackground().clearColorFilter();
+                            view.invalidate();
+                            break;
+                        }
+                    }
+                    return true;
                 }
-            });
+            });;
+
+
 
             ((FloatingActionButton) view.findViewById(R.id.fab)).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -231,17 +266,17 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 }
             });
 
-            Button testGridView = (Button) view.findViewById(R.id.testGridView);
-            ((Button) view.findViewById(R.id.testGridView)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getActivity().getApplicationContext(), GridViewLayout.class);
-                    i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
-                    startActivity(i);
-                    //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-                    getActivity().finish();
-                }
-            });
+//            Button testGridView = (Button) view.findViewById(R.id.testGridView);
+//            ((Button) view.findViewById(R.id.testGridView)).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent i = new Intent(getActivity().getApplicationContext(), GridViewLayout.class);
+//                    i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
+//                    startActivity(i);
+//                    //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+//                    getActivity().finish();
+//                }
+//            });
 
             moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
             place = (FrameLayout) view.findViewById(R.id.root_frame);
@@ -288,11 +323,16 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             return place;
         }
 
+        public ImageView getFoodImage() {
+            return foodImage;
+        }
+
 
     }
 
 
 }
+
 
 
 
