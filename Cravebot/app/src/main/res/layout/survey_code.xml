@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/page_1_marker"
+        android:id="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/cravebot_header"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/imageView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_30sdp"
+        android:textStyle="bold"
+        android:text="ENTER YOUR"
+        android:id="@+id/surveyCodeText1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_30sdp"
+        android:textStyle="bold"
+        android:text="CRAVEBOT CODE"
+        android:id="@+id/surveyCodeText2" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText3"
+        android:background="@drawable/survey_edittext"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_10sdp"
+        android:text="DON'T HAVE A CRAVEBOT CODE?"
+        android:id="@+id/surveyCodeText3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_10sdp"
+        android:text="BUY FROM"
+        android:id="@+id/surveyCodeText4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_10sdp"
+        android:text="___________________"
+        android:id="@+id/surveyCodeRestoText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_10sdp"
+        android:text="TO GET DISCOUNTS ON YOUR NEXT PURCHASE!"
+        android:id="@+id/surveyCodeText5" />
+
+    <ImageButton
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        android:src="@drawable/submit_button"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        android:scaleType="fitCenter"
+        android:id="@+id/surveyButtonCode" />
+</LinearLayout>

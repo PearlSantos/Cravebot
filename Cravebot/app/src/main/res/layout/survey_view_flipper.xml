@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ViewFlipper
+        android:id="@+id/viewFlipperSurvey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <include
+            android:id="@+id/surveyCode"
+            layout="@layout/survey_code"/>
+
+        <include
+            android:id="@+id/surveyActivity"
+            layout="@layout/activity_survey"/>
+
+        <include
+            android:id="@+id/surveyThanks"
+            layout="@layout/survey_thank_you"/>
+
+    </ViewFlipper>
+
+</LinearLayout>

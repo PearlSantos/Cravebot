@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/page_3_marker"
+        android:id="@+id/imageView"
+        android:layout_marginBottom="100dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_50sdp"
+        android:text="THANK YOU!"
+        android:id="@+id/surveyThanksText1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_20sdp"
+        android:text="CONFIRMATION WILL BE SENT"
+        android:id="@+id/surveyCodeText2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/_20sdp"
+        android:text="TO YOU VIA E-MAIL"
+        android:id="@+id/surveyCodeText3" />
+
+    <ImageButton
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        android:src="@drawable/back_button_survey"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        android:scaleType="fitCenter"
+        android:id="@+id/surveyButtonThanks" />
+
+</LinearLayout>
