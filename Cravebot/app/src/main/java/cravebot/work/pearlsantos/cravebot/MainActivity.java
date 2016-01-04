@@ -279,22 +279,19 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
                 break;
             case R.id.contact_info:
-                final Dialog dialog = new Dialog(this);
+                final Dialog dialog = new Dialog(this, R.style.DialogTheme);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.contact_dialog);
-                dialog.setTitle("CraveBot");
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
+//                dialog.setTitle("CraveBot");
                 Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc");
-                TextView website = (TextView) dialog.findViewById(R.id.website);
-                website.setTypeface(custom_font);
                 TextView email = (TextView) dialog.findViewById(R.id.email);
                 email.setTypeface(custom_font);
                 TextView fb = (TextView) dialog.findViewById(R.id.fb);
                 fb.setTypeface(custom_font);
-                TextView emailLabel = (TextView) dialog.findViewById(R.id.email_label);
-                emailLabel.setTypeface(custom_font);
-                TextView fbLabel = (TextView) dialog.findViewById(R.id.fb_label);
-                fbLabel.setTypeface(custom_font);
-                FloatingActionButton close = (FloatingActionButton) dialog.findViewById(R.id.close_contact_dialog);
+                TextView phone = (TextView) dialog.findViewById(R.id.phone);
+                phone.setTypeface(custom_font);
+                ImageButton close = (ImageButton) dialog.findViewById(R.id.close_dialog);
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

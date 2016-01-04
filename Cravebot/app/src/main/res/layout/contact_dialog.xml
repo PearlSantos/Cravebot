@@ -1,94 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/tools"
     android:id="@+id/layout"
-    android:orientation="vertical"
+    android:background="@mipmap/food_bg_resized"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<android.support.design.widget.FloatingActionButton android:id="@+id/close_contact_dialog"-->
+            <!--android:layout_width="56dp" android:layout_height="56dp"-->
+            <!--android:layout_gravity="top|end"-->
+            <!--android:src="@android:drawable/ic_menu_close_clear_cancel"-->
+            <!--fab:fab_colorNormal="@android:color/holo_red_dark"-->
+            <!--fab:fab_colorPressed="@android:color/holo_red_dark"-->
+            <!--fab:fab_colorRipple="@android:color/holo_red_light"-->
+            <!--app:backgroundTint="@android:color/holo_red_dark"-->
+            <!--app:layout_anchor="@id/layout"-->
+            <!--app:layout_anchorGravity="top|end"-->
+            <!--/>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_weight="3">-->
+            <!--<ImageView-->
+                <!--android:layout_width="309dp"-->
+                <!--android:layout_height="282dp"-->
+                <!--android:id="@+id/logo"-->
+                <!--android:src="@mipmap/cravebot_header" />-->
+        <!--</LinearLayout>-->
+    <!--</FrameLayout>-->
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_margin="16dp"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_weight="3">-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Cravebot.PH"-->
+            <!--android:textColor="#898989"-->
+            <!--android:id="@+id/website" />-->
+        <!--<LinearLayout-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="E-mail:"-->
+                <!--android:id="@+id/email_label"-->
+                <!--android:textColor="#898989"-->
+                <!--android:layout_gravity="center_horizontal" />-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="contactus@cravebot.ph"-->
+                <!--android:id="@+id/email"-->
+                <!--android:textColor="@color/blue_300"-->
+                <!--android:layout_gravity="center_horizontal" />-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Facebook:"-->
+                <!--android:id="@+id/fb_label"-->
+                <!--android:textColor="#898989"-->
+                <!--android:layout_gravity="center_horizontal" />-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="http://facebook.com/CraveBot"-->
+                <!--android:id="@+id/fb"-->
+                <!--android:textColor="@color/blue_300"-->
+                <!--android:layout_gravity="center_horizontal" />-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.design.widget.FloatingActionButton android:id="@+id/close_contact_dialog"
-            android:layout_width="56dp" android:layout_height="56dp"
-            android:layout_gravity="top|end"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            fab:fab_colorNormal="@android:color/holo_red_dark"
-            fab:fab_colorPressed="@android:color/holo_red_dark"
-            fab:fab_colorRipple="@android:color/holo_red_light"
-            app:backgroundTint="@android:color/holo_red_dark"
-            app:layout_anchor="@id/layout"
-            app:layout_anchorGravity="top|end"
-            />
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="20dp">
+
+
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_weight="3">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="45dp"
+            android:weightSum="1">
+            <ImageButton
+                android:id="@+id/close_dialog"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/back_button"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent" />
             <ImageView
-                android:layout_width="309dp"
-                android:layout_height="282dp"
-                android:id="@+id/logo"
-                android:src="@mipmap/cravebot_header" />
+                android:layout_width="71dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/cravebot_badge"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_weight="0.20" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/tink_tech"
+                android:layout_gravity="center"/>
+            <cravebot.customstuff.TextViewPlus
+                style="@style/textViewCustomFont2"
+                android:id="@+id/contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CONTACT US"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center" >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@mipmap/mail_icon"
+                        android:layout_marginRight="5dp"/>
+                    <cravebot.customstuff.TextViewPlus
+                        android:id="@+id/email"
+                        style="@style/textViewCustomFont2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="cravebotph@gmail.com"/>
+                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/fb_icon"
+                            android:layout_marginRight="5dp"/>
+                        <cravebot.customstuff.TextViewPlus
+                            android:id="@+id/fb"
+                            style="@style/textViewCustomFont2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="http://facebook.com/CraveBot"/>
+
+
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@mipmap/call_icon"
+                        android:layout_marginRight="5dp"/>
+                    <cravebot.customstuff.TextViewPlus
+                        android:id="@+id/phone"
+                        style="@style/textViewCustomFont2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="+63 916 168 9128"/>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
+
+    </android.support.v7.widget.CardView>
 
 
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        android:layout_weight="3">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cravebot.PH"
-            android:textColor="#898989"
-            android:id="@+id/website" />
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="E-mail:"
-                android:id="@+id/email_label"
-                android:textColor="#898989"
-                android:layout_gravity="center_horizontal" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="contactus@cravebot.ph"
-                android:id="@+id/email"
-                android:textColor="@color/blue_300"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Facebook:"
-                android:id="@+id/fb_label"
-                android:textColor="#898989"
-                android:layout_gravity="center_horizontal" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="http://facebook.com/CraveBot"
-                android:id="@+id/fb"
-                android:textColor="@color/blue_300"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
-    </LinearLayout>
-
-
-
-</LinearLayout>
+</FrameLayout>
