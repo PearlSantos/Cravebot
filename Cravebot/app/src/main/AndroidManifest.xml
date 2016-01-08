@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cravebot"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,7 +11,8 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/cravebot_ic"
-        android:label="@string/app_name">
+        android:label="@string/app_name"
+        android:launchMode="singleInstance">
         <activity
             android:name=".work.pearlsantos.cravebot.Splash"
             android:label="@string/app_name"
@@ -34,15 +35,14 @@
             android:name=".results.elysi.cardlayoutview.CardLayout"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Transparent"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:launchMode="singleInstance"/>
-        <activity
-            android:name=".results.elysi.cardlayoutview.TestResult" />
+        <activity android:name=".results.elysi.cardlayoutview.TestResult"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".results.elysi.gridview.GridViewLayout"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Transparent"
-            android:launchMode="singleInstance"/>
+            android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".work.pearlsantos.cravebot.InstructionSlides"
             android:label="@string/title_activity_intstruction_slides"
@@ -63,7 +63,8 @@
 
         <activity
             android:name=".survey.Survey"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:launchMode="singleInstance">
         </activity>
     </application>
 

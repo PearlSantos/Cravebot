@@ -61,33 +61,6 @@ public class OnSwipeListener extends GestureDetector.SimpleOnGestureListener {
         return onSwipe(direction);
     }
 
-    public boolean onDoubleTap(MotionEvent e) {
-        Intent i = new Intent(activity, GridViewLayout.class);
-        i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
-        activity.startActivity(i);
-        //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-        activity.finish();
-
-        return true;
-
-    }
-
-    public boolean onDoubleTapEvent(MotionEvent e) {
-        //if the second tap hadn't been released and it's being moved
-        if (e.getAction() == MotionEvent.ACTION_MOVE) {
-            System.out.println("DOUBLE TAPPED");
-        } else if (e.getAction() == MotionEvent.ACTION_UP)//user released the screen
-        {
-            Intent i = new Intent(activity, GridViewLayout.class);
-            i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
-            activity.startActivity(i);
-            //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-            activity.finish();
-
-        }
-        return true;
-    }
-
     public boolean onSwipe(Direction direction) {
         return false;
     }

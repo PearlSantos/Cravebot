@@ -4,20 +4,20 @@
     android:id="@+id/fragmentLayoutWhole"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/card">
 
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        />
+    <!--<ImageView-->
+        <!--android:id="@+id/background"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scaleType="fitXY"-->
+        <!--/>-->
 
     <FrameLayout
         android:id="@+id/root_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutAnimation="@anim/layout_animation"
         >
 
 
@@ -103,19 +103,6 @@
 
 
         </LinearLayout>
-
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/fab"-->
-            <!--android:layout_width="56dp"-->
-            <!--android:layout_height="56dp"-->
-            <!--android:layout_gravity="top|end"-->
-            <!--android:src="@android:drawable/ic_menu_close_clear_cancel"-->
-            <!--app:backgroundTint="@android:color/holo_red_dark"-->
-            <!--app:layout_anchor="@id/root_frame"-->
-            <!--app:layout_anchorGravity="top|end"-->
-            <!--fab:fab_colorNormal="@android:color/holo_red_dark"-->
-            <!--fab:fab_colorPressed="@android:color/holo_red_dark"-->
-            <!--fab:fab_colorRipple="@android:color/holo_red_light" />-->
 
     </FrameLayout>
 
@@ -246,19 +233,6 @@
 
 
     </FrameLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        app:backgroundTint="@android:color/holo_red_dark"
-        app:layout_anchor="@id/fragmentLayoutWhole"
-        app:layout_anchorGravity="top|end"
-        fab:fab_colorNormal="@android:color/holo_red_dark"
-        fab:fab_colorPressed="@android:color/holo_red_dark"
-        fab:fab_colorRipple="@android:color/holo_red_light" />
 
 
 </FrameLayout>

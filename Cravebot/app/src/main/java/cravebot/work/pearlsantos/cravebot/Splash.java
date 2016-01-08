@@ -34,7 +34,7 @@ public class Splash extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_splashscreen);
 
-        background = (ImageView) findViewById(R.id.background);
+        //background = (ImageView) findViewById(R.id.background);
         cravebot = (ImageView) findViewById(R.id.cravebot);
         final FrameLayout splashLayout = (FrameLayout) findViewById(R.id.splashLayout);
 
@@ -63,10 +63,9 @@ public class Splash extends AppCompatActivity {
 
 //        Picasso.with(getApplicationContext()).load(R.drawable.wot).fit().into(background);
 //
-//        Picasso.with(getApplicationContext()).load(R.drawable.cravebot_start).fit().into(cravebot);
-        LoadingImages loadingImages = new LoadingImages(getApplicationContext());
-        loadingImages.loadBitmapFromRes(R.drawable.wot, background, 150, 150);
-        loadingImages.loadBitmapFromRes(R.drawable.cravebot_start, cravebot, 150, 150);
+        Picasso.with(Splash.this).load(R.drawable.cravebot_start).fit().into(cravebot);
+//        LoadingImages loadingImages = new LoadingImages(getApplicationContext());
+//        loadingImages.loadBitmapFromRes(R.drawable.cravebot_start, cravebot, 150, 150);
 
 
         new CheckingStart(getApplicationContext(), Splash.this).execute();
@@ -124,7 +123,7 @@ public class Splash extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         cravebot.setImageBitmap(null);
-        background.setImageBitmap(null);
+//        background.setImageBitmap(null);
     }
 
 }
