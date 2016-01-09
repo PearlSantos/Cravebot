@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.os.AsyncTask;
 
 
+import com.antonyt.infiniteviewpager.InfinitePagerAdapter;
+import com.antonyt.infiniteviewpager.InfiniteViewPager;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
@@ -42,13 +44,14 @@ import cravebot.results.elysi.gridview.GridViewLayout;
 public class CardLayout extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private InfinitePagerAdapter wrappedAdapter;
     private GestureDetector mGestureDetector;
 
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    public ViewPager mViewPager;
+    public InfiniteViewPager mViewPager;
     private ArrayList<FoodItem> sample;
     private PagerContainer mContainer;
 
@@ -68,7 +71,7 @@ public class CardLayout extends AppCompatActivity {
 
         mContainer = (PagerContainer) findViewById(R.id.pager_container);
 
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mViewPager = (InfiniteViewPager) findViewById(R.id.viewPager);
 
         mContainer.getViewTreeObserver().
                 addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -99,14 +102,13 @@ public class CardLayout extends AppCompatActivity {
                 });
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), sample);
-//        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        wrappedAdapter = new InfinitePagerAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(wrappedAdapter);
         //Necessary or the pager will only have one extra page to show
         // make this at least however many pages you can see
         // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
 
         // set current item in the adapter to middle
-        mViewPager.setCurrentItem(mViewPager.getChildCount() * mSectionsPagerAdapter.LOOPS_COUNT / 2, false);
 
         mViewPager.setOffscreenPageLimit(3);
 
