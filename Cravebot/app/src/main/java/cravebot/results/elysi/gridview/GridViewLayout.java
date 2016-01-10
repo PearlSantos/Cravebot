@@ -150,31 +150,31 @@ public class GridViewLayout extends AppCompatActivity {
 
 
         final ImageButton gridView = (ImageButton) findViewById(R.id.grid_view_button);
-        YoYo.with(Techniques.Pulse)
-                .duration(1200)
-                .interpolate(new AccelerateDecelerateInterpolator())
-                .withListener(new Animator.AnimatorListener() {
-
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        YoYo.with(Techniques.Pulse)
-                                .duration(1200)
-                                .interpolate(new AccelerateDecelerateInterpolator())
-                                .withListener(this).playOn(gridView);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-                    }
-                }).playOn(gridView);
+//        YoYo.with(Techniques.Pulse)
+//                .duration(1200)
+//                .interpolate(new AccelerateDecelerateInterpolator())
+//                .withListener(new Animator.AnimatorListener() {
+//
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        YoYo.with(Techniques.Pulse)
+//                                .duration(1200)
+//                                .interpolate(new AccelerateDecelerateInterpolator())
+//                                .withListener(this).playOn(gridView);
+//                    }
+//
+//                    @Override
+//                    public void onAnimationCancel(Animator animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animator animation) {
+//                    }
+//                }).playOn(gridView);
 
     }
 

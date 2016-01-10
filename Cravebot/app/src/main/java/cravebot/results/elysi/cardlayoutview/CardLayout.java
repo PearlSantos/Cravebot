@@ -44,14 +44,14 @@ import cravebot.results.elysi.gridview.GridViewLayout;
 public class CardLayout extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private InfinitePagerAdapter wrappedAdapter;
     private GestureDetector mGestureDetector;
 
-
+    public final static int LOOPS = 1000;
+    public static int FIRST_PAGE;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    public InfiniteViewPager mViewPager;
+    public ViewPager mViewPager;
     private ArrayList<FoodItem> sample;
     private PagerContainer mContainer;
 
@@ -71,7 +71,7 @@ public class CardLayout extends AppCompatActivity {
 
         mContainer = (PagerContainer) findViewById(R.id.pager_container);
 
-        mViewPager = (InfiniteViewPager) findViewById(R.id.viewPager);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         mContainer.getViewTreeObserver().
                 addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -102,15 +102,14 @@ public class CardLayout extends AppCompatActivity {
                 });
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), sample);
-        wrappedAdapter = new InfinitePagerAdapter(mSectionsPagerAdapter);
-        mViewPager.setAdapter(wrappedAdapter);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        FIRST_PAGE = sample.size()*LOOPS /2;
         //Necessary or the pager will only have one extra page to show
         // make this at least however many pages you can see
         // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
 
-        // set current item in the adapter to middle
-
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setCurrentItem(FIRST_PAGE);
+        mViewPager.setOffscreenPageLimit(1);
 
 
         //If hardware acceleration is enabled, you should also remove
@@ -118,11 +117,15 @@ public class CardLayout extends AppCompatActivity {
         mViewPager.setClipChildren(false);
         int pos = getIntent().getIntExtra("position", -1);
         if (pos != -1) {
-            mViewPager.setCurrentItem((mViewPager.getChildCount() * mSectionsPagerAdapter.LOOPS_COUNT / 2) + pos, false);
+            mViewPager.setCurrentItem(pos, false);
         }
+
+        mSectionsPagerAdapter.notifyDataSetChanged();
 
 //        ImageView background = (ImageView) findViewById(R.id.background);
 //        Picasso.with(getApplicationContext()).load(R.drawable.food_bg).into(background);
+
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -274,32 +277,40 @@ public class CardLayout extends AppCompatActivity {
             }
         });
 
+//        ImageView background = (ImageView) findViewById(R.id.background);
+//        Picasso.with(CardLayout.this).load(R.drawable.food_bg).fit().into(background);
+
+
         final ImageButton cardView = (ImageButton) findViewById(R.id.card_view_button);
-        YoYo.with(Techniques.Pulse)
-                .duration(1200)
-                .interpolate(new AccelerateDecelerateInterpolator())
-                .withListener(new Animator.AnimatorListener() {
+//        YoYo.with(Techniques.Pulse)
+//                .duration(1200)
+//                .interpolate(new AccelerateDecelerateInterpolator())
+//                .withListener(new Animator.AnimatorListener() {
+//
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        YoYo.with(Techniques.Pulse)
+//                                .duration(1200)
+//                                .interpolate(new AccelerateDecelerateInterpolator())
+//                                .withListener(this).playOn(cardView);
+//                    }
+//
+//                    @Override
+//                    public void onAnimationCancel(Animator animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animator animation) {
+//                    }
+//                }).playOn(cardView);
+    }
 
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        YoYo.with(Techniques.Pulse)
-                                .duration(1200)
-                                .interpolate(new AccelerateDecelerateInterpolator())
-                                .withListener(this).playOn(cardView);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-                    }
-                }).playOn(cardView);
+    public static int getFirsPage(){
+        return FIRST_PAGE;
     }
 
 }

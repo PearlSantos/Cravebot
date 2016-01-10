@@ -53,7 +53,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     private final static String APIFood = "http://cravebot.ph/photos/";
     private final static String APIResto = "http://cravebot.ph/photos/logos/";
 
-    public static final int LOOPS_COUNT = 1000;
 
     public SectionsPagerAdapter(FragmentManager fm, ArrayList<FoodItem> items) {
         super(fm);
@@ -65,7 +64,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
         System.out.println("PRINT: POS " + position);
-
+        position = position % items.size();
         return new PlaceholderFragment().newInstance(position);
 
     }
@@ -80,7 +79,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 //        {
 //            return 1;
 //        }
-        return items.size();
+        return items.size() * CardLayout.LOOPS;
     }
 
     public static class PlaceholderFragment extends Fragment {
@@ -134,8 +133,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
-            // background = (ImageView) view.findViewById(R.id.background);
-            //    Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
+//            background = (ImageView) view.findViewById(R.id.background);
+//            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
 
             ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
                 @Override
@@ -195,9 +194,9 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             int paddingBottom = putOptions.getPaddingBottom();
             float textS = ((TextViewPlus) view.findViewById(R.id.description)).getTextSize();
             int i = 1;
-            while(i<=6 && !singleItem.getOptions(i).trim().equals("")){
+            while (i <= 6 && !singleItem.getOptions(i).trim().equals("")) {
                 String option = singleItem.getOptions(i).trim();
-                if(!option.equals("")){
+                if (!option.equals("")) {
                     LinearLayout layoutOptions = new LinearLayout(getActivity().getApplicationContext());
                     layoutOptions.setOrientation(LinearLayout.HORIZONTAL);
                     layoutOptions.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
@@ -220,9 +219,9 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     optionPrice.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),
                             R.color.darkGray));
                     String prices = singleItem.getPrices(i).trim();
-                    if(prices.substring(0).equals("P"))
+                    if (prices.substring(0).equals("P"))
                         optionPrice.setText(prices);
-                    else optionPrice.setText("P " +prices);
+                    else optionPrice.setText("P " + prices);
 
                     layoutOptions.addView(optionText);
                     layoutOptions.addView(optionPrice);
@@ -265,8 +264,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     }
                     return true;
                 }
-            });;
-
+            });
+            ;
 
 
 //            Button testGridView = (Button) view.findViewById(R.id.testGridView);
