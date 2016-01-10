@@ -141,7 +141,7 @@ public class InstructionSlides extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_instruction_slides, container, false);
-            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.wot).fit().into(
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.food_bg).fit().into(
                     ((ImageView) rootView.findViewById(R.id.instruction))
             );
             return rootView;

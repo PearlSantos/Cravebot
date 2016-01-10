@@ -53,6 +53,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     private final static String APIFood = "http://cravebot.ph/photos/";
     private final static String APIResto = "http://cravebot.ph/photos/logos/";
 
+    public static final int LOOPS_COUNT = 1000;
+
     public SectionsPagerAdapter(FragmentManager fm, ArrayList<FoodItem> items) {
         super(fm);
         this.items = items;
@@ -70,6 +72,14 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
+//        if (items != null && items.size() > 0)
+//        {
+//            return items.size()*LOOPS_COUNT; // simulate infinite by big number of products
+//        }
+//        else
+//        {
+//            return 1;
+//        }
         return items.size();
     }
 
@@ -121,11 +131,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             foodImage = (ImageView) view.findViewById(R.id.foodImage);
 
-            background = (ImageView) view.findViewById(R.id.background);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
-            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
+            // background = (ImageView) view.findViewById(R.id.background);
+            //    Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
 
             ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
                 @Override
@@ -258,13 +268,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             });;
 
 
-
-            ((FloatingActionButton) view.findViewById(R.id.fab)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getActivity().finish();
-                }
-            });
 
 //            Button testGridView = (Button) view.findViewById(R.id.testGridView);
 //            ((Button) view.findViewById(R.id.testGridView)).setOnClickListener(new View.OnClickListener() {

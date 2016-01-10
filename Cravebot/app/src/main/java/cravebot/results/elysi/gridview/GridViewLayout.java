@@ -4,20 +4,29 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.nineoldandroids.animation.Animator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -38,7 +47,6 @@ public class GridViewLayout extends AppCompatActivity {
     private GridView gridview;
     private ArrayList<FoodItem> items;
     private final String APIFood = "http://cravebot.ph/photos/";
-    private final String APIResto = "http://cravebot.ph/photos/logos/";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +64,7 @@ public class GridViewLayout extends AppCompatActivity {
                 i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
                 i.putExtra("position", position);
                 startActivity(i);
+                GridViewLayout.this.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
                 finish();
             }
         });
@@ -65,6 +74,107 @@ public class GridViewLayout extends AppCompatActivity {
         PauseOnScrollListener listener = new PauseOnScrollListener
                 (ImageLoader.getInstance(), pauseOnScroll, pauseOnFling);
         gridview.setOnScrollListener(listener);
+//
+//        final TabLayout switchViews = (TabLayout) findViewById(R.id.switchView);
+//        TabLayout.Tab card = switchViews.newTab().setIcon(R.drawable.card);
+//        switchViews.addTab(card);
+//        switchViews.addTab(switchViews.newTab().setIcon(R.drawable.grid_view_button));
+//        switchViews.setSelectedTabIndicatorColor(Color.BLUE);
+//        switchViews.setSelectedTabIndicatorHeight(10);
+//        card.select();
+//        switchViews.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                if (switchViews.getSelectedTabPosition() == 0) {
+//                    Intent i = new Intent(GridViewLayout.this, CardLayout.class);
+//                    i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
+//                    startActivity(i);
+//                    GridViewLayout.this.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
+//                    GridViewLayout.this.finish();
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+
+        ((ImageButton) findViewById(R.id.card_view_button)).setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageButton view = (ImageButton) v;
+                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                        Intent i = new Intent(GridViewLayout.this, CardLayout.class);
+                        i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
+                        startActivity(i);
+                        GridViewLayout.this.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
+                        GridViewLayout.this.finish();
+                        // Your action here on button click
+
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageButton view = (ImageButton) v;
+                        view.getBackground().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+        ;
+
+
+//        ((ImageButton)findViewById(R.id.card_view_button)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(GridViewLayout.this, CardLayout.class);
+//                    i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
+//                startActivity(i);
+//                GridViewLayout.this.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
+//                GridViewLayout.this.finish();
+//            }
+//        });
+
+
+        final ImageButton gridView = (ImageButton) findViewById(R.id.grid_view_button);
+        YoYo.with(Techniques.Pulse)
+                .duration(1200)
+                .interpolate(new AccelerateDecelerateInterpolator())
+                .withListener(new Animator.AnimatorListener() {
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        YoYo.with(Techniques.Pulse)
+                                .duration(1200)
+                                .interpolate(new AccelerateDecelerateInterpolator())
+                                .withListener(this).playOn(gridView);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+                }).playOn(gridView);
 
     }
 
@@ -113,7 +223,7 @@ public class GridViewLayout extends AppCompatActivity {
 //            View view = convertView;
             if (convertView == null) {
                 // if it's not recycled, initialize some attributes
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE );
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = inflater.inflate(R.layout.gridview_layout, parent, false);
                 holder = new ViewHolder();
                 v.setTag(holder);
@@ -166,6 +276,7 @@ public class GridViewLayout extends AppCompatActivity {
         }
 
     }
+
     static class ViewHolder {
         ImageView imageView;
         ProgressBar progressBar;
