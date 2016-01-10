@@ -11,7 +11,7 @@
         android:layout_marginBottom="1dp">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="35dp"
         android:scaleType="fitXY"
         android:id="@+id/choices" />
     </android.support.v7.widget.CardView>

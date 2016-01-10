@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle mDrawerToggle;
     ActionBar mActionBar;
     private boolean[] filterClicked;
+    private boolean whatsHotClicked;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
         }
 
-        holder = new String[]{"o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"};
+        holder = new String[]{"o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "i"};
         imgRes = new Integer[]{R.drawable.beef,
                 R.drawable.beverages,
                 R.drawable.burger_sandwiches,
@@ -149,7 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.pork,
                 R.drawable.seafood,
                 R.drawable.setmeals,
-                R.drawable.snacks};
+                R.drawable.snacks,
+                R.drawable.whats_hot};
         imgRes2 = new Integer[]{R.mipmap.beef_g,
                 R.mipmap.beverages_g,
                 R.mipmap.burgers_sandwiches_g,
@@ -161,30 +163,44 @@ public class MainActivity extends AppCompatActivity {
                 R.mipmap.pork_g,
                 R.mipmap.seafood_g,
                 R.mipmap.set_meals_g,
-                R.mipmap.snacks_g};
+                R.mipmap.snacks_g,
+                R.drawable.whats_hot_button};
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer);
-        mDrawerList.setAdapter(new CustomListAdapter(this, holder, imgRes));
+        mDrawerList.setAdapter(new CustomListAdapter(this, holder, imgRes2));
 //        LayoutInflater inflater = getLayoutInflater();
 //        View listHeaderView = inflater.inflate(R.layout.header_view,null, false);
 //
 //        mDrawerList.addHeaderView(listHeaderView);
-        filterClicked = new boolean[imgRes.length];
-        for (int i = 0; i < imgRes.length; i++) {
-            filterClicked[i] = false;
+        filterClicked = new boolean[imgRes.length-1];
+        for (int i = 0; i < imgRes.length-1; i++) {
+            filterClicked[i] = true;
         }
+        whatsHotClicked = false;
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ImageView im = (ImageView) view.findViewById(R.id.choices);
-                if (!filterClicked[position]) {
-                    im.setImageResource(imgRes2[position]);
-                    filterClicked[position] = true;
-                } else {
-                    im.setImageResource(imgRes[position]);
-                    filterClicked[position] = false;
+                if(!(holder[position].equals("i"))){
+                    if (!filterClicked[position]) {
+                        im.setImageResource(imgRes2[position]);
+                        filterClicked[position] = true;
+                    } else {
+                        im.setImageResource(imgRes[position]);
+                        filterClicked[position] = false;
+                    }
                 }
-
+               else{
+                    if(!whatsHotClicked){
+                        im.setImageResource(imgRes2[position]);
+                        whatsHotClicked = true;
+                        //insert here what should be done when what's hot is clicked
+                    }
+                    else{
+                        im.setImageResource(imgRes[position]);
+                        whatsHotClicked = false;
+                    }
+                }
             }
         });
 
@@ -345,7 +361,10 @@ class CustomListAdapter extends ArrayAdapter<String> {
         //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         //txtTitle.setText(itemname[position]);
-        imageView.setImageResource(imgid[pos]);
+        if(itemname[pos].equals("o"))
+            imageView.setImageResource(imgid[pos]);
+        else
+            imageView.setImageResource(R.drawable.whats_hot);
 
         //extratxt.setText("Description "+itemname[position]);
         return rowView;
