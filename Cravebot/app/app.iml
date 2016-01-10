@@ -120,6 +120,5 @@
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="crittercism_v3_0_3_sdkonly" level="project" />
     <orderEntry type="library" exported="" name="commons-codec-1.9" level="project" />
-    <orderEntry type="module" module-name="SlidingMenu" exported="" />
   </component>
 </module>
