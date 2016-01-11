@@ -63,6 +63,7 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
         this.filterClicked = filterClicked;
         this.seekBarMin = seekBarMin;
         this.seekBarMax = seekBarMax;
+        this.progressDialog = new ProgressDialog(context);
 
         //get filters
         if(filterClicked[0] && isFirst){
@@ -154,7 +155,9 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
     protected void onPreExecute()
     {
         //Create a new progress dialog
-
+        progressDialog.setTitle("GETTING FOOD ITEMS");
+        progressDialog.setMessage("Please wait . . .");
+        progressDialog.show();
        // progressDialog = ProgressDialog.show(context.getWindow().getContext(), "GETTING FOOD ITEMS", "Please wait . . .", false, false);
         //Display the progress dialog
     }
@@ -275,7 +278,9 @@ public class GoTask extends AsyncTask<String,Void,ArrayList<FoodItem>> {
     protected void onPostExecute(ArrayList<FoodItem> result){
         //if you used a loading dialog/spinner in onPreExecute(), make sure to disable it here.
 
-       // progressDialog.dismiss();
+        if(progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
         if(result.size() != 0){
             try {
                 Log.d("doInBackGround", "size " + Integer.toString(result.size()));

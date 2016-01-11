@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBar mActionBar;
     private boolean[] filterClicked;
     private boolean whatsHotClicked;
+    Context context = this;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -244,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                 double min = seekBar.getSelectedMinValue();
                 double max = seekBar.getSelectedMaxValue();
                 Log.d("MainActivity", "button pressed");
-                new GoTask(getApplicationContext(), filterClicked, min, max).execute("test");
+                new GoTask(context, filterClicked, min, max).execute("test");
             }
         });
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
