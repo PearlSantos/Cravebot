@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.util.ArrayList;
 
 import cravebot.R;
+import cravebot.results.elysi.cardlayoutview.CardLayoutFood;
 import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.work.pearlsantos.cravebot.GoTask;
 
@@ -47,7 +48,7 @@ public class GridViewLayout extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 //GridViewLayout.this.overridePendingTransition(R.anim.zoom_out, R.anim.zoom_in);
-                Intent i = new Intent(getApplicationContext(), CardLayout.class);
+                Intent i = new Intent(getApplicationContext(), CardLayoutFood.class);
                 i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
                 i.putExtra("position", position);
                 startActivity(i);
@@ -104,7 +105,7 @@ public class GridViewLayout extends AppCompatActivity {
                         break;
                     }
                     case MotionEvent.ACTION_UP:
-                        Intent i = new Intent(GridViewLayout.this, CardLayout.class);
+                        Intent i = new Intent(GridViewLayout.this, CardLayoutFood.class);
                         i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
                         startActivity(i);
                         GridViewLayout.this.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
@@ -211,7 +212,7 @@ public class GridViewLayout extends AppCompatActivity {
             if (convertView == null) {
                 // if it's not recycled, initialize some attributes
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.gridview_layout, parent, false);
+                v = inflater.inflate(R.layout.gridview_item, parent, false);
                 holder = new ViewHolder();
                 v.setTag(holder);
             } else {

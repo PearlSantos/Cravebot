@@ -55,6 +55,16 @@
             android:name=".survey.Survey"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".results.elysi.cardlayoutview.CardLayoutHot"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <activity
+            android:name=".results.elysi.cardlayoutview.CardLayoutFood"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" >
+        </activity>
     </application>
 
 </manifest>

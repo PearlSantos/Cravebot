@@ -33,6 +33,7 @@ public class InstructionSlides extends AppCompatActivity {
     private ViewPager mViewPager;
     private static ArrayList<Integer> imgId;
     private Button back;
+    private static ImageView background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class InstructionSlides extends AppCompatActivity {
 
         // mViewPager.setOffscreenPageLimit(3);
         mViewPager.setClipChildren(false);
+        mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -156,6 +158,9 @@ public class InstructionSlides extends AppCompatActivity {
             Picasso.with(getActivity().getApplicationContext()).load(imgId.get(getArguments().getInt
                     (ARG_SECTION_NUMBER))).
                     fit().into(((ImageView) rootView.findViewById(R.id.instruction)));
+//            background = (ImageView) rootView.findViewById(R.id.instruction);
+//            background.setImageResource(imgId.get(getArguments().getInt
+//                    (ARG_SECTION_NUMBER)));
             return rootView;
         }
     }

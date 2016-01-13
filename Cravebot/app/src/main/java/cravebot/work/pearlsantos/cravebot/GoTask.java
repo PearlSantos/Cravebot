@@ -26,6 +26,7 @@ import android.widget.Toast;
 import cravebot.results.elysi.cardlayoutview.CardLayoutFood;
 import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.Resto;
+import cravebot.results.elysi.gridview.GridViewLayout;
 
 /**
  * @author Christoffer Kho
@@ -262,7 +263,6 @@ public class GoTask extends AsyncTask<String, Void, ArrayList<FoodItem>> {
 
     }//doInBackGround ends here
 
-
     //Do all UI work here.
     @Override
     protected void onPostExecute(ArrayList<FoodItem> result) {
@@ -299,6 +299,7 @@ public class GoTask extends AsyncTask<String, Void, ArrayList<FoodItem>> {
         } else {
             MainActivity.noInternet.show();
         }
+
     }
 
 
@@ -326,6 +327,5 @@ public class GoTask extends AsyncTask<String, Void, ArrayList<FoodItem>> {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
-
 }
 
