@@ -2,46 +2,31 @@ package cravebot.results.elysi.cardlayoutview;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.os.AsyncTask;
 
-
-import com.antonyt.infiniteviewpager.InfinitePagerAdapter;
-import com.antonyt.infiniteviewpager.InfiniteViewPager;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-
-import android.view.animation.AccelerateDecelerateInterpolator;
-
-import com.nineoldandroids.animation.Animator;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import cravebot.R;
+import cravebot.results.elysi.customobjects.FoodItem;
+import cravebot.results.elysi.customobjects.OnSwipeListener;
+import cravebot.results.elysi.customobjects.PagerContainer;
 import cravebot.results.elysi.gridview.GridViewLayout;
+import cravebot.work.pearlsantos.cravebot.GoTask;
 
-public class CardLayout extends AppCompatActivity {
+public class CardLayoutFood extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private GestureDetector mGestureDetector;
@@ -56,7 +41,7 @@ public class CardLayout extends AppCompatActivity {
     private PagerContainer mContainer;
 
 
-    public CardLayout() {
+    public CardLayoutFood() {
 
     }
 
@@ -65,7 +50,7 @@ public class CardLayout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-        setContentView(R.layout.activity_card_layout);
+        setContentView(R.layout.activity_card_layout_food);
 
         sample = getIntent().getParcelableArrayListExtra(GoTask.LIST_KEY);
 
@@ -103,7 +88,7 @@ public class CardLayout extends AppCompatActivity {
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), sample);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        FIRST_PAGE = sample.size()*LOOPS /2;
+        FIRST_PAGE = sample.size() * LOOPS / 2;
         //Necessary or the pager will only have one extra page to show
         // make this at least however many pages you can see
         // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
@@ -124,8 +109,6 @@ public class CardLayout extends AppCompatActivity {
 
 //        ImageView background = (ImageView) findViewById(R.id.background);
 //        Picasso.with(getApplicationContext()).load(R.drawable.food_bg).into(background);
-
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -192,11 +175,11 @@ public class CardLayout extends AppCompatActivity {
                         break;
                     }
                     case MotionEvent.ACTION_UP:
-                        Intent i = new Intent(CardLayout.this, GridViewLayout.class);
+                        Intent i = new Intent(CardLayoutFood.this, GridViewLayout.class);
                         i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
                         startActivity(i);
-                        CardLayout.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
-                        CardLayout.this.finish();
+                        CardLayoutFood.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+                        CardLayoutFood.this.finish();
                         // Your action here on button click
 
                     case MotionEvent.ACTION_CANCEL: {
@@ -221,7 +204,7 @@ public class CardLayout extends AppCompatActivity {
 //            }
 //        });
 
-        mGestureDetector = new GestureDetector(this, new OnSwipeListener(CardLayout.this, sample) {
+        mGestureDetector = new GestureDetector(this, new OnSwipeListener(CardLayoutFood.this, sample) {
             @Override
             public boolean onSwipe(Direction d) {
                 super.onSwipe(d);
@@ -277,39 +260,10 @@ public class CardLayout extends AppCompatActivity {
             }
         });
 
-//        ImageView background = (ImageView) findViewById(R.id.background);
-//        Picasso.with(CardLayout.this).load(R.drawable.food_bg).fit().into(background);
 
-
-        final ImageButton cardView = (ImageButton) findViewById(R.id.card_view_button);
-//        YoYo.with(Techniques.Pulse)
-//                .duration(1200)
-//                .interpolate(new AccelerateDecelerateInterpolator())
-//                .withListener(new Animator.AnimatorListener() {
-//
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        YoYo.with(Techniques.Pulse)
-//                                .duration(1200)
-//                                .interpolate(new AccelerateDecelerateInterpolator())
-//                                .withListener(this).playOn(cardView);
-//                    }
-//
-//                    @Override
-//                    public void onAnimationCancel(Animator animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animator animation) {
-//                    }
-//                }).playOn(cardView);
     }
 
-    public static int getFirsPage(){
+    public static int getFirsPage() {
         return FIRST_PAGE;
     }
 

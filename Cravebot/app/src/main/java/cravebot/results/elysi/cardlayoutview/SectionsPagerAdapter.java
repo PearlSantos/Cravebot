@@ -1,15 +1,12 @@
 package cravebot.results.elysi.cardlayoutview;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -17,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,13 +28,13 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import cravebot.R;
 import cravebot.customstuff.TextViewPlus;
-import cravebot.results.elysi.gridview.GridViewLayout;
+import cravebot.results.elysi.customobjects.FoodItem;
+import cravebot.results.elysi.customobjects.SmartFragmentStatePagerAdapter;
 
 /**
  * /**
@@ -79,7 +75,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 //        {
 //            return 1;
 //        }
-        return items.size() * CardLayout.LOOPS;
+        return items.size() * CardLayoutFood.LOOPS;
     }
 
     public static class PlaceholderFragment extends Fragment {
@@ -108,7 +104,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         @Override
         public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            view = inflater.inflate(R.layout.fragment_card_layout, container, false);
+            view = inflater.inflate(R.layout.fragment_card_layout_food, container, false);
             singleItem = items.get(getArguments().getInt(ARG_SECTION_NUMBER));
 
             DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -126,7 +122,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             ((TextViewPlus) view.findViewById(R.id.foodName)).setText(singleItem.getItemName());
             ((TextViewPlus) view.findViewById(R.id.restoName)).setText(singleItem.getRestoName());
-            ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + Double.toString(singleItem.getPrice()));
+            ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
             foodImage = (ImageView) view.findViewById(R.id.foodImage);
 
@@ -161,7 +157,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             ((TextViewPlus) view.findViewById(R.id.foodNameInfo)).setText(singleItem.getItemName().trim());
             ((TextViewPlus) view.findViewById(R.id.restoNameInfo)).setText(singleItem.getRestoName().trim());
-            ((TextViewPlus) view.findViewById(R.id.priceInfo)).setText("P " + Double.toString(singleItem.getPrice()).trim());
+            ((TextViewPlus) view.findViewById(R.id.priceInfo)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
             ((TextViewPlus) view.findViewById(R.id.description)).setText(singleItem.getDescription().trim());
 
@@ -212,19 +208,25 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     optionText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
                     optionText.setText(option);
 
-                    TextViewPlus optionPrice = new TextViewPlus(getActivity().getApplicationContext());
-                    optionPrice.setGravity(Gravity.END);
-                    optionPrice.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.3f));
-                    optionPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
-                    optionPrice.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),
-                            R.color.darkGray));
-                    String prices = singleItem.getPrices(i).trim();
-                    if (prices.substring(0).equals("P"))
-                        optionPrice.setText(prices);
-                    else optionPrice.setText("P " + prices);
+                    String optionPriceString = singleItem.getPrices(i).trim();
+                    TextViewPlus optionPrice = null;
+                    if(!optionPriceString.equals("")) {
+                        optionPrice = new TextViewPlus(getActivity().getApplicationContext());
+                        optionPrice.setGravity(Gravity.END);
+                        optionPrice.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.3f));
+                        optionPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
+                        optionPrice.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),
+                                R.color.darkGray));
+                        String prices = singleItem.getPrices(i).trim();
+                        if (prices.trim().substring(0).equals("P"))
+                            optionPrice.setText(prices + ".00");
+                        else optionPrice.setText("P " + prices + ".00");
+                    }
 
                     layoutOptions.addView(optionText);
-                    layoutOptions.addView(optionPrice);
+                    if(optionPrice!=null) {
+                        layoutOptions.addView(optionPrice);
+                    }
 
                     putOptions.addView(layoutOptions);
 
@@ -328,7 +330,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         public ImageView getFoodImage() {
             return foodImage;
         }
-
 
     }
 

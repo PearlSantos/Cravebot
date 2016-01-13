@@ -1,9 +1,7 @@
 package cravebot.work.pearlsantos.cravebot;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -17,7 +15,6 @@ import java.net.URL;
 
 import cravebot.BuildConfig;
 import cravebot.R;
-import cravebot.results.elysi.cardlayoutview.GoTask;
 
 /**
  * Created by elysi on 1/2/2016.

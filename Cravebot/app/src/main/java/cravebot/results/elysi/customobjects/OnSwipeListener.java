@@ -1,14 +1,10 @@
-package cravebot.results.elysi.cardlayoutview;
+package cravebot.results.elysi.customobjects;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
-
-import cravebot.results.elysi.gridview.GridViewLayout;
 
 /**
  * From: http://stackoverflow.com/questions/13095494/how-to-detect-swipe-direction-between-left-right-and-up-down

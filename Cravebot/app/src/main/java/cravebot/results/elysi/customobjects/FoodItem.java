@@ -1,4 +1,4 @@
-package cravebot.results.elysi.cardlayoutview;
+package cravebot.results.elysi.customobjects;
 
 import android.os.Parcel;
 import android.os.Parcelable;

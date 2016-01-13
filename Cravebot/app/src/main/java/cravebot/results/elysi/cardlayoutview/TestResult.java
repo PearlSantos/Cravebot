@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import cravebot.R;
+import cravebot.results.elysi.customobjects.FoodItem;
+import cravebot.work.pearlsantos.cravebot.GoTask;
 
 public class TestResult extends Activity {
     TextView text;

@@ -1,149 +1,161 @@
 package cravebot.work.pearlsantos.cravebot;
 
-import android.annotation.SuppressLint;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.graphics.Typeface;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.nineoldandroids.animation.Animator;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import cravebot.R;
-import cravebot.results.elysi.cardlayoutview.PagerContainer;
-import cravebot.results.elysi.cardlayoutview.SmartFragmentStatePagerAdapter;
+import cravebot.results.elysi.customobjects.PagerContainer;
 
 public class InstructionSlides extends AppCompatActivity {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private CustomAdapter mSectionsPagerAdapter;
     private PagerContainer mContainer;
     private ViewPager mViewPager;
+    private static ArrayList<Integer> imgId;
+    private Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intstruction_slides);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        imgId = new ArrayList<>();
+        imgId.add(R.drawable.instruction_1);
+        imgId.add(R.drawable.instruction_2);
+        imgId.add(R.drawable.instruction_3);
 
-        // Set up the ViewPager with the sections adapter.
-        mContainer = (PagerContainer) findViewById(R.id.pager_container);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-
-        mContainer.getViewTreeObserver().
-                addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @SuppressLint("NewApi")
-                    @SuppressWarnings("deprecation")
-                    @Override
-                    public void onGlobalLayout() {
-                        //now we can retrieve the width and height
-                        int height = mContainer.getHeight();
-
-                        double heightSize = height * 0.5;
-                        height = (int) heightSize;
-                        double widthSize = height * 0.6;
-                        int width = (int) widthSize;
-
-
-                        mViewPager.setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
-                        mViewPager.setPageMargin(width / 20);
-//                        mViewPager.setPadding(width /30, width /30, width /30, width /30);
-
-
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
-                            mContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        else
-                            mContainer.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    }
-                });
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
-        mViewPager.setOffscreenPageLimit(3);
-
-        //If hardware acceleration is enabled, you should also remove
-        // clipping on the pager for its children.
-        mViewPager.setClipChildren(false);
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        back = (Button) findViewById(R.id.goBack);
+        back.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc"));
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 finish();
             }
         });
 
+        YoYo.with(Techniques.Pulse)
+                .duration(1200)
+                .interpolate(new AccelerateDecelerateInterpolator())
+                .withListener(new Animator.AnimatorListener() {
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        YoYo.with(Techniques.Pulse)
+                                .duration(1200)
+                                .interpolate(new AccelerateDecelerateInterpolator())
+                                .withListener(this).playOn(back);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+                }).playOn(back);
+
+
+
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+
+        mSectionsPagerAdapter = new CustomAdapter(getSupportFragmentManager());
+
+
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+
+        // mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setClipChildren(false);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == imgId.size() - 1) {
+                    back.setVisibility(View.VISIBLE);
+                } else {
+                    back.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
     }
 
 
-    public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
+    public class CustomAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        public CustomAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position);
+            return Instructions.newInstance(position);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return imgId.size();
         }
 
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+    public static class Instructions extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
+        public static Instructions newInstance(int sectionNumber) {
+            Instructions fragment = new Instructions();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
-        public PlaceholderFragment() {
+        public Instructions() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_instruction_slides, container, false);
-            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.food_bg).fit().into(
-                    ((ImageView) rootView.findViewById(R.id.instruction))
-            );
+            Picasso.with(getActivity().getApplicationContext()).load(imgId.get(getArguments().getInt
+                    (ARG_SECTION_NUMBER))).
+                    fit().into(((ImageView) rootView.findViewById(R.id.instruction)));
             return rootView;
         }
     }

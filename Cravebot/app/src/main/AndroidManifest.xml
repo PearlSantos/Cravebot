@@ -29,11 +29,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".results.elysi.cardlayoutview.CardLayout"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Transparent"/>
         <activity android:name=".results.elysi.cardlayoutview.TestResult"/>
         <activity
             android:name=".results.elysi.gridview.GridViewLayout"

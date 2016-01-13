@@ -1,4 +1,4 @@
-package cravebot.results.elysi.cardlayoutview;
+package cravebot.results.elysi.customobjects;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

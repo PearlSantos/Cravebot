@@ -1,4 +1,4 @@
-package cravebot.results.elysi.cardlayoutview;
+package cravebot.results.elysi.customobjects;
 /**
  * Created by Francisco on 12/22/2015.
  */

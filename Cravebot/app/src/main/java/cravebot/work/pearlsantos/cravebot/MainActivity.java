@@ -10,17 +10,8 @@ import android.content.res.Configuration;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.design.widget.FloatingActionButton;
-
-import android.content.res.Configuration;
-import android.app.Activity;
-import android.graphics.Bitmap;
 
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -35,8 +26,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -54,15 +43,10 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import cravebot.R;
-import cravebot.results.elysi.cardlayoutview.GoTask;
 
 public class MainActivity extends AppCompatActivity {
     Integer[] imgRes;
@@ -75,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean[] filterClicked;
     private boolean whatsHotClicked;
     Context context = this;
+    public static AlertDialog noInternet;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,17 +108,18 @@ public class MainActivity extends AppCompatActivity {
         ImageLoader.getInstance().clearMemoryCache();
         ImageLoader.getInstance().clearDiskCache();
 
+        noInternet = new AlertDialog.Builder(MainActivity.this)
+                .setTitle("No Internet Connection")
+                .setMessage("Please connect to the internet to use the application's services.")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        arg0.dismiss();
+                    }
+                }).create();
+
         int nextAction = getIntent().getIntExtra(CheckingStart.WHAT_TO_DO, -1);
         if(nextAction==1) {
-            new AlertDialog.Builder(MainActivity.this)
-                    .setTitle("No Internet Connection")
-                    .setMessage("Please connect to the internet to use the application's services.")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            MainActivity.this.finish();
-                            arg0.dismiss();
-                        }
-                    }).create().show();
+            noInternet.show();
         }
         else if(nextAction==2){
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
