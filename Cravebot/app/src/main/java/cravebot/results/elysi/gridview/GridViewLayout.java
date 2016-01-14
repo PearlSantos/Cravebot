@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -93,14 +94,16 @@ public class GridViewLayout extends AppCompatActivity {
 //            }
 //        });
 
-        ((ImageButton) findViewById(R.id.card_view_button)).setOnTouchListener(new View.OnTouchListener() {
+        ImageView cardViewButton = (ImageView) findViewById(R.id.card_view_button);
+        Picasso.with(GridViewLayout.this).load(R.drawable.card).fit().into(cardViewButton);
+        cardViewButton.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        ImageView view = (ImageView) v;
+                        view.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
                         v.invalidate();
                         break;
                     }
@@ -113,8 +116,8 @@ public class GridViewLayout extends AppCompatActivity {
                         // Your action here on button click
 
                     case MotionEvent.ACTION_CANCEL: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().clearColorFilter();
+                        ImageView view = (ImageView) v;
+                        view.clearColorFilter();
                         view.invalidate();
                         break;
                     }
@@ -122,6 +125,9 @@ public class GridViewLayout extends AppCompatActivity {
                 return true;
             }
         });
+        ImageView gridViewButton = (ImageView) findViewById(R.id.grid_view_button);
+        Picasso.with(GridViewLayout.this).load(R.drawable.grid_view_button).fit().into(gridViewButton);
+
         ;
 
 

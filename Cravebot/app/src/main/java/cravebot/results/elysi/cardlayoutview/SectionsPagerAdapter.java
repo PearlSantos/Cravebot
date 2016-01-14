@@ -28,6 +28,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -129,9 +130,9 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
-//            background = (ImageView) view.findViewById(R.id.background);
-//            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
-
+            background = (ImageView) view.findViewById(R.id.background);
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
+            background.invalidate();
             ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String url, View view) {

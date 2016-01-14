@@ -2,15 +2,14 @@
     android:id="@+id/fragmentLayoutWhole"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@drawable/card">
+    android:gravity="center">
 
-    <!--<ImageView-->
-    <!--android:id="@+id/background"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:scaleType="fitXY"-->
-    <!--/>-->
+    <ImageView
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="fitXY"
+    />
 
     <FrameLayout
         android:id="@+id/root_frame"

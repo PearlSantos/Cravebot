@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -165,15 +166,16 @@ public class CardLayoutFood extends AppCompatActivity {
 //            }
 //        });
 
-
-        ((ImageButton) findViewById(R.id.grid_view_button)).setOnTouchListener(new View.OnTouchListener() {
+        ImageView gridViewButton = (ImageView) findViewById(R.id.grid_view_button);
+        Picasso.with(CardLayoutFood.this).load(R.drawable.grid_view_button).fit().into(gridViewButton);
+        gridViewButton.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        ImageView view = (ImageView) v;
+                        view.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
                         v.invalidate();
                         break;
                     }
@@ -186,8 +188,8 @@ public class CardLayoutFood extends AppCompatActivity {
                         // Your action here on button click
 
                     case MotionEvent.ACTION_CANCEL: {
-                        ImageButton view = (ImageButton) v;
-                        view.getBackground().clearColorFilter();
+                        ImageView view = (ImageView) v;
+                        view.clearColorFilter();
                         view.invalidate();
                         break;
                     }
@@ -195,6 +197,8 @@ public class CardLayoutFood extends AppCompatActivity {
                 return true;
             }
         });
+        ImageView cardViewButton = (ImageView) findViewById(R.id.card_view_button);
+        Picasso.with(CardLayoutFood.this).load(R.drawable.card).fit().into(cardViewButton);
 
 //        ((ImageButton) findViewById(R.id.grid_view_button)).setOnClickListener(new View.OnClickListener() {
 //            @Override
