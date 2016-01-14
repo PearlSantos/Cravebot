@@ -90,7 +90,7 @@ public class CheckingStart extends AsyncTask<Void, Void, Integer> {
                 HttpURLConnection urlc = (HttpURLConnection) (new URL("https://www.google.com.ph").openConnection());
                 urlc.setRequestProperty("User-Agent", "Test");
                 urlc.setRequestProperty("Connection", "close");
-                urlc.setConnectTimeout(3000);
+                urlc.setConnectTimeout(1500);
                 urlc.connect();
                 return (urlc.getResponseCode() == 200);
             } catch (IOException e) {

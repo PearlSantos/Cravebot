@@ -26,35 +26,34 @@
             android:gravity="center"
             android:numColumns="3" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="bottom|center"
-            android:layout_weight="0.4"
-            android:background="#00555555"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_gravity="bottom|center"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:background="#00555555"-->
+        <!--android:orientation="horizontal">-->
 
-            <ImageButton
-                android:id="@+id/card_view_button"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_7sdp"
-                android:background="@drawable/card"
-                android:padding="@dimen/_7sdp"
-                android:scaleType="center" />
+        <!--<ImageButton-->
+        <!--android:id="@+id/card_view_button"-->
+        <!--android:layout_width="@dimen/_20sdp"-->
+        <!--android:layout_height="@dimen/_20sdp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="@dimen/_7sdp"-->
+        <!--android:background="@drawable/card"-->
+        <!--android:padding="@dimen/_7sdp"-->
+        <!--android:scaleType="center" />-->
 
-            <ImageButton
-                android:id="@+id/grid_view_button"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_7sdp"
-                android:background="@drawable/grid_view_button"
-                android:padding="@dimen/_7sdp"
-                android:scaleType="center" />
+        <!--<ImageButton-->
+        <!--android:id="@+id/grid_view_button"-->
+        <!--android:layout_width="@dimen/_25sdp"-->
+        <!--android:layout_height="@dimen/_25sdp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="@dimen/_7sdp"-->
+        <!--android:background="@drawable/grid_view_button"-->
+        <!--android:padding="@dimen/_7sdp"-->
+        <!--android:scaleType="center" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
     </LinearLayout>
-    <!--<android.support.design.widget.TabLayout android:id="@+id/switchView"--><!--android:layout_width="match_parent"--><!--android:layout_height="0dp"--><!--android:layout_weight="0.4"--><!--android:background="@drawable/food_bg"--><!--android:layout_gravity="bottom"/>-->
 </FrameLayout>

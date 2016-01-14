@@ -1,6 +1,7 @@
 package cravebot.results.elysi.cardlayoutview;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -114,9 +115,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     .bitmapConfig(Bitmap.Config.RGB_565)
                     .resetViewBeforeLoading(true)
                     .imageScaleType(ImageScaleType.EXACTLY)
-                    .showImageForEmptyUri(R.drawable.card) // resource or drawable
-                    .showImageOnFail(R.drawable.card)
-                    .showImageOnLoading(R.drawable.card)//display stub image until image is loaded
+                    .showImageForEmptyUri(R.drawable.cravebot_start)
+                    .showImageOnFail(R.drawable.cravebot_start)
                     .displayer(new FadeInBitmapDisplayer(100))
                     .build();
 
@@ -130,10 +130,13 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
-            background = (ImageView) view.findViewById(R.id.background);
-            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
-            background.invalidate();
-            ImageLoader.getInstance().displayImage(foodImg, foodImage, options, new SimpleImageLoadingListener() {
+//            background = (ImageView) view.findViewById(R.id.background);
+//            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
+//            background.invalidate();
+            ImageLoader.getInstance().displayImage(foodImg,
+                    foodImage,
+                    options,
+                    new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String url, View view) {
                     foodImage.setVisibility(View.GONE);

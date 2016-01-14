@@ -1,5 +1,6 @@
 package cravebot.work.pearlsantos.cravebot;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -82,17 +86,43 @@ public class InstructionSlides extends AppCompatActivity {
 
 
 
+        mContainer = (PagerContainer) findViewById(R.id.pager_container);
+
+
+        mContainer.getViewTreeObserver().
+                addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @SuppressLint("NewApi")
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void onGlobalLayout() {
+                        //now we can retrieve the width and height
+                        int height = mContainer.getHeight();
+                        int width = mContainer.getWidth();
+
+                        double heightSize = height * 0.8;
+                        height = (int) heightSize;
+                        double widthSize = width * 0.85;
+                        width = (int) widthSize;
+
+
+                        mViewPager.setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
+                        mViewPager.setPageMargin(width / 20);
+//                        mViewPager.setPadding(width /30, width /30, width /30, width /30);
+
+
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
+                            mContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        else
+                            mContainer.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+                });
+
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         mSectionsPagerAdapter = new CustomAdapter(getSupportFragmentManager());
 
-
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
-        // mViewPager.setOffscreenPageLimit(3);
         mViewPager.setClipChildren(false);
-        mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

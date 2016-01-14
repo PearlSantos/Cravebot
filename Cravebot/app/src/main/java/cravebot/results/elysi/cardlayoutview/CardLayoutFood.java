@@ -197,8 +197,6 @@ public class CardLayoutFood extends AppCompatActivity {
                 return true;
             }
         });
-        ImageView cardViewButton = (ImageView) findViewById(R.id.card_view_button);
-        Picasso.with(CardLayoutFood.this).load(R.drawable.card).fit().into(cardViewButton);
 
 //        ((ImageButton) findViewById(R.id.grid_view_button)).setOnClickListener(new View.OnClickListener() {
 //            @Override

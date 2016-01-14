@@ -99,4 +99,5 @@ public class Splash extends AppCompatActivity {
 //            }
 //        }, SPLASH_DISPLAY_LENGTH);
     }
+
 }
