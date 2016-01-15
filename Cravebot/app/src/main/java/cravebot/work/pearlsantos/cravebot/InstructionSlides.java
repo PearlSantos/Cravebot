@@ -49,8 +49,11 @@ public class InstructionSlides extends AppCompatActivity {
         imgId.add(R.drawable.instruction_2);
         imgId.add(R.drawable.instruction_3);
 
+
+        mContainer = (PagerContainer) findViewById(R.id.pager_container);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+
         back = (Button) findViewById(R.id.goBack);
-        back.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc"));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,8 +89,6 @@ public class InstructionSlides extends AppCompatActivity {
 
 
 
-        mContainer = (PagerContainer) findViewById(R.id.pager_container);
-
 
         mContainer.getViewTreeObserver().
                 addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -99,7 +100,7 @@ public class InstructionSlides extends AppCompatActivity {
                         int height = mContainer.getHeight();
                         int width = mContainer.getWidth();
 
-                        double heightSize = height * 0.8;
+                        double heightSize = height * 0.9;
                         height = (int) heightSize;
                         double widthSize = width * 0.85;
                         width = (int) widthSize;
@@ -117,7 +118,6 @@ public class InstructionSlides extends AppCompatActivity {
                     }
                 });
 
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         mSectionsPagerAdapter = new CustomAdapter(getSupportFragmentManager());
 

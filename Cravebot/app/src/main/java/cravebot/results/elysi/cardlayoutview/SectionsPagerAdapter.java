@@ -110,7 +110,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             singleItem = items.get(getArguments().getInt(ARG_SECTION_NUMBER));
 
             DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                    .cacheInMemory(true)
+                    .cacheInMemory(true)
                     .cacheOnDisk(true)
                     .bitmapConfig(Bitmap.Config.RGB_565)
                     .resetViewBeforeLoading(true)
@@ -131,7 +131,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             String foodImg = APIFood + singleItem.getPhoto();
 //            background = (ImageView) view.findViewById(R.id.background);
-//            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card).fit().into(background);
+//            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card)
+//                    .fit().into(background);
 //            background.invalidate();
             ImageLoader.getInstance().displayImage(foodImg,
                     foodImage,

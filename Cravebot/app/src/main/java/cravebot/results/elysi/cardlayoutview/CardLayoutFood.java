@@ -98,7 +98,7 @@ public class CardLayoutFood extends AppCompatActivity {
         // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
 
         mViewPager.setCurrentItem(FIRST_PAGE);
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(2);
 
 
         //If hardware acceleration is enabled, you should also remove
@@ -166,48 +166,53 @@ public class CardLayoutFood extends AppCompatActivity {
 //            }
 //        });
 
-        ImageView gridViewButton = (ImageView) findViewById(R.id.grid_view_button);
-        Picasso.with(CardLayoutFood.this).load(R.drawable.grid_view_button).fit().into(gridViewButton);
-        gridViewButton.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageView view = (ImageView) v;
-                        view.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        v.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                        Intent i = new Intent(CardLayoutFood.this, GridViewLayout.class);
-                        i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
-                        startActivity(i);
-                        CardLayoutFood.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
-                        CardLayoutFood.this.finish();
-                        // Your action here on button click
-
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageView view = (ImageView) v;
-                        view.clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-                return true;
-            }
-        });
-
-//        ((ImageButton) findViewById(R.id.grid_view_button)).setOnClickListener(new View.OnClickListener() {
+//        ImageView gridViewButton = (ImageView) findViewById(R.id.grid_view_button);
+//        Picasso.with(CardLayoutFood.this).load(R.drawable.grid_view_button).fit().into(gridViewButton);
+//        gridViewButton.setOnTouchListener(new View.OnTouchListener() {
+//
 //            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(CardLayout.this, GridViewLayout.class);
-//                i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
-//                startActivity(i);
-//                CardLayout.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
-//                CardLayout.this.finish();
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN: {
+//                        ImageView view = (ImageView) v;
+//                        view.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+//                        v.invalidate();
+//                        break;
+//                    }
+//                    case MotionEvent.ACTION_UP:
+//                        Intent i = new Intent(CardLayoutFood.this, GridViewLayout.class);
+//                        i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
+//                        startActivity(i);
+//                        CardLayoutFood.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+//                        CardLayoutFood.this.finish();
+//                        // Your action here on button click
+//
+//                    case MotionEvent.ACTION_CANCEL: {
+//                        ImageView view = (ImageView) v;
+//                        view.clearColorFilter();
+//                        view.invalidate();
+//                        break;
+//                    }
+//                }
+//                return true;
 //            }
 //        });
+
+        final ImageButton gridview = (ImageButton) findViewById(R.id.grid_view_button);
+        gridview.clearColorFilter();
+        gridview.invalidate();
+        gridview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gridview.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                gridview.invalidate();
+                Intent i = new Intent(CardLayoutFood.this, GridViewLayout.class);
+                i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
+                startActivity(i);
+                CardLayoutFood.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+                CardLayoutFood.this.finish();
+            }
+        });
 
         mGestureDetector = new GestureDetector(this, new OnSwipeListener(CardLayoutFood.this, sample) {
             @Override

@@ -34,7 +34,7 @@ public class Splash extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_splashscreen);
 
-        //background = (ImageView) findViewById(R.id.background);
+        background = (ImageView) findViewById(R.id.background);
         cravebot = (ImageView) findViewById(R.id.cravebot);
         final FrameLayout splashLayout = (FrameLayout) findViewById(R.id.splashLayout);
 
@@ -61,7 +61,7 @@ public class Splash extends AppCompatActivity {
                     }
                 });
 
-//        Picasso.with(getApplicationContext()).load(R.drawable.wot).fit().into(background);
+        Picasso.with(getApplicationContext()).load(R.drawable.food_bg).fit().into(background);
 //
         Picasso.with(Splash.this).load(R.drawable.cravebot_start).fit().into(cravebot);
 //        LoadingImages loadingImages = new LoadingImages(getApplicationContext());

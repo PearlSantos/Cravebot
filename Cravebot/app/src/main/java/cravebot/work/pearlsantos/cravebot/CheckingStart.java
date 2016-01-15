@@ -76,6 +76,7 @@ public class CheckingStart extends AsyncTask<Void, Void, Integer> {
     public void onPostExecute(Integer i) {
         Intent next = new Intent(act, MainActivity.class);
         next.putExtra(WHAT_TO_DO, i);
+        next.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         act.startActivity(next);
         System.out.println("WHAT NEXT?" + i );
         act.overridePendingTransition(R.anim.pull_in_right,

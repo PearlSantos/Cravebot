@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Bottom 2dp Shadow -->
-    <item android:gravity="bottom">
-        <shape  android:shape="rectangle" >
-            <gradient android:startColor="@color/black_10"
-                android:centerColor="@color/black_30"
-                android:endColor="@color/black_50"
-                android:angle="90" />
-        </shape>
-    </item>
+    <!--&lt;!&ndash; Bottom 2dp Shadow &ndash;&gt;-->
+    <!--<item android:gravity="bottom">-->
+        <!--<shape  android:shape="rectangle" >-->
+            <!--<gradient android:startColor="@color/black_10"-->
+                <!--android:centerColor="@color/black_30"-->
+                <!--android:endColor="@color/black_50"-->
+                <!--android:angle="90" />-->
+        <!--</shape>-->
+    <!--</item>-->
 
     <!-- White Top color -->
     <item android:bottom="@dimen/_8sdp">
