@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.squareup.picasso.Picasso;
@@ -192,6 +193,7 @@ public class GridViewLayout extends AppCompatActivity {
                     .showImageForEmptyUri(R.drawable.cravebot_start)
                     .showImageOnLoading(R.drawable.card)
                     .cacheInMemory(true)
+                    .imageScaleType(ImageScaleType.EXACTLY)
                     .cacheOnDisk(true)
                     .considerExifParams(true)
                     .bitmapConfig(Bitmap.Config.RGB_565)
