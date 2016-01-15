@@ -54,6 +54,7 @@ public class GridViewLayout extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), CardLayoutFood.class);
                 i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
                 i.putExtra("position", position);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 GridViewLayout.this.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
                 finish();

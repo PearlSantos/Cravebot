@@ -234,8 +234,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                                 R.color.darkGray));
                         String prices = singleItem.getPrices(i).trim();
                         if (prices.trim().substring(0).equals("P"))
-                            optionPrice.setText(prices + ".00");
-                        else optionPrice.setText("P " + prices + ".00");
+                            optionPrice.setText(prices);
+                        else optionPrice.setText("P " + prices);
                     }
 
                     layoutOptions.addView(optionText);

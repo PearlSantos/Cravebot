@@ -199,12 +199,12 @@ public class CardLayoutFood extends AppCompatActivity {
 //        });
 
         final ImageButton gridview = (ImageButton) findViewById(R.id.grid_view_button);
-        gridview.clearColorFilter();
+        gridview.getBackground().clearColorFilter();
         gridview.invalidate();
         gridview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gridview.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                gridview.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
                 gridview.invalidate();
                 Intent i = new Intent(CardLayoutFood.this, GridViewLayout.class);
                 i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);

@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:paddingBottom="@dimen/_5sdp"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/bigFont"
                     android:text="Food Name"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/darkGray" />
@@ -71,9 +71,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/bigFont"
                     android:gravity="end"
-                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_15sdp"
                     android:text="Price"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/darkGray" />
@@ -85,8 +85,8 @@
                 style="@style/textViewCustomFont2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:textSize="@dimen/_11sdp"
+                android:layout_marginLeft="@dimen/_11sdp"
+                android:textSize="@dimen/smallFont"
                 android:text="Restaurant Name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/darkGray" />
@@ -128,13 +128,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.3"
+                android:layout_weight="0.2"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/back"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
                     android:layout_gravity="center"
                     android:background="@drawable/back_button"
                     android:scaleType="fitXY" />
@@ -146,8 +146,8 @@
 
                     <ImageView
                         android:id="@+id/restoLogo"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_90sdp"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:layout_gravity="end|center"
                         android:scaleType="fitCenter" />
 
@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:paddingBottom="@dimen/_5sdp"
-                        android:textSize="@dimen/_15sdp"
+                        android:textSize="@dimen/bigFont"
                         android:text="Food Name"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/darkGray" />
@@ -192,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
-                        android:textSize="@dimen/_15sdp"
+                        android:textSize="@dimen/bigFont"
                         android:gravity="end"
                         android:text="Price"
                         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -205,7 +205,7 @@
                     style="@style/textViewCustomFont2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_11sdp"
+                    android:textSize="@dimen/smallFont"
                     android:gravity="start"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="RestoName"
@@ -218,7 +218,7 @@
                     style="@style/textViewCustomFont2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_11sdp"
+                    android:textSize="@dimen/smallFont"
                     android:gravity="start"
                     android:text="Description"
                     android:textAppearance="?android:attr/textAppearanceMedium"
