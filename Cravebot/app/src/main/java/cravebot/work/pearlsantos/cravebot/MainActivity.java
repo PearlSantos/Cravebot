@@ -43,6 +43,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
         mActionBar.setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.
                 mipmap.ic_sidebar_button);
+
+        ImageView backgroundToolbar = (ImageView) findViewById(R.id.backgroundToolbar);
+        Picasso.with(context).load(R.mipmap.background).into(backgroundToolbar);
+
         TextView title = (TextView) toolbar.findViewById(R.id.title);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
         title.setTypeface(custom_font);
@@ -154,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.whats_hot_button};
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer);
+
+        ImageView background = (ImageView) findViewById(R.id.background);
+        Picasso.with(context).load(R.mipmap.background).into(background);
+
         mDrawerList.setAdapter(new CustomListAdapter(this, holder, imgRes2));
 //        LayoutInflater inflater = getLayoutInflater();
 //        View listHeaderView = inflater.inflate(R.layout.header_view,null, false);

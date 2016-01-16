@@ -4,68 +4,90 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/myToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@mipmap/background"
-            app:contentInsetEnd="0dp"
-            app:contentInsetStart="0dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/title"
-                android:text="CRAVEBOT"
-                android:shadowColor="@color/black"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="1"
-                android:layout_gravity="center"
-                android:textSize="34sp"
-                android:textColor="@color/white"/>
-
-
-        </android.support.v7.widget.Toolbar>
-
-
-        <!-- The main content view -->
-    <RelativeLayout
-        android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:orientation="vertical">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/goButton"
-            android:src="@drawable/main_button_selector"
-            android:background="@android:color/transparent"
-            android:layout_gravity="center"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="41dp" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/backgroundToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/myToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:contentInsetEnd="0dp"
+                app:contentInsetStart="0dp">
+
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:shadowColor="@color/black"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="CRAVEBOT"
+                    android:textColor="@color/white"
+                    android:textSize="34sp" />
+
+
+            </android.support.v7.widget.Toolbar>
+        </FrameLayout>
+
+        <!-- The main content view -->
+        <RelativeLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/goButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="41dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/main_button_selector" />
+
+        </RelativeLayout>
     </LinearLayout>
     <!-- The navigation drawer -->
 
-    <ListView
-        android:id="@+id/drawer"
+    <FrameLayout
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="@mipmap/background"
-        />
+        android:layout_gravity="left|start">
+
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|start"
+            android:scaleType="centerCrop" />
+
+        <ListView
+            android:id="@+id/drawer"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start|center_horizontal"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+    </FrameLayout>
 
 
 </android.support.v4.widget.DrawerLayout>
