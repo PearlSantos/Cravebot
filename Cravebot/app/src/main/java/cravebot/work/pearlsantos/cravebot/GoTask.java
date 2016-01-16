@@ -212,7 +212,9 @@ public class GoTask extends AsyncTask<String, Void, ArrayList<FoodItem>> {
 
                         double price = newFood.getDouble("price");
                         Log.d("doInBackGround", Double.toString(price));
-                        if (price <= seekBarMax && price >= seekBarMin) {
+                        String photo = newFood.getString("photo");
+                        Log.d("doInBackGround", "Photo string:" + photo);
+                        if (price <= seekBarMax && price >= seekBarMin && !photo.equals("")) {
                             FoodItem newFoodItem = new FoodItem();
 
                             newFoodItem.setPrice(price);
@@ -233,7 +235,7 @@ public class GoTask extends AsyncTask<String, Void, ArrayList<FoodItem>> {
                             newFoodItem.setPrices(5, newFood.getString("price5"));
                             newFoodItem.setOptions(6, newFood.getString("option6"));
                             newFoodItem.setPrices(6, newFood.getString("price6"));
-                            newFoodItem.setPhoto(newFood.getString("photo"));
+                            newFoodItem.setPhoto(photo);
 
 
                             int restoId = newFood.getInt("restoid");
