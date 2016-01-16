@@ -177,17 +177,17 @@ public class GridViewLayout extends AppCompatActivity {
 
 
     public class ImageAdapter extends BaseAdapter {
-        private Context mContext;
-        private ImageView imageView;
-        private ProgressBar progressBar;
-        private View v;
+        //private Context mContext;
+//        private ImageView imageView;
+//        private ProgressBar progressBar;
+        //private View v;
         private LayoutInflater inflater;
 
         private DisplayImageOptions options;
 
 
         public ImageAdapter(Context c) {
-            mContext = c;
+          //  mContext = c;
             inflater = LayoutInflater.from(c);
 
             options = new DisplayImageOptions.Builder()
@@ -217,20 +217,21 @@ public class GridViewLayout extends AppCompatActivity {
         // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
             final ViewHolder holder;
-//            View view = convertView;
-            if (convertView == null) {
+            View v = convertView;
+            if (v == null) {
                 // if it's not recycled, initialize some attributes
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = inflater.inflate(R.layout.gridview_item, parent, false);
                 holder = new ViewHolder();
+                assert v != null;
+
                 v.setTag(holder);
             } else {
-                v = (View) convertView;
                 holder = (ViewHolder) v.getTag();
             }
 
             holder.imageView = (ImageView) v.findViewById(R.id.image);
             holder.progressBar = (ProgressBar) v.findViewById(R.id.progress);
+
             int width = gridview.getWidth();
             int margins = (width / 4) / 5;
             gridview.setHorizontalSpacing(margins);
@@ -246,7 +247,7 @@ public class GridViewLayout extends AppCompatActivity {
 
                         @Override
                         public void onLoadingStarted(String url, View view) {
-                            holder.progressBar.setProgress(0);
+                            holder.progressBar.setProgress(0) ;
                             holder.progressBar.setVisibility(View.VISIBLE);
                         }
 
