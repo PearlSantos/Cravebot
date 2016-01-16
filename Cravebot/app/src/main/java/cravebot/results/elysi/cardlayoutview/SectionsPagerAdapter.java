@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -137,26 +138,26 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     foodImage,
                     options,
                     new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String url, View view) {
-                    foodImage.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onLoadingStarted(String url, View view) {
+                            foodImage.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.VISIBLE);
 
-                }
+                        }
 
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    progressBar.setVisibility(View.GONE);
-                    foodImage.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            progressBar.setVisibility(View.GONE);
+                            foodImage.setVisibility(View.VISIBLE);
 
-                }
+                        }
 
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    foodImage.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            foodImage.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
 
 
             ((TextViewPlus) view.findViewById(R.id.foodNameInfo)).setText(singleItem.getItemName().trim());
@@ -168,27 +169,36 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             progressBarInfo = (ProgressBar) view.findViewById(R.id.progressBarInfo);
 
             restoLogo = (ImageView) view.findViewById(R.id.restoLogo);
-            ImageLoader.getInstance().displayImage
-                    (APIResto + singleItem.getRestoLogo(), restoLogo, options, new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String url, View view) {
-                            restoLogo.setVisibility(View.GONE);
-                            progressBarInfo.setVisibility(View.VISIBLE);
-                        }
+            String testRestoLogo = singleItem.getRestoLogo();
+            Log.d("RestoLogo", testRestoLogo);
+            if(!testRestoLogo.equals("null")){
 
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            progressBarInfo.setVisibility(View.GONE);
-                            foodImage.setVisibility(View.VISIBLE);
 
-                        }
+                ImageLoader.getInstance().displayImage
+                        (APIResto + singleItem.getRestoLogo(), restoLogo, options, new SimpleImageLoadingListener() {
+                            @Override
+                            public void onLoadingStarted(String url, View view) {
+                                restoLogo.setVisibility(View.GONE);
+                                progressBarInfo.setVisibility(View.VISIBLE);
+                            }
 
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            restoLogo.setVisibility(View.VISIBLE);
-                            progressBarInfo.setVisibility(View.GONE);
-                        }
-                    });
+                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                progressBarInfo.setVisibility(View.GONE);
+                                foodImage.setVisibility(View.VISIBLE);
 
+                            }
+
+                            @Override
+                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                restoLogo.setVisibility(View.VISIBLE);
+                                progressBarInfo.setVisibility(View.GONE);
+                            }
+                        });
+            }
+            else{
+                progressBarInfo.setVisibility(View.GONE);
+                restoLogo.setVisibility(View.GONE);
+            }
 
             LinearLayout putOptions = (LinearLayout) view.findViewById(R.id.putOptions);
             int paddingBottom = putOptions.getPaddingBottom();
