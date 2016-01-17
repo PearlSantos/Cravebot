@@ -99,7 +99,7 @@ public class CardLayoutFood extends AppCompatActivity {
         // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
 
         mViewPager.setCurrentItem(FIRST_PAGE);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(3);
 
 
         //If hardware acceleration is enabled, you should also remove
@@ -124,80 +124,7 @@ public class CardLayoutFood extends AppCompatActivity {
                 finish();
             }
         });
-//
-//        final TabLayout switchViews = (TabLayout) findViewById(R.id.switchView);
-//        switchViews.addTab(switchViews.newTab().setIcon(R.drawable.card));
-//        TabLayout.Tab grid = switchViews.newTab().setIcon(R.drawable.grid_view_button);
-//        switchViews.addTab(grid);
-//        switchViews.setSelectedTabIndicatorColor(Color.BLUE);
-//        switchViews.setSelectedTabIndicatorHeight(10);
-//        grid.select();
-//
-//        switchViews.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                if (switchViews.getSelectedTabPosition() == 1) {
-//                    Intent i = new Intent(CardLayout.this, GridViewLayout.class);
-//                    i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
-//                    startActivity(i);
-//                    CardLayout.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
-//                    CardLayout.this.finish();
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-//        ((FloatingActionButton) findViewById(R.id.gridview)).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(CardLayout.this, GridViewLayout.class);
-//                    i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
-//                    startActivity(i);
-//                    //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-//                    CardLayout.this.finish();
-//
-//            }
-//        });
 
-//        ImageView gridViewButton = (ImageView) findViewById(R.id.grid_view_button);
-//        Picasso.with(CardLayoutFood.this).load(R.drawable.grid_view_button).fit().into(gridViewButton);
-//        gridViewButton.setOnTouchListener(new View.OnTouchListener() {
-//
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN: {
-//                        ImageView view = (ImageView) v;
-//                        view.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-//                        v.invalidate();
-//                        break;
-//                    }
-//                    case MotionEvent.ACTION_UP:
-//                        Intent i = new Intent(CardLayoutFood.this, GridViewLayout.class);
-//                        i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
-//                        startActivity(i);
-//                        CardLayoutFood.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
-//                        CardLayoutFood.this.finish();
-//                        // Your action here on button click
-//
-//                    case MotionEvent.ACTION_CANCEL: {
-//                        ImageView view = (ImageView) v;
-//                        view.clearColorFilter();
-//                        view.invalidate();
-//                        break;
-//                    }
-//                }
-//                return true;
-//            }
-//        });
 
         final ImageButton gridview = (ImageButton) findViewById(R.id.grid_view_button);
         gridview.getBackground().clearColorFilter();

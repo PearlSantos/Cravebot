@@ -2,20 +2,15 @@ package cravebot.results.elysi.gridview;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -25,7 +20,6 @@ import android.widget.ProgressBar;
 //import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 //import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 //import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,7 +35,7 @@ public class GridViewLayout extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_view);
+        setContentView(R.layout.activity_recycler_view);
 
 //        gridview = (GridView) findViewById(R.id.gridview);
         items = getIntent().getParcelableArrayListExtra(GoTask.LIST_KEY);
@@ -220,7 +214,7 @@ public class GridViewLayout extends AppCompatActivity {
             View v = convertView;
             if (v == null) {
                 // if it's not recycled, initialize some attributes
-                v = inflater.inflate(R.layout.gridview_item, parent, false);
+                v = inflater.inflate(R.layout.recycler_view_item, parent, false);
                 holder = new ViewHolder();
                 assert v != null;
 
@@ -230,7 +224,7 @@ public class GridViewLayout extends AppCompatActivity {
             }
 
             holder.imageView = (ImageView) v.findViewById(R.id.image);
-            holder.progressBar = (ProgressBar) v.findViewById(R.id.progress);
+            //holder.progressBar = (ProgressBar) v.findViewById(R.id.progress);
 
             int width = gridview.getWidth();
             int margins = (width / 4) / 5;

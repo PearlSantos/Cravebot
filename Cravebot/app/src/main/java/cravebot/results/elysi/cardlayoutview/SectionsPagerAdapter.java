@@ -3,6 +3,7 @@ package cravebot.results.elysi.cardlayoutview;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,15 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TableRow;
 
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-
+import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
 import cravebot.R;
@@ -85,7 +78,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     public static class PlaceholderFragment extends Fragment {
 
         private final static String ARG_SECTION_NUMBER = "section_number";
-        private ImageView foodImage, background, restoLogo;
+        private SimpleDraweeView foodImage, restoLogo;
         private FoodItem singleItem;
         private View view;
         private FrameLayout moreInfo, place;
@@ -111,70 +104,18 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             view = inflater.inflate(R.layout.fragment_card_layout_food, container, false);
             singleItem = items.get(getArguments().getInt(ARG_SECTION_NUMBER));
 
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-                    .cacheInMemory(true)
-                    .cacheOnDisk(true)
-                    .bitmapConfig(Bitmap.Config.RGB_565)
-                    .resetViewBeforeLoading(true)
-                    .imageScaleType(ImageScaleType.EXACTLY)
-                    .showImageForEmptyUri(R.drawable.cravebot_start)
-                    .showImageOnFail(R.drawable.cravebot_start)
-                    .displayer(new FadeInBitmapDisplayer(100))
-                    .build();
-
-
             ((TextViewPlus) view.findViewById(R.id.foodName)).setText(singleItem.getItemName());
             ((TextViewPlus) view.findViewById(R.id.restoName)).setText(singleItem.getRestoName());
             ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
-            foodImage = (ImageView) view.findViewById(R.id.foodImage);
-            foodImage.setVisibility(View.GONE);
-            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+            foodImage = (SimpleDraweeView) view.findViewById(R.id.foodImage);
+            //    foodImage.setVisibility(View.GONE);
+            //   progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
-//            Picasso.with(getContext().getApplicationContext()).load(foodImg).placeholder(R.drawable.card).
-//                    error(R.drawable.cravebot_start).into(foodImage, new Callback() {
-//                @Override
-//                public void onError() {
-//                    // TODO Auto-generated method stub
-//                    progressBar.setVisibility(View.GONE);
-//                    foodImage.setVisibility(View.VISIBLE);
-//
-//                }
-//
-//                @Override
-//                public void onSuccess() {
-//                    // TODO Auto-generated method stub
-//                    progressBar.setVisibility(View.GONE);
-//                    foodImage.setVisibility(View.VISIBLE);
-//                }
-//
-//            });
 
-            ImageLoader.getInstance().displayImage(foodImg,
-                    foodImage,
-                    options,
-                    new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String url, View view) {
-                            foodImage.setVisibility(View.GONE);
-                            progressBar.setVisibility(View.VISIBLE);
-
-                        }
-
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            progressBar.setVisibility(View.GONE);
-                            foodImage.setVisibility(View.VISIBLE);
-
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            foodImage.setVisibility(View.VISIBLE);
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
+            Uri food = Uri.parse(foodImg);
+            foodImage.setImageURI(food);
 
 
             ((TextViewPlus) view.findViewById(R.id.foodNameInfo)).setText(singleItem.getItemName().trim());
@@ -183,58 +124,20 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             ((TextViewPlus) view.findViewById(R.id.description)).setText(singleItem.getDescription().trim());
 
-            progressBarInfo = (ProgressBar) view.findViewById(R.id.progressBarInfo);
+           // progressBarInfo = (ProgressBar) view.findViewById(R.idandroid.progressBarInfo);
 
-            restoLogo = (ImageView) view.findViewById(R.id.restoLogo);
-            restoLogo.setVisibility(View.GONE);
-            String testRestoLogo = singleItem.getRestoLogo();
-            Log.d("RestoLogo", testRestoLogo);
-            if (!testRestoLogo.equals("null")) {
+            restoLogo = (SimpleDraweeView) view.findViewById(R.id.restoLogo);
+           // restoLogo.setVisibility(View.GONE);
+            String restoLogoUrl = APIResto+singleItem.getRestoLogo();
+            Log.d("RestoLogo", restoLogoUrl);
+            //if (!restoLogoUrl.equals("null")) {
+                Uri resto = Uri.parse(restoLogoUrl);
+                restoLogo.setImageURI(resto);
 
-//                Picasso.with(getContext().getApplicationContext()).load(APIResto + singleItem.getRestoLogo())
-//                        .placeholder(R.drawable.card).
-//                        error(R.drawable.cravebot_start).into(restoLogo, new Callback() {
-//                    @Override
-//                    public void onError() {
-//                        // TODO Auto-generated method stub
-//                        progressBarInfo.setVisibility(View.GONE);
-//                        restoLogo.setVisibility(View.VISIBLE);
-//
-//                    }
-//
-//                    @Override
-//                    public void onSuccess() {
-//                        // TODO Auto-generated method stub
-//                        progressBarInfo.setVisibility(View.GONE);
-//                        restoLogo.setVisibility(View.VISIBLE);
-//                    }
-//
-//                });
-
-                ImageLoader.getInstance().displayImage
-                        (APIResto + singleItem.getRestoLogo(), restoLogo, options, new SimpleImageLoadingListener() {
-                            @Override
-                            public void onLoadingStarted(String url, View view) {
-                                restoLogo.setVisibility(View.GONE);
-                                progressBarInfo.setVisibility(View.VISIBLE);
-                            }
-
-                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                                progressBarInfo.setVisibility(View.GONE);
-                                foodImage.setVisibility(View.VISIBLE);
-
-                            }
-
-                            @Override
-                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                restoLogo.setVisibility(View.VISIBLE);
-                                progressBarInfo.setVisibility(View.GONE);
-                            }
-                        });
-            } else {
-                progressBarInfo.setVisibility(View.GONE);
-                restoLogo.setVisibility(View.GONE);
-            }
+//            } else {
+//                progressBarInfo.setVisibility(View.GONE);
+//                restoLogo.setVisibility(View.GONE);
+//            }
 
             LinearLayout putOptions = (LinearLayout) view.findViewById(R.id.putOptions);
             int paddingBottom = putOptions.getPaddingBottom();

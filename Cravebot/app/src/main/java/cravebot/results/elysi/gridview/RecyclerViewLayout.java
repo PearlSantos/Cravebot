@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,14 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
@@ -38,7 +36,7 @@ public class RecyclerViewLayout extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_view);
+        setContentView(R.layout.activity_recycler_view);
 
         items = getIntent().getParcelableArrayListExtra(GoTask.LIST_KEY);
 
@@ -61,18 +59,17 @@ public class RecyclerViewLayout extends AppCompatActivity {
         private ArrayList<FoodItem> mDataset;
         private final String APIFood = "http://cravebot.ph/photos/";
         private Context context;
-        private DisplayImageOptions options;
         private Activity act;
 
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            public ImageView image;
+            public SimpleDraweeView image;
             public ProgressBar progressBar;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                image = (ImageView) itemView.findViewById(R.id.image);
-                progressBar = (ProgressBar) itemView.findViewById(R.id.progress);
+                image = (SimpleDraweeView) itemView.findViewById(R.id.sdvImage);
+                // progressBar = (ProgressBar) itemView.findViewById(R.id.progress);
                 int width = mRecyclerView.getWidth();
                 double widthSize = width / 3.3;
                 width = (int) widthSize;
@@ -98,23 +95,13 @@ public class RecyclerViewLayout extends AppCompatActivity {
             mDataset = myDataset;
             this.act = act;
 
-            options = new DisplayImageOptions.Builder()
-                    .showImageForEmptyUri(R.drawable.cravebot_start)
-                    .showImageOnLoading(R.drawable.card)
-                    .cacheInMemory(true)
-                    .imageScaleType(ImageScaleType.EXACTLY)
-                    .cacheOnDisk(true)
-                    .considerExifParams(true)
-                    .bitmapConfig(Bitmap.Config.RGB_565)
-                    .build();
-
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent,
                                              int viewType) {
             View view = LayoutInflater.from(context)
-                    .inflate(R.layout.gridview_item, parent, false);
+                    .inflate(R.layout.recycler_view_item, parent, false);
             ViewHolder dataObjectHolder = new ViewHolder(view);
             return dataObjectHolder;
         }
@@ -122,33 +109,35 @@ public class RecyclerViewLayout extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ViewHolder holderT, int position) {
             final ViewHolder holder = holderT;
-            String photo = mDataset.get(position).getPhoto();
-            ImageLoader.getInstance().displayImage(APIFood + photo, holder.image,
-                    options, new SimpleImageLoadingListener() {
-
-                        @Override
-                        public void onLoadingStarted(String url, View view) {
-                            holder.progressBar.setProgress(0) ;
-                            holder.progressBar.setVisibility(View.VISIBLE);
-                        }
-
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            holder.progressBar.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            holder.progressBar.setVisibility(View.GONE);
-                        }
-                    }
-//                    , new ImageLoadingProgressListener() {
-//                @Override
-//                public void onProgressUpdate(String imageUri, View view, int current, int total) {
-//                    holder.progressBar.setProgress(Math.round(100.0f * current / total));
-//                }
-//            }
-            );
+            String photo = APIFood + mDataset.get(position).getPhoto();
+            Uri imageUri = Uri.parse(photo);
+            holder.image.setImageURI(imageUri);
+//            ImageLoader.getInstance().displayImage(APIFood + photo, holder.image,
+//                    options, new SimpleImageLoadingListener() {
+//
+//                        @Override
+//                        public void onLoadingStarted(String url, View view) {
+//                            holder.progressBar.setProgress(0) ;
+//                            holder.progressBar.setVisibility(View.VISIBLE);
+//                        }
+//
+//                        @Override
+//                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//                            holder.progressBar.setVisibility(View.GONE);
+//                        }
+//
+//                        @Override
+//                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                            holder.progressBar.setVisibility(View.GONE);
+//                        }
+//                    }
+////                    , new ImageLoadingProgressListener() {
+////                @Override
+////                public void onProgressUpdate(String imageUri, View view, int current, int total) {
+////                    holder.progressBar.setProgress(Math.round(100.0f * current / total));
+////                }
+////            }
+//            );
 
         }
 

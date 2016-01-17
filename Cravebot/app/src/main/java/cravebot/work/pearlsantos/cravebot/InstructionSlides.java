@@ -1,7 +1,6 @@
 package cravebot.work.pearlsantos.cravebot;
 
 import android.annotation.SuppressLint;
-import android.graphics.Typeface;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
@@ -42,7 +41,7 @@ public class InstructionSlides extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intstruction_slides);
+        setContentView(R.layout.activity_instruction_slides);
 
         imgId = new ArrayList<>();
         imgId.add(R.drawable.instruction_1);
@@ -50,7 +49,7 @@ public class InstructionSlides extends AppCompatActivity {
         imgId.add(R.drawable.instruction_3);
 
 
-        mContainer = (PagerContainer) findViewById(R.id.pager_container);
+    //    mContainer = (PagerContainer) findViewById(R.id.pager_container);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         back = (Button) findViewById(R.id.goBack);
@@ -90,34 +89,34 @@ public class InstructionSlides extends AppCompatActivity {
 
 
 
-        mContainer.getViewTreeObserver().
-                addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @SuppressLint("NewApi")
-                    @SuppressWarnings("deprecation")
-                    @Override
-                    public void onGlobalLayout() {
-                        //now we can retrieve the width and height
-                        int height = mContainer.getHeight();
-                        int width = mContainer.getWidth();
-
-                        double heightSize = height * 0.9;
-                        height = (int) heightSize;
-                        double widthSize = width * 0.85;
-                        width = (int) widthSize;
-
-
-                        mViewPager.setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
-                        mViewPager.setPageMargin(width / 20);
-//                        mViewPager.setPadding(width /30, width /30, width /30, width /30);
-
-
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
-                            mContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        else
-                            mContainer.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    }
-                });
-
+//        mContainer.getViewTreeObserver().
+//                addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @SuppressLint("NewApi")
+//                    @SuppressWarnings("deprecation")
+//                    @Override
+//                    public void onGlobalLayout() {
+//                        //now we can retrieve the width and height
+//                        int height = mContainer.getHeight();
+//                        int width = mContainer.getWidth();
+//
+//                        double heightSize = height * 0.9;
+//                        height = (int) heightSize;
+//                        double widthSize = width * 0.85;
+//                        width = (int) widthSize;
+//
+//
+//                        mViewPager.setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
+//                        mViewPager.setPageMargin(width / 20);
+////                        mViewPager.setPadding(width /30, width /30, width /30, width /30);
+//
+//
+//                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
+//                            mContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                        else
+//                            mContainer.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//                    }
+//                });
+//
 
         mSectionsPagerAdapter = new CustomAdapter(getSupportFragmentManager());
 
