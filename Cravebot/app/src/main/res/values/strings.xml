@@ -5,12 +5,16 @@
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Open drawer</string>
     <string name="drawer_close">Close drawer</string>
+    <string name="appYellow">#FFD058</string>
+    <string name="appGreen">#3DB766</string>
+    <string name="appRed">#DC383D</string>
+    <string name="appOrange">#F1582D</string>
 
-    <string-array name="data_array">
-        <item>Hi</item>
-        <item>Hello</item>
-        <item>How are you</item>
-    </string-array>
+    <!--<string-array name="data_array">-->
+        <!--<item>Hi</item>-->
+        <!--<item>Hello</item>-->
+        <!--<item>How are you</item>-->
+    <!--</string-array>-->
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

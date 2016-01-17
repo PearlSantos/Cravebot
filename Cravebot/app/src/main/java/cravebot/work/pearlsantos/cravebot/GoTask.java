@@ -21,6 +21,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Toast;
 
 import cravebot.results.elysi.cardlayoutview.CardLayoutFood;
@@ -142,7 +143,8 @@ public class GoTask extends AsyncTask<String, Void, ArrayList<FoodItem>> {
     @Override
     protected void onPreExecute() {
         //Create a new progress dialog
-        progressDialog.setTitle("GETTING FOOD ITEMS");
+        //progressDialog.setTitle("GETTING FOOD ITEMS");
+        progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         progressDialog.setMessage("Please wait . . .");
         progressDialog.show();
         // progressDialog = ProgressDialog.show(context.getWindow().getContext(), "GETTING FOOD ITEMS", "Please wait . . .", false, false);
