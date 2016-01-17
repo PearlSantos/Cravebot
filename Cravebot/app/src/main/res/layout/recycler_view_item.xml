@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frame_item_grid">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdvImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@color/white" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/image"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--/>-->
+
+    <!--&lt;!&ndash;<ProgressBar&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/progress"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:indeterminate="false"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:max="100"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_gravity="bottom"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="@style/ProgressBarStyle" />&ndash;&gt;-->
+
+    <!--<ProgressBar-->
+        <!--android:id="@+id/progress"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:indeterminate="true"-->
+        <!--android:layout_gravity="center"-->
+        <!--style="?android:attr/progressBarStyle" />-->
+</FrameLayout>

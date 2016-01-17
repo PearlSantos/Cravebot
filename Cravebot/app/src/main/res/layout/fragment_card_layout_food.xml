@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragmentLayoutWhole"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,26 +24,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/foodImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_260sdp"
-                android:gravity="center">
+                android:layout_gravity="center"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@color/white"/>
 
-                <ImageView
-                    android:id="@+id/foodImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:scaleType="centerCrop" />
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/_260sdp"-->
+                <!--android:gravity="center">-->
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:indeterminate="true" />
-            </FrameLayout>
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/foodImage"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="center"-->
+                    <!--android:scaleType="centerCrop" />-->
+
+                <!--<ProgressBar-->
+                    <!--android:id="@+id/progressBar"-->
+                    <!--style="?android:attr/progressBarStyle"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:indeterminate="true" />-->
+            <!--</FrameLayout>-->
 
 
             <LinearLayout
@@ -56,7 +66,7 @@
                 <cravebot.customstuff.TextViewPlus
                     android:id="@+id/foodName"
                     style="@style/textViewCustomFont1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:paddingBottom="@dimen/_5sdp"
@@ -68,7 +78,7 @@
                 <cravebot.customstuff.TextViewPlus
                     android:id="@+id/price"
                     style="@style/textViewCustomFont1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="@dimen/bigFont"
@@ -139,26 +149,34 @@
                     android:background="@drawable/back_button"
                     android:scaleType="fitXY" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/restoLogo"
+                    android:layout_width="@dimen/_60sdp"
+                    android:gravity="center"
+                    android:layout_height="@dimen/_60sdp"
+                    fresco:actualImageScaleType="centerInside"
+                    fresco:placeholderImage="@color/white"/>
 
-                    <ImageView
-                        android:id="@+id/restoLogo"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:layout_gravity="end|center"
-                        android:scaleType="fitCenter" />
+                <!--<FrameLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="center">-->
 
-                    <ProgressBar
-                        android:id="@+id/progressBarInfo"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center"
-                        android:indeterminate="true" />
-                </FrameLayout>
+                    <!--<ImageView-->
+                        <!--android:id="@+id/restoLogo"-->
+                        <!--android:layout_width="@dimen/_60sdp"-->
+                        <!--android:layout_height="@dimen/_60sdp"-->
+                        <!--android:layout_gravity="end|center"-->
+                        <!--android:scaleType="fitCenter" />-->
+
+                    <!--<ProgressBar-->
+                        <!--android:id="@+id/progressBarInfo"-->
+                        <!--style="?android:attr/progressBarStyle"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="end|center"-->
+                        <!--android:indeterminate="true" />-->
+                <!--</FrameLayout>-->
             </LinearLayout>
 
             <LinearLayout

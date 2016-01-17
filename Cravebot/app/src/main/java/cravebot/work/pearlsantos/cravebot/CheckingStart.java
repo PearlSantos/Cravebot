@@ -44,31 +44,25 @@ public class CheckingStart extends AsyncTask<Void, Void, Integer> {
         final int currentVersionCode = BuildConfig.VERSION_CODE;
         SharedPreferences prefs = c.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
-        // Get saved version code
+        // Get current version code
+        if (prefs == null || prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST) == DOESNT_EXIST) {
+            // TODO This is a new install (or the user cleared the shared preferences)
+            // return new Intent(c, InstructionSlides.class);
+            prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
+            return 2;
 
-        if (!hasActiveInternetConnection()) {
-            return 1;
-        } else {
-            // Get current version code
-            if(prefs==null || prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST)==DOESNT_EXIST){
-                // TODO This is a new install (or the user cleared the shared preferences)
-                // return new Intent(c, InstructionSlides.class);
-                prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
-                return 2;
+        } else if (currentVersionCode == prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST)) {
+            //Normal run
+            return -1;
 
-            }
-            else if (currentVersionCode == prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST)) {
-                //Normal run
-                return -1;
+        } else if (currentVersionCode > prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST)) {
+            prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
+            return -1;
 
-            } else if (currentVersionCode > prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST)) {
-                prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
-                return -1;
+            // TODO This is an upgrade
 
-                // TODO This is an upgrade
+        } else return -1;
 
-            } else return -1;
-        }
 
     }
 
@@ -78,37 +72,11 @@ public class CheckingStart extends AsyncTask<Void, Void, Integer> {
         next.putExtra(WHAT_TO_DO, i);
         next.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         act.startActivity(next);
-        System.out.println("WHAT NEXT?" + i );
+        System.out.println("WHAT NEXT?" + i);
         act.overridePendingTransition(R.anim.pull_in_right,
                 R.anim.push_out_left);
         act.finish();
 
     }
-
-    public boolean hasActiveInternetConnection() {
-        if (isNetworkAvailable()) {
-            try {
-                HttpURLConnection urlc = (HttpURLConnection) (new URL("https://www.google.com.ph").openConnection());
-                urlc.setRequestProperty("User-Agent", "Test");
-                urlc.setRequestProperty("Connection", "close");
-                urlc.setConnectTimeout(1500);
-                urlc.connect();
-                return (urlc.getResponseCode() == 200);
-            } catch (IOException e) {
-                Log.e("LOG", "Error checking internet connection", e);
-            }
-        } else {
-            Log.d("LOG", "No network available!");
-        }
-        return false;
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null;
-    }
-
 
 }

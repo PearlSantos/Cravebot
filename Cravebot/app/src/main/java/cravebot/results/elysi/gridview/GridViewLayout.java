@@ -2,30 +2,24 @@ package cravebot.results.elysi.gridview;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.squareup.picasso.Picasso;
+//import com.nostra13.universalimageloader.core.DisplayImageOptions;
+//import com.nostra13.universalimageloader.core.ImageLoader;
+//import com.nostra13.universalimageloader.core.assist.FailReason;
+//import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+//import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
+//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
 
@@ -41,9 +35,9 @@ public class GridViewLayout extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_view);
+        setContentView(R.layout.activity_recycler_view);
 
-        gridview = (GridView) findViewById(R.id.gridview);
+//        gridview = (GridView) findViewById(R.id.gridview);
         items = getIntent().getParcelableArrayListExtra(GoTask.LIST_KEY);
         gridview.setAdapter(new ImageAdapter(this));
 
@@ -61,11 +55,11 @@ public class GridViewLayout extends AppCompatActivity {
             }
         });
 
-        boolean pauseOnScroll = true; // or true
-        boolean pauseOnFling = true; // or false
-        PauseOnScrollListener listener = new PauseOnScrollListener
-                (ImageLoader.getInstance(), pauseOnScroll, pauseOnFling);
-        gridview.setOnScrollListener(listener);
+//        boolean pauseOnScroll = true; // or true
+//        boolean pauseOnFling = true; // or false
+//        PauseOnScrollListener listener = new PauseOnScrollListener
+//                (ImageLoader.getInstance(), pauseOnScroll, pauseOnFling);
+//        gridview.setOnScrollListener(listener);
 //
 //        final TabLayout switchViews = (TabLayout) findViewById(R.id.switchView);
 //        TabLayout.Tab card = switchViews.newTab().setIcon(R.drawable.card);
@@ -183,22 +177,22 @@ public class GridViewLayout extends AppCompatActivity {
         //private View v;
         private LayoutInflater inflater;
 
-        private DisplayImageOptions options;
+     //   private DisplayImageOptions options;
 
 
         public ImageAdapter(Context c) {
           //  mContext = c;
             inflater = LayoutInflater.from(c);
 
-            options = new DisplayImageOptions.Builder()
-                    .showImageForEmptyUri(R.drawable.cravebot_start)
-                    .showImageOnLoading(R.drawable.card)
-                    .cacheInMemory(true)
-                    .imageScaleType(ImageScaleType.EXACTLY)
-                    .cacheOnDisk(true)
-                    .considerExifParams(true)
-                    .bitmapConfig(Bitmap.Config.RGB_565)
-                    .build();
+//            options = new DisplayImageOptions.Builder()
+//                    .showImageForEmptyUri(R.drawable.cravebot_start)
+//                    .showImageOnLoading(R.drawable.card)
+//                    .cacheInMemory(true)
+//                    .imageScaleType(ImageScaleType.EXACTLY)
+//                    .cacheOnDisk(true)
+//                    .considerExifParams(true)
+//                    .bitmapConfig(Bitmap.Config.RGB_565)
+//                    .build();
 
         }
 
@@ -220,7 +214,7 @@ public class GridViewLayout extends AppCompatActivity {
             View v = convertView;
             if (v == null) {
                 // if it's not recycled, initialize some attributes
-                v = inflater.inflate(R.layout.gridview_item, parent, false);
+                v = inflater.inflate(R.layout.recycler_view_item, parent, false);
                 holder = new ViewHolder();
                 assert v != null;
 
@@ -230,7 +224,7 @@ public class GridViewLayout extends AppCompatActivity {
             }
 
             holder.imageView = (ImageView) v.findViewById(R.id.image);
-            holder.progressBar = (ProgressBar) v.findViewById(R.id.progress);
+            //holder.progressBar = (ProgressBar) v.findViewById(R.id.progress);
 
             int width = gridview.getWidth();
             int margins = (width / 4) / 5;
@@ -242,32 +236,32 @@ public class GridViewLayout extends AppCompatActivity {
             holder.imageView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, width));
 
             FoodItem singleItem = items.get(position);
-            ImageLoader.getInstance().displayImage(APIFood + singleItem.getPhoto(), holder.imageView,
-                    options, new SimpleImageLoadingListener() {
-
-                        @Override
-                        public void onLoadingStarted(String url, View view) {
-                            holder.progressBar.setProgress(0) ;
-                            holder.progressBar.setVisibility(View.VISIBLE);
-                        }
-
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            holder.progressBar.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            holder.progressBar.setVisibility(View.GONE);
-                        }
-                    }
-//                    , new ImageLoadingProgressListener() {
-//                @Override
-//                public void onProgressUpdate(String imageUri, View view, int current, int total) {
-//                    holder.progressBar.setProgress(Math.round(100.0f * current / total));
-//                }
-//            }
-            );
+//            ImageLoader.getInstance().displayImage(APIFood + singleItem.getPhoto(), holder.imageView,
+//                    options, new SimpleImageLoadingListener() {
+//
+//                        @Override
+//                        public void onLoadingStarted(String url, View view) {
+//                            holder.progressBar.setProgress(0) ;
+//                            holder.progressBar.setVisibility(View.VISIBLE);
+//                        }
+//
+//                        @Override
+//                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//                            holder.progressBar.setVisibility(View.GONE);
+//                        }
+//
+//                        @Override
+//                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                            holder.progressBar.setVisibility(View.GONE);
+//                        }
+//                    }
+////                    , new ImageLoadingProgressListener() {
+////                @Override
+////                public void onProgressUpdate(String imageUri, View view, int current, int total) {
+////                    holder.progressBar.setProgress(Math.round(100.0f * current / total));
+////                }
+////            }
+//            );
 
 
             return v;

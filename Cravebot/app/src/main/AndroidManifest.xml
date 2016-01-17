@@ -41,6 +41,12 @@
             android:label="@string/title_activity_intstruction_slides"
             android:theme="@style/Theme.Transparent"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".results.elysi.gridview.RecyclerViewLayout"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent"
+            android:launchMode="singleTop"/>
+
         for trying the sliding menu
 
         <!-- <activity -->
