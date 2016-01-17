@@ -28,6 +28,7 @@ import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.OnSwipeListener;
 import cravebot.results.elysi.customobjects.PagerContainer;
 import cravebot.results.elysi.gridview.GridViewLayout;
+import cravebot.results.elysi.gridview.RecyclerViewLayout;
 import cravebot.work.pearlsantos.cravebot.GoTask;
 
 public class CardLayoutFood extends AppCompatActivity {
@@ -206,7 +207,7 @@ public class CardLayoutFood extends AppCompatActivity {
             public void onClick(View v) {
                 gridview.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
                 gridview.invalidate();
-                Intent i = new Intent(CardLayoutFood.this, GridViewLayout.class);
+                Intent i = new Intent(CardLayoutFood.this, RecyclerViewLayout.class);
                 i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
                 startActivity(i);
                 CardLayoutFood.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);

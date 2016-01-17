@@ -30,6 +30,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -127,14 +128,29 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
             foodImage = (ImageView) view.findViewById(R.id.foodImage);
-
+            foodImage.setVisibility(View.GONE);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
-//            background = (ImageView) view.findViewById(R.id.background);
-//            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.card)
-//                    .fit().into(background);
-//            background.invalidate();
+//            Picasso.with(getContext().getApplicationContext()).load(foodImg).placeholder(R.drawable.card).
+//                    error(R.drawable.cravebot_start).into(foodImage, new Callback() {
+//                @Override
+//                public void onError() {
+//                    // TODO Auto-generated method stub
+//                    progressBar.setVisibility(View.GONE);
+//                    foodImage.setVisibility(View.VISIBLE);
+//
+//                }
+//
+//                @Override
+//                public void onSuccess() {
+//                    // TODO Auto-generated method stub
+//                    progressBar.setVisibility(View.GONE);
+//                    foodImage.setVisibility(View.VISIBLE);
+//                }
+//
+//            });
+
             ImageLoader.getInstance().displayImage(foodImg,
                     foodImage,
                     options,
@@ -170,10 +186,30 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             progressBarInfo = (ProgressBar) view.findViewById(R.id.progressBarInfo);
 
             restoLogo = (ImageView) view.findViewById(R.id.restoLogo);
+            restoLogo.setVisibility(View.GONE);
             String testRestoLogo = singleItem.getRestoLogo();
             Log.d("RestoLogo", testRestoLogo);
-            if(!testRestoLogo.equals("null")){
+            if (!testRestoLogo.equals("null")) {
 
+//                Picasso.with(getContext().getApplicationContext()).load(APIResto + singleItem.getRestoLogo())
+//                        .placeholder(R.drawable.card).
+//                        error(R.drawable.cravebot_start).into(restoLogo, new Callback() {
+//                    @Override
+//                    public void onError() {
+//                        // TODO Auto-generated method stub
+//                        progressBarInfo.setVisibility(View.GONE);
+//                        restoLogo.setVisibility(View.VISIBLE);
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess() {
+//                        // TODO Auto-generated method stub
+//                        progressBarInfo.setVisibility(View.GONE);
+//                        restoLogo.setVisibility(View.VISIBLE);
+//                    }
+//
+//                });
 
                 ImageLoader.getInstance().displayImage
                         (APIResto + singleItem.getRestoLogo(), restoLogo, options, new SimpleImageLoadingListener() {
@@ -195,8 +231,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                                 progressBarInfo.setVisibility(View.GONE);
                             }
                         });
-            }
-            else{
+            } else {
                 progressBarInfo.setVisibility(View.GONE);
                 restoLogo.setVisibility(View.GONE);
             }
@@ -225,7 +260,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
                     String optionPriceString = singleItem.getPrices(i).trim();
                     TextViewPlus optionPrice = null;
-                    if(!optionPriceString.equals("")) {
+                    if (!optionPriceString.equals("")) {
                         optionPrice = new TextViewPlus(getActivity().getApplicationContext());
                         optionPrice.setGravity(Gravity.END);
                         optionPrice.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.3f));
@@ -239,7 +274,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                     }
 
                     layoutOptions.addView(optionText);
-                    if(optionPrice!=null) {
+                    if (optionPrice != null) {
                         layoutOptions.addView(optionPrice);
                     }
 
@@ -249,54 +284,18 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 }
             }
 
-            ImageButton back = (ImageButton) view.findViewById(R.id.back);
-//            back.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    changeVisibility(place, moreInfo);
-//
-//                }
-//            });
-            back.setOnTouchListener(new View.OnTouchListener() {
-
+            final ImageButton back = (ImageButton) view.findViewById(R.id.back);
+            back.getBackground().clearColorFilter();
+            back.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            ImageButton view = (ImageButton) v;
-                            view.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                            v.invalidate();
-                            break;
-                        }
-                        case MotionEvent.ACTION_UP:
-                            changeVisibility(place, moreInfo);
-                            // Your action here on button click
+                public void onClick(View v) {
+                    back.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                    back.invalidate();
+                    changeVisibility(place, moreInfo);
 
-                        case MotionEvent.ACTION_CANCEL: {
-                            ImageButton view = (ImageButton) v;
-                            view.getBackground().clearColorFilter();
-                            view.invalidate();
-                            break;
-                        }
-                    }
-                    return true;
                 }
+
             });
-            ;
-
-
-//            Button testGridView = (Button) view.findViewById(R.id.testGridView);
-//            ((Button) view.findViewById(R.id.testGridView)).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent i = new Intent(getActivity().getApplicationContext(), GridViewLayout.class);
-//                    i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
-//                    startActivity(i);
-//                    //getActivity().overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-//                    getActivity().finish();
-//                }
-//            });
-
             moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
             place = (FrameLayout) view.findViewById(R.id.root_frame);
 
@@ -312,7 +311,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 child.setVisibility(View.VISIBLE);
                 child.postInvalidate();
             }
-
             gone.setVisibility(View.GONE);
 
             for (int i = 0; i < gone.getChildCount(); i++) {
@@ -320,7 +318,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 child.setVisibility(View.GONE);
                 child.postInvalidate();
             }
-
             visible.clearAnimation();
             visible.startLayoutAnimation();
 

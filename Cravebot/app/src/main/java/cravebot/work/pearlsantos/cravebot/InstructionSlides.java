@@ -123,6 +123,7 @@ public class InstructionSlides extends AppCompatActivity {
 
         mViewPager.setClipChildren(false);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
