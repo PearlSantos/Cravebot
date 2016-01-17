@@ -31,7 +31,6 @@ import cravebot.R;
 import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.PagerContainer;
 import cravebot.results.elysi.customobjects.SmartFragmentStatePagerAdapter;
-import cravebot.results.elysi.gridview.GridViewLayout;
 import cravebot.work.pearlsantos.cravebot.GoTask;
 
 public class CardLayoutHot extends AppCompatActivity {

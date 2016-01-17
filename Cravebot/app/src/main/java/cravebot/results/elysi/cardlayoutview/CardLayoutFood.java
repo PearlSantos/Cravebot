@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -16,10 +15,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -27,7 +23,6 @@ import cravebot.R;
 import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.OnSwipeListener;
 import cravebot.results.elysi.customobjects.PagerContainer;
-import cravebot.results.elysi.gridview.GridViewLayout;
 import cravebot.results.elysi.gridview.RecyclerViewLayout;
 import cravebot.work.pearlsantos.cravebot.GoTask;
 

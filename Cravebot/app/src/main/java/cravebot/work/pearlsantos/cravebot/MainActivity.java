@@ -33,6 +33,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -65,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.
                 mipmap.ic_sidebar_button);
 
-        ImageView backgroundToolbar = (ImageView) findViewById(R.id.backgroundToolbar);
-        Picasso.with(context).load(R.mipmap.background).into(backgroundToolbar);
+        SimpleDraweeView backgroundToolbar = (SimpleDraweeView) findViewById(R.id.backgroundToolbar);
+        //"res:/" + R.drawable.default_app;
 
         TextView title = (TextView) toolbar.findViewById(R.id.title);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");

@@ -30,12 +30,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:launchMode="singleTop"/>
-        <activity android:name=".results.elysi.cardlayoutview.TestResult"/>
-        <activity
-            android:name=".results.elysi.gridview.GridViewLayout"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Transparent"
-            android:launchMode="singleTop"/>
         <activity
             android:name=".work.pearlsantos.cravebot.InstructionSlides"
             android:label="@string/title_activity_intstruction_slides"

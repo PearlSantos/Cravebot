@@ -26,7 +26,6 @@ import android.widget.Toast;
 import cravebot.results.elysi.cardlayoutview.CardLayoutFood;
 import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.Resto;
-import cravebot.results.elysi.gridview.GridViewLayout;
 
 /**
  * @author Christoffer Kho

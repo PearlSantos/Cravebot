@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,12 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/backgroundToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:scaleType="centerCrop" />
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@color/white" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/myToolbar"
