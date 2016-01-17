@@ -74,12 +74,14 @@
         android:layout_height="match_parent"
         android:layout_gravity="left|start">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="left|start"
-            android:scaleType="centerCrop" />
+            android:layout_gravity="center"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@color/white" />
+
 
         <ListView
             android:id="@+id/drawer"

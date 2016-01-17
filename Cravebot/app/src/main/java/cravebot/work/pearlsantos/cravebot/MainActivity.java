@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -40,10 +41,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.squareup.picasso.Picasso;
+import com.facebook.imagepipeline.core.ImagePipeline;
 
-import java.io.File;
 
 import cravebot.R;
 
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("MainActivity", "activity created");
-        Fresco.initialize(context);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
@@ -73,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 mipmap.ic_sidebar_button);
 
         SimpleDraweeView backgroundToolbar = (SimpleDraweeView) findViewById(R.id.backgroundToolbar);
-        //"res:/" + R.drawable.default_app;
+        backgroundToolbar.setImageURI(Uri.parse("res:/" + R.drawable.food_bg));
+
 
         TextView title = (TextView) toolbar.findViewById(R.id.title);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList = (ListView) findViewById(R.id.drawer);
 
         ImageView background = (ImageView) findViewById(R.id.background);
-        Picasso.with(context).load(R.mipmap.background).into(background);
+        background.setImageURI(Uri.parse("res:/" + R.drawable.food_bg));
 
         mDrawerList.setAdapter(new CustomListAdapter(this, items));
 //        LayoutInflater inflater = getLayoutInflater();
@@ -292,6 +291,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+
+        imagePipeline.clearCaches();
     }
 }
 

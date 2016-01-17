@@ -23,7 +23,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,6 +30,7 @@ import cravebot.R;
 import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.PagerContainer;
 import cravebot.results.elysi.customobjects.SmartFragmentStatePagerAdapter;
+import cravebot.results.elysi.gridview.RecyclerViewLayout;
 import cravebot.work.pearlsantos.cravebot.GoTask;
 
 public class CardLayoutHot extends AppCompatActivity {
@@ -139,7 +139,7 @@ public class CardLayoutHot extends AppCompatActivity {
                         break;
                     }
                     case MotionEvent.ACTION_UP:
-                        Intent i = new Intent(CardLayoutHot.this, GridViewLayout.class);
+                        Intent i = new Intent(CardLayoutHot.this, RecyclerViewLayout.class);
                         i.putParcelableArrayListExtra(GoTask.LIST_KEY, sample);
                         startActivity(i);
                         CardLayoutHot.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
@@ -218,9 +218,6 @@ public class CardLayoutHot extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_card_layout_hot, container, false);
-//            Picasso.with(getActivity().getApplicationContext()).load(String.valueOf(sample.get(getArguments().getInt
-//                    (ARG_SECTION_NUMBER)))).into(((ImageView) rootView.findViewById(R.id.promos)));
-            Picasso.with(getActivity()).load(R.drawable.food_bg).into(((ImageView) rootView.findViewById(R.id.promos)));
             return rootView;
         }
     }

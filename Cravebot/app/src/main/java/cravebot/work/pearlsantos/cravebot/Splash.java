@@ -3,6 +3,7 @@ package cravebot.work.pearlsantos.cravebot;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,8 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import cravebot.R;
 import cravebot.customstuff.LoadingImages;
@@ -23,8 +25,8 @@ import cravebot.customstuff.LoadingImages;
  */
 
 public class Splash extends AppCompatActivity {
-    private final int SPLASH_DISPLAY_LENGTH = 500;
-    private ImageView background, cravebot;
+    private final int SPLASH_DISPLAY_LENGTH = 2000;
+    private SimpleDraweeView background, cravebot;
 
     /**
      * Called when the activity is first created.
@@ -32,10 +34,11 @@ public class Splash extends AppCompatActivity {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        Fresco.initialize(getApplicationContext());
         setContentView(R.layout.activity_splashscreen);
 
-        background = (ImageView) findViewById(R.id.background);
-        cravebot = (ImageView) findViewById(R.id.cravebot);
+        background = (SimpleDraweeView) findViewById(R.id.background);
+        cravebot = (SimpleDraweeView) findViewById(R.id.cravebot);
         final FrameLayout splashLayout = (FrameLayout) findViewById(R.id.splashLayout);
 
         splashLayout.getViewTreeObserver().
@@ -61,14 +64,10 @@ public class Splash extends AppCompatActivity {
                     }
                 });
 
-        Picasso.with(getApplicationContext()).load(R.drawable.food_bg).fit().into(background);
-//
-        Picasso.with(Splash.this).load(R.drawable.cravebot_start).fit().into(cravebot);
-//        LoadingImages loadingImages = new LoadingImages(getApplicationContext());
-//        loadingImages.loadBitmapFromRes(R.drawable.cravebot_start, cravebot, 150, 150);
+        background.setImageURI(Uri.parse("res:/" + R.drawable.food_bg));
+        cravebot.setImageURI(Uri.parse("res:/" + R.drawable.cravebot_start));
 
 
-        new CheckingStart(getApplicationContext(), Splash.this).execute();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -79,7 +78,7 @@ public class Splash extends AppCompatActivity {
 //                Splash.this.overridePendingTransition(R.anim.pull_in_right,
 //                        R.anim.push_out_left);
 //                Splash.this.finish();
-
+                new CheckingStart(getApplicationContext(), Splash.this).execute();
             }
         }, SPLASH_DISPLAY_LENGTH);
 

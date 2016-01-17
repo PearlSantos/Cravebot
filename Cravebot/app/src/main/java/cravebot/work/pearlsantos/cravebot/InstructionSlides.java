@@ -1,6 +1,7 @@
 package cravebot.work.pearlsantos.cravebot;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
@@ -21,8 +22,8 @@ import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nineoldandroids.animation.Animator;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -185,9 +186,8 @@ public class InstructionSlides extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_instruction_slides, container, false);
-            Picasso.with(getActivity().getApplicationContext()).load(imgId.get(getArguments().getInt
-                    (ARG_SECTION_NUMBER))).
-                    fit().into(((ImageView) rootView.findViewById(R.id.instruction)));
+            ((SimpleDraweeView) rootView.findViewById(R.id.instruction)).setImageURI(
+                    Uri.parse("res:/" + imgId.get(getArguments().getInt(ARG_SECTION_NUMBER))));
 //            background = (ImageView) rootView.findViewById(R.id.instruction);
 //            background.setImageResource(imgId.get(getArguments().getInt
 //                    (ARG_SECTION_NUMBER)));
