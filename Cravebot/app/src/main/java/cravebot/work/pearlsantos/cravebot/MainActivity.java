@@ -9,12 +9,16 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 
+import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +28,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -50,15 +56,14 @@ import java.io.File;
 import cravebot.R;
 
 public class MainActivity extends AppCompatActivity {
-    Integer[] imgRes;
-    Integer[] imgRes2;
-    String[] holder;
+//    Integer[] imgRes;
+//    Integer[] imgRes2;
+    String[] items;
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
     ActionBar mActionBar;
     private boolean[] filterClicked;
-    private boolean whatsHotClicked;
     Context context = this;
     public static AlertDialog noInternet;
 
@@ -130,74 +135,67 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
         }
 
-        holder = new String[]{"o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "i"};
-        imgRes = new Integer[]{R.drawable.beef,
-                R.drawable.beverages,
-                R.drawable.burger_sandwiches,
-                R.drawable.chicken,
-                R.drawable.desserts_pastries,
-                R.drawable.fruits_vegetables,
-                R.drawable.noodles_soup,
-                R.drawable.pizza_pasta,
-                R.drawable.pork,
-                R.drawable.seafood,
-                R.drawable.setmeals,
-                R.drawable.snacks,
-                R.drawable.whats_hot};
-        imgRes2 = new Integer[]{R.mipmap.beef_g,
-                R.mipmap.beverages_g,
-                R.mipmap.burgers_sandwiches_g,
-                R.mipmap.chicken_g,
-                R.mipmap.desserts_pastries_g,
-                R.mipmap.fruits_vegetables_g,
-                R.mipmap.noodles_soup_g,
-                R.mipmap.pizza_pasta_g,
-                R.mipmap.pork_g,
-                R.mipmap.seafood_g,
-                R.mipmap.set_meals_g,
-                R.mipmap.snacks_g,
-                R.drawable.whats_hot_button};
+        items = new String[]{"BEEF", "BEVERAGES", "BURGERS + SANDWICHES", "CHICKEN", "DESSERTS + PASTRIES", "FRUITS AND VEGETABLES", "NOODLES + SOUP", "PIZZA + PASTA", "PORK", "SEAFOOD", "SET MEALS", "SNACKS", "WHAT'S HOT"};
+//        imgRes = new Integer[]{R.drawable.beef,
+//                R.drawable.beverages,
+//                R.drawable.burger_sandwiches,
+//                R.drawable.chicken,
+//                R.drawable.desserts_pastries,
+//                R.drawable.fruits_vegetables,
+//                R.drawable.noodles_soup,
+//                R.drawable.pizza_pasta,
+//                R.drawable.pork,
+//                R.drawable.seafood,
+//                R.drawable.setmeals,
+//                R.drawable.snacks,
+//                R.drawable.whats_hot};
+//        imgRes2 = new Integer[]{R.mipmap.beef_g,
+//                R.mipmap.beverages_g,
+//                R.mipmap.burgers_sandwiches_g,
+//                R.mipmap.chicken_g,
+//                R.mipmap.desserts_pastries_g,
+//                R.mipmap.fruits_vegetables_g,
+//                R.mipmap.noodles_soup_g,
+//                R.mipmap.pizza_pasta_g,
+//                R.mipmap.pork_g,
+//                R.mipmap.seafood_g,
+//                R.mipmap.set_meals_g,
+//                R.mipmap.snacks_g,
+//                R.drawable.whats_hot_button};
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer);
 
         ImageView background = (ImageView) findViewById(R.id.background);
         Picasso.with(context).load(R.mipmap.background).into(background);
 
-        mDrawerList.setAdapter(new CustomListAdapter(this, holder, imgRes2));
+        mDrawerList.setAdapter(new CustomListAdapter(this, items));
 //        LayoutInflater inflater = getLayoutInflater();
 //        View listHeaderView = inflater.inflate(R.layout.header_view,null, false);
 //
 //        mDrawerList.addHeaderView(listHeaderView);
-        filterClicked = new boolean[imgRes.length-1];
-        for (int i = 0; i < imgRes.length-1; i++) {
+        filterClicked = new boolean[items.length-1];
+        for (int i = 0; i < items.length-1; i++) {
             filterClicked[i] = true;
         }
-        whatsHotClicked = false;
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImageView im = (ImageView) view.findViewById(R.id.choices);
-                if(!(holder[position].equals("i"))){
+                CardView cView = (CardView) view.findViewById(R.id.containerCard);
+
+                if(!(items[position].equals("WHAT'S HOT"))){
                     if (!filterClicked[position]) {
-                        im.setImageResource(imgRes2[position]);
+                        cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
                         filterClicked[position] = true;
                     } else {
-                        im.setImageResource(imgRes[position]);
+                        cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
                         filterClicked[position] = false;
                     }
                 }
                else{
-                    if(!whatsHotClicked){
-                        im.setImageResource(imgRes2[position]);
-                        whatsHotClicked = true;
-                        //insert here what should be done when what's hot is clicked
-                    }
-                    else{
-                        im.setImageResource(imgRes[position]);
-                        whatsHotClicked = false;
+                    //anuman ang gusto mong mangyari sa WHAT'S HOT
                     }
                 }
-            }
+
         });
 
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -294,8 +292,27 @@ public class MainActivity extends AppCompatActivity {
                 final Dialog dialog = new Dialog(this, R.style.DialogTheme);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.contact_dialog);
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
-//                dialog.setTitle("CraveBot");
+
+                WindowManager manager = (WindowManager) getSystemService(Activity.WINDOW_SERVICE);
+                int width, height;
+                AbsListView.LayoutParams params;
+
+                if(Build.VERSION.SDK_INT > Build.VERSION_CODES.FROYO){
+                    width = manager.getDefaultDisplay().getWidth();
+                    height = manager.getDefaultDisplay().getHeight();
+                }else{
+                    Point point = new Point();
+                    manager.getDefaultDisplay().getSize(point);
+                    width = point.x;
+                    height = point.y;
+                }
+
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = width;
+                lp.height = height;
+                dialog.getWindow().setAttributes(lp);
+                //dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
                 Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc");
                 TextView email = (TextView) dialog.findViewById(R.id.email);
                 email.setTypeface(custom_font);
@@ -307,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         dialog.dismiss();
                     }
 
@@ -333,17 +351,16 @@ public class MainActivity extends AppCompatActivity {
 class CustomListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
-    private final String[] itemname;
-    private final Integer[] imgid;
-    private ImageView imageView;
+    private final String[] itemName;
+    private TextView textView;
+    private CardView cardView;
 
-    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
-        super(context, R.layout.custom_drawer_item, itemname);
+    public CustomListAdapter(Activity context, String[] itemName) {
+        super(context, R.layout.custom_drawer_item, itemName);
         // TODO Auto-generated constructor stub
 
         this.context = context;
-        this.itemname = itemname;
-        this.imgid = imgid;
+        this.itemName = itemName;
     }
 
     public View getView(int position, View view, ViewGroup parent) {
@@ -351,18 +368,15 @@ class CustomListAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.custom_drawer_item, null, true);
 
         final int pos = position;
-        //TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-        imageView = (ImageView) rowView.findViewById(R.id.choices);
-        //Picasso.with(context).load(imgid[pos]).fit().into(imageView);
-        //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
+        textView = (TextView) rowView.findViewById(R.id.itemText);
+        cardView = (CardView) rowView.findViewById(R.id.containerCard);
 
-        //txtTitle.setText(itemname[position]);
-        if(itemname[pos].equals("o"))
-            imageView.setImageResource(imgid[pos]);
+        textView.setText(itemName[pos]);
+        if(!(itemName[pos].equals("WHAT'S HOT")))
+            cardView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
         else
-            imageView.setImageResource(R.drawable.whats_hot);
+            cardView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appYellow)));
 
-        //extratxt.setText("Description "+itemname[position]);
         return rowView;
 
     }

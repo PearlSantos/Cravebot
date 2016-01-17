@@ -302,4 +302,9 @@
     <color name="black_50">#80000000</color>
     <color name="black_30">#40000000</color>
     <color name="black_10">#1A000000</color>
+
+    <color name="appYellow">#FFD058</color>
+    <color name="appGreen">#3DB766</color>
+    <color name="appRed">#DC383D</color>
+    <color name="appOrange">#F1582D</color>
 </resources>
