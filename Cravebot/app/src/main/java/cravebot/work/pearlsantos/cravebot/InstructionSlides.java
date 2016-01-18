@@ -61,31 +61,31 @@ public class InstructionSlides extends AppCompatActivity {
             }
         });
 
-        YoYo.with(Techniques.Pulse)
-                .duration(1200)
-                .interpolate(new AccelerateDecelerateInterpolator())
-                .withListener(new Animator.AnimatorListener() {
-
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        YoYo.with(Techniques.Pulse)
-                                .duration(1200)
-                                .interpolate(new AccelerateDecelerateInterpolator())
-                                .withListener(this).playOn(back);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-                    }
-                }).playOn(back);
+//        YoYo.with(Techniques.Pulse)
+//                .duration(1200)
+//                .interpolate(new AccelerateDecelerateInterpolator())
+//                .withListener(new Animator.AnimatorListener() {
+//
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        YoYo.with(Techniques.Pulse)
+//                                .duration(1200)
+//                                .interpolate(new AccelerateDecelerateInterpolator())
+//                                .withListener(this).playOn(back);
+//                    }
+//
+//                    @Override
+//                    public void onAnimationCancel(Animator animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animator animation) {
+//                    }
+//                }).playOn(back);
 
 
 
