@@ -1,43 +1,29 @@
 package cravebot.work.pearlsantos.cravebot;
 
-import android.annotation.SuppressLint;
 import android.net.Uri;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
-
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.nineoldandroids.animation.Animator;
 
 import java.util.ArrayList;
 
 import cravebot.R;
-import cravebot.results.elysi.customobjects.PagerContainer;
 
 public class InstructionSlides extends AppCompatActivity {
 
     private CustomAdapter mSectionsPagerAdapter;
-    private PagerContainer mContainer;
     private ViewPager mViewPager;
     private static ArrayList<Integer> imgId;
     private Button back;
-    private static ImageView background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +36,6 @@ public class InstructionSlides extends AppCompatActivity {
         imgId.add(R.drawable.instruction_3);
 
 
-    //    mContainer = (PagerContainer) findViewById(R.id.pager_container);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         back = (Button) findViewById(R.id.goBack);
@@ -60,64 +45,6 @@ public class InstructionSlides extends AppCompatActivity {
                 finish();
             }
         });
-
-//        YoYo.with(Techniques.Pulse)
-//                .duration(1200)
-//                .interpolate(new AccelerateDecelerateInterpolator())
-//                .withListener(new Animator.AnimatorListener() {
-//
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        YoYo.with(Techniques.Pulse)
-//                                .duration(1200)
-//                                .interpolate(new AccelerateDecelerateInterpolator())
-//                                .withListener(this).playOn(back);
-//                    }
-//
-//                    @Override
-//                    public void onAnimationCancel(Animator animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animator animation) {
-//                    }
-//                }).playOn(back);
-
-
-
-
-//        mContainer.getViewTreeObserver().
-//                addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//                    @SuppressLint("NewApi")
-//                    @SuppressWarnings("deprecation")
-//                    @Override
-//                    public void onGlobalLayout() {
-//                        //now we can retrieve the width and height
-//                        int height = mContainer.getHeight();
-//                        int width = mContainer.getWidth();
-//
-//                        double heightSize = height * 0.9;
-//                        height = (int) heightSize;
-//                        double widthSize = width * 0.85;
-//                        width = (int) widthSize;
-//
-//
-//                        mViewPager.setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
-//                        mViewPager.setPageMargin(width / 20);
-////                        mViewPager.setPadding(width /30, width /30, width /30, width /30);
-//
-//
-//                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
-//                            mContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                        else
-//                            mContainer.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//                    }
-//                });
-//
 
         mSectionsPagerAdapter = new CustomAdapter(getSupportFragmentManager());
 
@@ -188,9 +115,6 @@ public class InstructionSlides extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_instruction_slides, container, false);
             ((SimpleDraweeView) rootView.findViewById(R.id.instruction)).setImageURI(
                     Uri.parse("res:/" + imgId.get(getArguments().getInt(ARG_SECTION_NUMBER))));
-//            background = (ImageView) rootView.findViewById(R.id.instruction);
-//            background.setImageResource(imgId.get(getArguments().getInt
-//                    (ARG_SECTION_NUMBER)));
             return rootView;
         }
     }

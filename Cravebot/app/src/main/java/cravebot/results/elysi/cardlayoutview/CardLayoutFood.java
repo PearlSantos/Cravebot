@@ -196,8 +196,5 @@ public class CardLayoutFood extends AppCompatActivity {
 
     }
 
-    public static int getFirsPage() {
-        return FIRST_PAGE;
-    }
 
 }

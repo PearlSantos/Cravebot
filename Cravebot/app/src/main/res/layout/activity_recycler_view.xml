@@ -1,65 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:id="@+id/fragmentLayoutWhole"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:gravity="center">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/background"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:scaleType="fitXY" />-->
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-
-
-        <!--<GridView-->
-            <!--android:id="@+id/gridview"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="4"-->
-            <!--android:gravity="center"-->
-            <!--android:numColumns="3" />-->
-
-        <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="0dp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_gravity="bottom|center"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_weight="0.4"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:background="#00555555"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:orientation="horizontal">&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
-        <!--&lt;!&ndash;android:id="@+id/card_view_button"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_width="@dimen/_20sdp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="@dimen/_20sdp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_margin="@dimen/_7sdp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:background="@drawable/card"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:padding="@dimen/_7sdp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:scaleType="center" />&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
-        <!--&lt;!&ndash;android:id="@+id/grid_view_button"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_width="@dimen/_25sdp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="@dimen/_25sdp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_margin="@dimen/_7sdp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:background="@drawable/grid_view_button"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:padding="@dimen/_7sdp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:scaleType="center" />&ndash;&gt;-->
-
-        <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
-    <!--</LinearLayout>-->
-
-    <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical" />

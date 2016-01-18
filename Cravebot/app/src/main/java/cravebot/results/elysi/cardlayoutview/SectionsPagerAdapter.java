@@ -1,38 +1,25 @@
 package cravebot.results.elysi.cardlayoutview;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TableRow;
-
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cravebot.R;
 import cravebot.customstuff.TextViewPlus;
@@ -114,8 +101,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
             foodImage = (SimpleDraweeView) view.findViewById(R.id.foodImage);
-            //    foodImage.setVisibility(View.GONE);
-            //   progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
             String foodImg = APIFood + singleItem.getPhoto();
 
@@ -129,24 +114,14 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             ((TextViewPlus) view.findViewById(R.id.description)).setText(singleItem.getDescription().trim());
 
-            // progressBarInfo = (ProgressBar) view.findViewById(R.idandroid.progressBarInfo);
 
             restoLogo = (SimpleDraweeView) view.findViewById(R.id.restoLogo);
-            // restoLogoT.setVisibility(View.GONE);
             String restoLogoUrl = APIResto + singleItem.getRestoLogo();
             Log.d("RestoLogo", restoLogoUrl);
             if (!restoLogoUrl.equals("null")) {
                 Uri resto = Uri.parse(restoLogoUrl);
                 restoLogo.setImageURI(resto);
             }
-//            } else {
-//                progressBarInfo.setVisibility(View.GONE);
-//                restoLogo.setVisibility(View.GONE);
-//            }
-
-//            LinearLayout putOptions = (LinearLayout) view.findViewById(R.id.putOptions);
-//            int paddingBottom = putOptions.getPaddingBottom();
-//            float textS = ((TextViewPlus) view.findViewById(R.id.description)).getTextSize();
             int i = 1;
             ArrayList<String> options = new ArrayList<>();
             ArrayList<String> priceOptions = new ArrayList<>();

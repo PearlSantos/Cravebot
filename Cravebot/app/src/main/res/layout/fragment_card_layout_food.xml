@@ -6,13 +6,6 @@
     android:background="@drawable/rounded_corners_white"
     android:gravity="center">
 
-    <!--<ImageView-->
-    <!--android:id="@+id/background"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:scaleType="fitXY"-->
-    <!--/>-->
-
     <FrameLayout
         android:id="@+id/root_frame"
         android:layout_width="match_parent"
@@ -36,29 +29,6 @@
                 fresco:progressBarImage="@mipmap/cravebot_badge"
                 fresco:progressBarImageScaleType="centerInside" />
 
-            <!--<FrameLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/_260sdp"-->
-            <!--android:gravity="center">-->
-
-
-            <!--<ImageView-->
-            <!--android:id="@+id/foodImage"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="center"-->
-            <!--android:scaleType="centerCrop" />-->
-
-            <!--<ProgressBar-->
-            <!--android:id="@+id/progressBar"-->
-            <!--style="?android:attr/progressBarStyle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:indeterminate="true" />-->
-            <!--</FrameLayout>-->
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,7 +45,6 @@
                     android:layout_weight="2"
                     android:paddingBottom="@dimen/_5sdp"
                     android:text="Food Name"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/bigFont" />
 
@@ -88,7 +57,6 @@
                     android:gravity="end"
                     android:paddingLeft="@dimen/_15sdp"
                     android:text="Price"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/bigFont" />
 
@@ -101,16 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_11sdp"
                 android:text="Restaurant Name"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/darkGray"
                 android:textSize="@dimen/smallFont" />
-
-            <!--<Button-->
-            <!--android:id="@+id/testGridView"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:text="Test Gridview" />-->
 
 
         </LinearLayout>
@@ -125,13 +85,6 @@
         android:layout_height="match_parent"
         android:layoutAnimation="@anim/layout_animation"
         android:visibility="gone">
-
-        <!--<ImageView-->
-        <!--android:id="@+id/backgroundInfo"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:scaleType="fitXY" />-->
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -154,31 +107,15 @@
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/restoLogo"
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_60sdp"
-                    fresco:actualImageScaleType="centerInside"
-                    fresco:failureImage="@color/white"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
+                    fresco:actualImageScaleType="fitCenter"
+                    fresco:failureImage="@color/grey_100"
                     fresco:progressBarAutoRotateInterval="1000"
                     fresco:progressBarImage="@mipmap/cravebot_badge"
                     fresco:progressBarImageScaleType="centerInside"
                     android:layout_gravity="right|center_vertical"
-                    android:paddingRight="@dimen/_10sdp"/>
-
-
-                <!--<ImageView-->
-                <!--android:id="@+id/restoLogo"-->
-                <!--android:layout_width="@dimen/_60sdp"-->
-                <!--android:layout_height="@dimen/_60sdp"-->
-                <!--android:layout_gravity="end|center"-->
-                <!--android:scaleType="fitCenter" />-->
-
-                <!--<ProgressBar-->
-                <!--android:id="@+id/progressBarInfo"-->
-                <!--style="?android:attr/progressBarStyle"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="end|center"-->
-                <!--android:indeterminate="true" />-->
+                    android:layout_marginRight="@dimen/_10sdp"/>
 
             </FrameLayout>
 
@@ -202,7 +139,6 @@
                         android:layout_weight="2"
                         android:paddingBottom="@dimen/_5sdp"
                         android:text="Food Name"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/bigFont" />
 
@@ -214,7 +150,6 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="Price"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/bigFont" />
 
@@ -228,7 +163,6 @@
                     android:gravity="start"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="RestoName"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/smallFont" />
 
@@ -241,7 +175,6 @@
                     android:gravity="start"
                     android:paddingBottom="@dimen/_13sdp"
                     android:text="Description"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/smallFont" />
 
