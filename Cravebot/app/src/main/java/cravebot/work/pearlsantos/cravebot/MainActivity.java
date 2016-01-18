@@ -141,11 +141,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if(!(items[position].equals("WHAT'S HOT"))){
                     if (!filterClicked[position]) {
-                        cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
-                        filterClicked[position] = true;
-                    } else {
                         cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
+                        filterClicked[position] = true;
+                        Log.d("filter", Integer.toString(position) + " " + filterClicked[position]);
+                    } else {
+                        cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
                         filterClicked[position] = false;
+                        Log.d("filter", Integer.toString(position) + " " + filterClicked[position]);
                     }
                 }
                else{
