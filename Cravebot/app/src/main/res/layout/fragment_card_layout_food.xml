@@ -3,8 +3,8 @@
     android:id="@+id/fragmentLayoutWhole"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@drawable/rounded_corners_white">
+    android:background="@drawable/rounded_corners_white"
+    android:gravity="center">
 
     <!--<ImageView-->
     <!--android:id="@+id/background"-->
@@ -16,7 +16,8 @@
     <FrameLayout
         android:id="@+id/root_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
 
         <LinearLayout
@@ -30,28 +31,31 @@
                 android:layout_height="@dimen/_260sdp"
                 android:layout_gravity="center"
                 fresco:actualImageScaleType="centerCrop"
-                fresco:placeholderImage="@color/white"/>
+                fresco:failureImage="@color/darkGray"
+                fresco:progressBarAutoRotateInterval="1000"
+                fresco:progressBarImage="@mipmap/cravebot_badge"
+                fresco:progressBarImageScaleType="centerInside" />
 
             <!--<FrameLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/_260sdp"-->
-                <!--android:gravity="center">-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/_260sdp"-->
+            <!--android:gravity="center">-->
 
 
-                <!--<ImageView-->
-                    <!--android:id="@+id/foodImage"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="center"-->
-                    <!--android:scaleType="centerCrop" />-->
+            <!--<ImageView-->
+            <!--android:id="@+id/foodImage"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center"-->
+            <!--android:scaleType="centerCrop" />-->
 
-                <!--<ProgressBar-->
-                    <!--android:id="@+id/progressBar"-->
-                    <!--style="?android:attr/progressBarStyle"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:indeterminate="true" />-->
+            <!--<ProgressBar-->
+            <!--android:id="@+id/progressBar"-->
+            <!--style="?android:attr/progressBarStyle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:indeterminate="true" />-->
             <!--</FrameLayout>-->
 
 
@@ -67,26 +71,26 @@
                     android:id="@+id/foodName"
                     style="@style/textViewCustomFont1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:paddingBottom="@dimen/_5sdp"
-                    android:textSize="@dimen/bigFont"
                     android:text="Food Name"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/darkGray" />
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/bigFont" />
 
                 <cravebot.customstuff.TextViewPlus
                     android:id="@+id/price"
                     style="@style/textViewCustomFont1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="@dimen/bigFont"
                     android:gravity="end"
                     android:paddingLeft="@dimen/_15sdp"
                     android:text="Price"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/darkGray" />
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/bigFont" />
 
             </LinearLayout>
 
@@ -96,10 +100,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_11sdp"
-                android:textSize="@dimen/smallFont"
                 android:text="Restaurant Name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/darkGray" />
+                android:textColor="@color/darkGray"
+                android:textSize="@dimen/smallFont" />
 
             <!--<Button-->
             <!--android:id="@+id/testGridView"-->
@@ -135,56 +139,54 @@
             android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/back"
                     android:layout_width="@dimen/_17sdp"
                     android:layout_height="@dimen/_17sdp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left|center"
                     android:background="@drawable/back_button"
                     android:scaleType="fitXY" />
+
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/restoLogo"
                     android:layout_width="@dimen/_60sdp"
-                    android:gravity="center"
                     android:layout_height="@dimen/_60sdp"
                     fresco:actualImageScaleType="centerInside"
-                    fresco:placeholderImage="@color/white"/>
+                    fresco:failureImage="@color/white"
+                    fresco:progressBarAutoRotateInterval="1000"
+                    fresco:progressBarImage="@mipmap/cravebot_badge"
+                    fresco:progressBarImageScaleType="centerInside"
+                    android:layout_gravity="right|center_vertical"
+                    android:paddingRight="@dimen/_10sdp"/>
 
-                <!--<FrameLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="center">-->
 
-                    <!--<ImageView-->
-                        <!--android:id="@+id/restoLogo"-->
-                        <!--android:layout_width="@dimen/_60sdp"-->
-                        <!--android:layout_height="@dimen/_60sdp"-->
-                        <!--android:layout_gravity="end|center"-->
-                        <!--android:scaleType="fitCenter" />-->
+                <!--<ImageView-->
+                <!--android:id="@+id/restoLogo"-->
+                <!--android:layout_width="@dimen/_60sdp"-->
+                <!--android:layout_height="@dimen/_60sdp"-->
+                <!--android:layout_gravity="end|center"-->
+                <!--android:scaleType="fitCenter" />-->
 
-                    <!--<ProgressBar-->
-                        <!--android:id="@+id/progressBarInfo"-->
-                        <!--style="?android:attr/progressBarStyle"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_gravity="end|center"-->
-                        <!--android:indeterminate="true" />-->
-                <!--</FrameLayout>-->
-            </LinearLayout>
+                <!--<ProgressBar-->
+                <!--android:id="@+id/progressBarInfo"-->
+                <!--style="?android:attr/progressBarStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="end|center"-->
+                <!--android:indeterminate="true" />-->
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:id="@+id/putOptions"
                 android:paddingBottom="@dimen/_10sdp">
 
                 <LinearLayout
@@ -195,26 +197,26 @@
                     <cravebot.customstuff.TextViewPlus
                         android:id="@+id/foodNameInfo"
                         style="@style/textViewCustomFont1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:paddingBottom="@dimen/_5sdp"
-                        android:textSize="@dimen/bigFont"
                         android:text="Food Name"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/darkGray" />
+                        android:textColor="@color/darkGray"
+                        android:textSize="@dimen/bigFont" />
 
                     <cravebot.customstuff.TextViewPlus
                         android:id="@+id/priceInfo"
                         style="@style/textViewCustomFont1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
-                        android:textSize="@dimen/bigFont"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="end"
                         android:text="Price"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/darkGray" />
+                        android:textColor="@color/darkGray"
+                        android:textSize="@dimen/bigFont" />
 
                 </LinearLayout>
 
@@ -223,12 +225,12 @@
                     style="@style/textViewCustomFont2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/smallFont"
                     android:gravity="start"
                     android:paddingBottom="@dimen/_10sdp"
                     android:text="RestoName"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/darkGray" />
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/smallFont" />
 
 
                 <cravebot.customstuff.TextViewPlus
@@ -236,14 +238,20 @@
                     style="@style/textViewCustomFont2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/smallFont"
                     android:gravity="start"
+                    android:paddingBottom="@dimen/_13sdp"
                     android:text="Description"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:paddingBottom="@dimen/_13sdp"
-                    android:textColor="@color/darkGray" />
-            </LinearLayout>
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/smallFont" />
 
+                <ListView
+                    android:id="@+id/listView_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center" />
+
+            </LinearLayout>
         </LinearLayout>
 
 

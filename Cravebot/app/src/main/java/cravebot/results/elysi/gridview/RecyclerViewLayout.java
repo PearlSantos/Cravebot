@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -69,6 +70,8 @@ public class RecyclerViewLayout extends AppCompatActivity {
             public ViewHolder(View itemView) {
                 super(itemView);
                 image = (SimpleDraweeView) itemView.findViewById(R.id.sdvImage);
+                image.clearColorFilter();
+                image.invalidate();
                 // progressBar = (ProgressBar) itemView.findViewById(R.id.progress);
                 int width = mRecyclerView.getWidth();
                 double widthSize = width / 3.3;
@@ -80,6 +83,8 @@ public class RecyclerViewLayout extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                image.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                image.invalidate();
                 Intent i = new Intent(act, CardLayoutFood.class);
                 i.putParcelableArrayListExtra(GoTask.LIST_KEY, mDataset);
                 i.putExtra("position", getAdapterPosition());

@@ -64,7 +64,7 @@ public class Splash extends AppCompatActivity {
                     }
                 });
 
-        background.setImageURI(Uri.parse("res:/" + R.drawable.food_bg));
+        background.setImageURI(Uri.parse("res:/" + R.mipmap.background));
         cravebot.setImageURI(Uri.parse("res:/" + R.drawable.cravebot_start));
 
 

@@ -10,7 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@color/white" />
+        fresco:failureImage="@mipmap/cravebot_header"
+        fresco:failureImageScaleType="fitXY"
+        fresco:progressBarImage="@mipmap/cravebot_badge"
+        fresco:progressBarImageScaleType="centerInside"
+        fresco:progressBarAutoRotateInterval="1000"/>
 
     <!--<ImageView-->
         <!--android:id="@+id/image"-->

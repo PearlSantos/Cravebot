@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 mipmap.ic_sidebar_button);
 
         SimpleDraweeView backgroundToolbar = (SimpleDraweeView) findViewById(R.id.backgroundToolbar);
-        backgroundToolbar.setImageURI(Uri.parse("res:/" + R.drawable.food_bg));
+        backgroundToolbar.setImageURI(Uri.parse("res:/" + R.mipmap.background));
 
 
         TextView title = (TextView) toolbar.findViewById(R.id.title);
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList = (ListView) findViewById(R.id.drawer);
 
         ImageView background = (ImageView) findViewById(R.id.background);
-        background.setImageURI(Uri.parse("res:/" + R.drawable.food_bg));
+        background.setImageURI(Uri.parse("res:/" + R.mipmap.background));
 
         mDrawerList.setAdapter(new CustomListAdapter(this, items));
 //        LayoutInflater inflater = getLayoutInflater();

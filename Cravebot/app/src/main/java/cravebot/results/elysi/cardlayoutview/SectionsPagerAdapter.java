@@ -1,5 +1,6 @@
 package cravebot.results.elysi.cardlayoutview;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -17,16 +18,20 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TableRow;
 
 
 import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import cravebot.R;
 import cravebot.customstuff.TextViewPlus;
@@ -82,8 +87,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         private FoodItem singleItem;
         private View view;
         private FrameLayout moreInfo, place;
-        private ProgressBar progressBar, progressBarInfo;
-        private GestureDetector ges;
+
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -124,68 +128,40 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             ((TextViewPlus) view.findViewById(R.id.description)).setText(singleItem.getDescription().trim());
 
-           // progressBarInfo = (ProgressBar) view.findViewById(R.idandroid.progressBarInfo);
+            // progressBarInfo = (ProgressBar) view.findViewById(R.idandroid.progressBarInfo);
 
             restoLogo = (SimpleDraweeView) view.findViewById(R.id.restoLogo);
-           // restoLogo.setVisibility(View.GONE);
-            String restoLogoUrl = APIResto+singleItem.getRestoLogo();
+            // restoLogoT.setVisibility(View.GONE);
+            String restoLogoUrl = APIResto + singleItem.getRestoLogo();
             Log.d("RestoLogo", restoLogoUrl);
-            //if (!restoLogoUrl.equals("null")) {
+            if (!restoLogoUrl.equals("null")) {
                 Uri resto = Uri.parse(restoLogoUrl);
                 restoLogo.setImageURI(resto);
-
+            }
 //            } else {
 //                progressBarInfo.setVisibility(View.GONE);
 //                restoLogo.setVisibility(View.GONE);
 //            }
 
-            LinearLayout putOptions = (LinearLayout) view.findViewById(R.id.putOptions);
-            int paddingBottom = putOptions.getPaddingBottom();
-            float textS = ((TextViewPlus) view.findViewById(R.id.description)).getTextSize();
+//            LinearLayout putOptions = (LinearLayout) view.findViewById(R.id.putOptions);
+//            int paddingBottom = putOptions.getPaddingBottom();
+//            float textS = ((TextViewPlus) view.findViewById(R.id.description)).getTextSize();
             int i = 1;
+            ArrayList<String> options = new ArrayList<>();
+            ArrayList<String> priceOptions = new ArrayList<>();
             while (i <= 6 && !singleItem.getOptions(i).trim().equals("")) {
-                String option = singleItem.getOptions(i).trim();
-                if (!option.equals("")) {
-                    LinearLayout layoutOptions = new LinearLayout(getActivity().getApplicationContext());
-                    layoutOptions.setOrientation(LinearLayout.HORIZONTAL);
-                    layoutOptions.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-                            , ViewGroup.LayoutParams.WRAP_CONTENT));
-                    layoutOptions.setPadding(0, 0, 0, paddingBottom);
-
-                    TextViewPlus optionText = new TextViewPlus(getActivity().getApplicationContext());
-                    optionText.setGravity(Gravity.START);
-                    optionText.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
-                    optionText.setPadding(0, 0, paddingBottom, 0);
-                    optionText.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),
-                            R.color.darkGray));
-                    optionText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
-                    optionText.setText(option);
-
-                    String optionPriceString = singleItem.getPrices(i).trim();
-                    TextViewPlus optionPrice = null;
-                    if (!optionPriceString.equals("")) {
-                        optionPrice = new TextViewPlus(getActivity().getApplicationContext());
-                        optionPrice.setGravity(Gravity.END);
-                        optionPrice.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 0.3f));
-                        optionPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, textS);
-                        optionPrice.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),
-                                R.color.darkGray));
-                        String prices = singleItem.getPrices(i).trim();
-                        if (prices.trim().substring(0).equals("P"))
-                            optionPrice.setText(prices);
-                        else optionPrice.setText("P " + prices);
-                    }
-
-                    layoutOptions.addView(optionText);
-                    if (optionPrice != null) {
-                        layoutOptions.addView(optionPrice);
-                    }
-
-                    putOptions.addView(layoutOptions);
-
-                    i++;
-                }
+                String op = singleItem.getOptions(i).trim();
+                String prices = singleItem.getPrices(i).trim();
+                options.add(op);
+                priceOptions.add(prices);
+                i++;
             }
+
+            if (options.size() != 0) {
+                ListView listviewOptions = (ListView) view.findViewById(R.id.listView_options);
+                listviewOptions.setAdapter(new CustomListAdapter(options, priceOptions));
+            }
+
 
             final ImageButton back = (ImageButton) view.findViewById(R.id.back);
             back.getBackground().clearColorFilter();
@@ -199,6 +175,7 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 }
 
             });
+
             moreInfo = (FrameLayout) view.findViewById(R.id.root_frameInfo);
             place = (FrameLayout) view.findViewById(R.id.root_frame);
 
@@ -226,14 +203,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
         }
 
-        public void displayFoodImage(String url) {
-
-        }
-
-        public void displayRestoLogo(String url) {
-        }
-
-
         public FrameLayout getMoreInfo() {
             return moreInfo;
         }
@@ -242,8 +211,53 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             return place;
         }
 
-        public ImageView getFoodImage() {
-            return foodImage;
+
+        public class CustomListAdapter extends BaseAdapter {
+            ArrayList<String> opt;
+            ArrayList<String> pri;
+
+            public CustomListAdapter(ArrayList<String> opt, ArrayList<String> pri) {
+                this.opt = opt;
+                this.pri = pri;
+            }
+
+            @Override
+            public int getCount() {
+                return opt.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return opt.get(position);
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                LayoutInflater inflater = (LayoutInflater) getContext().getApplicationContext().
+                        getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View v;
+
+                System.out.println(parent.getClass().getName());
+                System.out.println(position);
+
+                if (convertView == null) {
+                    v = inflater.inflate(R.layout.option_items, null);
+                } else {
+                    v = convertView;
+                }
+
+
+                ((TextViewPlus) v.findViewById(R.id.option)).setText(opt.get(position));
+                String price = pri.get(position);
+                ((TextViewPlus) v.findViewById(R.id.priceOption)).setText(pri.get(position));
+
+                return v;
+            }
         }
 
     }
