@@ -213,6 +213,7 @@ public class CardLayoutFood extends AppCompatActivity {
 
                         if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
                             prefs.edit().putInt(once, 1).commit();
+                            message.clearAnimation();
                             ((ViewGroup) message.getParent()).removeView(message);
                         }
                     }
