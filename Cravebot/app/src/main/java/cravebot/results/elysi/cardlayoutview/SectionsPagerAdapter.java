@@ -137,28 +137,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 final ListView listviewOptions = (ListView) view.findViewById(R.id.listView_options);
                 listviewOptions.setAdapter(new CustomListAdapter(options, priceOptions));
 
-                listviewOptions.setOnScrollListener(new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(AbsListView view, int scrollState) {
-                        if (listviewOptions.getLastVisiblePosition() == listviewOptions.getAdapter().getCount() -1 &&
-                                listviewOptions.getChildAt(listviewOptions.getChildCount() - 1).getBottom() <= listviewOptions.getHeight())
-                        {
-                            //It is scrolled all the way down here
-                            listviewOptions.setEnabled(false);
-                        }
-                        else if (listviewOptions.getFirstVisiblePosition() == 0 &&
-                                listviewOptions.getChildAt(0).getTop() >= 0)
-                        {
-                            //It is scrolled all the way up here
-                            listviewOptions.setEnabled(false);
-                        }
-                    }
-
-                    @Override
-                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                    }
-                });
             }
 
 
