@@ -242,7 +242,10 @@ public class MainActivity extends AppCompatActivity {
         // Handle your other action bar items...
         switch (item.getItemId()) {
             case R.id.tutorials:
-                MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
+                Intent tuts = new Intent(MainActivity.this, InstructionSlides.class);
+                tuts.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                MainActivity.this.startActivity(tuts);
+                MainActivity.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
                 break;
             case R.id.contact_info:
                 final Dialog dialog = new Dialog(this, R.style.DialogTheme);

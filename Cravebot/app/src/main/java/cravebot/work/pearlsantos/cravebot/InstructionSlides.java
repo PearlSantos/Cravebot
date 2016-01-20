@@ -1,5 +1,7 @@
 package cravebot.work.pearlsantos.cravebot;
 
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,10 +41,16 @@ public class InstructionSlides extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         back = (Button) findViewById(R.id.goBack);
+        back.getBackground().clearColorFilter();
+        back.invalidate();
+        back.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf"));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                back.getBackground().setColorFilter(0xFF6666, PorterDuff.Mode.SRC_ATOP);
+                back.invalidate();
                 finish();
+                InstructionSlides.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
             }
         });
 

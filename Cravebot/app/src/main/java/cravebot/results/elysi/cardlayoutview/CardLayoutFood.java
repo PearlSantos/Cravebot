@@ -2,29 +2,41 @@ package cravebot.results.elysi.cardlayoutview;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
 import cravebot.R;
+import cravebot.customstuff.TextViewPlus;
 import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.OnSwipeListener;
 import cravebot.results.elysi.customobjects.PagerContainer;
 import cravebot.results.elysi.gridview.RecyclerViewLayout;
 import cravebot.work.pearlsantos.cravebot.GoTask;
+import cravebot.work.pearlsantos.cravebot.MainActivity;
 
 public class CardLayoutFood extends AppCompatActivity {
 
@@ -68,7 +80,7 @@ public class CardLayoutFood extends AppCompatActivity {
                         int height = mContainer.getHeight();
                         int width = mContainer.getWidth();
 
-                        double heightSize = height * 0.9;
+                        double heightSize = height * 0.8;
                         height = (int) heightSize;
                         double widthSize = width * 0.85;
                         width = (int) widthSize;
@@ -97,25 +109,62 @@ public class CardLayoutFood extends AppCompatActivity {
         mViewPager.setOffscreenPageLimit(3);
 
 
-        //If hardware acceleration is enabled, you should also remove
-        // clipping on the pager for its children.
         mViewPager.setClipChildren(false);
         int pos = getIntent().getIntExtra("position", -1);
         if (pos != -1) {
-            mViewPager.setCurrentItem(pos, false);
+            mViewPager.setCurrentItem(pos % sample.size(), false);
         }
+
+//        if(MainActivity.nextAction==2){
+        LinearLayout message = new LinearLayout(CardLayoutFood.this);
+        message.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER | Gravity.BOTTOM));
+
+        message.setOrientation(LinearLayout.VERTICAL);
+
+        SimpleDraweeView upButton = new SimpleDraweeView(CardLayoutFood.this);
+        upButton.setImageURI(Uri.parse("res:/" + R.drawable.up_button));
+
+        TextViewPlus swipeUp = new TextViewPlus(CardLayoutFood.this);
+        swipeUp.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc"));
+        swipeUp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+        swipeUp.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red_400));
+        swipeUp.setText("Swipe up to\nknow more!");
+
+        float density = getResources().getDisplayMetrics().density;
+        int params = (int) (45 * density + 0.5f);
+
+        upButton.setLayoutParams(new LinearLayout.LayoutParams(params, params, Gravity.CENTER_VERTICAL));
+        swipeUp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
+
+
+        message.addView(upButton);
+        message.addView(swipeUp);
+
+
+
+        FrameLayout swipeUpMes = (FrameLayout) findViewById(R.id.swipeUpMes);
+        swipeUpMes.addView(message);
+        swipeUpMes.bringChildToFront(message);
+
+        System.out.println("DISPLAY");
+
+
+
+
+
+//         }
+//        else
 
         mSectionsPagerAdapter.notifyDataSetChanged();
 
-//        ImageView background = (ImageView) findViewById(R.id.background);
-//        Picasso.with(getApplicationContext()).load(R.drawable.food_bg).into(background);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 finish();
             }
         });
