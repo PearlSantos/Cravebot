@@ -1,7 +1,10 @@
 package cravebot.results.elysi.cardlayoutview;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -19,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -35,6 +40,7 @@ import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.OnSwipeListener;
 import cravebot.results.elysi.customobjects.PagerContainer;
 import cravebot.results.elysi.gridview.RecyclerViewLayout;
+import cravebot.work.pearlsantos.cravebot.CheckingStart;
 import cravebot.work.pearlsantos.cravebot.GoTask;
 import cravebot.work.pearlsantos.cravebot.MainActivity;
 
@@ -51,6 +57,10 @@ public class CardLayoutFood extends AppCompatActivity {
     public ViewPager mViewPager;
     private ArrayList<FoodItem> sample;
     private PagerContainer mContainer;
+
+    private LinearLayout message;
+    private final String once = "SWIPE_UP";
+    private SharedPreferences prefs;
 
 
     public CardLayoutFood() {
@@ -101,9 +111,7 @@ public class CardLayoutFood extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), sample);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         FIRST_PAGE = sample.size() * LOOPS / 2;
-        //Necessary or the pager will only have one extra page to show
-        // make this at least however many pages you can see
-        // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
+
 
         mViewPager.setCurrentItem(FIRST_PAGE);
         mViewPager.setOffscreenPageLimit(3);
@@ -115,50 +123,51 @@ public class CardLayoutFood extends AppCompatActivity {
             mViewPager.setCurrentItem(pos % sample.size(), false);
         }
 
-//        if(MainActivity.nextAction==2){
-        LinearLayout message = new LinearLayout(CardLayoutFood.this);
-        message.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER | Gravity.BOTTOM));
+        prefs = getApplicationContext().getSharedPreferences
+                (CheckingStart.PREFS_NAME, Context.MODE_PRIVATE);
 
-        message.setOrientation(LinearLayout.VERTICAL);
+        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
+            message = new LinearLayout(CardLayoutFood.this);
+            message.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER | Gravity.BOTTOM));
 
-        SimpleDraweeView upButton = new SimpleDraweeView(CardLayoutFood.this);
-        upButton.setImageURI(Uri.parse("res:/" + R.drawable.up_button));
+            message.setOrientation(LinearLayout.VERTICAL);
+            message.setGravity(Gravity.CENTER);
 
-        TextViewPlus swipeUp = new TextViewPlus(CardLayoutFood.this);
-        swipeUp.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc"));
-        swipeUp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
-        swipeUp.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red_400));
-        swipeUp.setText("Swipe up to\nknow more!");
+            SimpleDraweeView upButton = new SimpleDraweeView(CardLayoutFood.this);
+            upButton.setImageURI(Uri.parse("res:/" + R.drawable.up_button));
 
-        float density = getResources().getDisplayMetrics().density;
-        int params = (int) (45 * density + 0.5f);
+            TextViewPlus swipeUp = new TextViewPlus(CardLayoutFood.this);
+            swipeUp.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc"));
+            swipeUp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            swipeUp.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red_400));
+            swipeUp.setText("Swipe up to\nknow more!");
 
-        upButton.setLayoutParams(new LinearLayout.LayoutParams(params, params, Gravity.CENTER_VERTICAL));
-        swipeUp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
+            float density = getResources().getDisplayMetrics().density;
+            int params = (int) (45 * density + 0.5f);
 
-
-        message.addView(upButton);
-        message.addView(swipeUp);
-
-
-
-        FrameLayout swipeUpMes = (FrameLayout) findViewById(R.id.swipeUpMes);
-        swipeUpMes.addView(message);
-        swipeUpMes.bringChildToFront(message);
-
-        System.out.println("DISPLAY");
+            upButton.setLayoutParams(new LinearLayout.LayoutParams(params, params, Gravity.CENTER_VERTICAL));
+            swipeUp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
 
 
+            message.addView(upButton);
+            message.addView(swipeUp);
 
 
+            FrameLayout swipeUpMes = (FrameLayout) findViewById(R.id.swipeUpMes);
+            swipeUpMes.addView(message);
+            swipeUpMes.bringChildToFront(message);
 
-//         }
-//        else
+            System.out.println("DISPLAY");
+
+            TranslateAnimation animateSwipeUp = new TranslateAnimation(0, 0, -120, 0);
+            animateSwipeUp.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+            animateSwipeUp.setRepeatCount(Animation.INFINITE);
+            message.startAnimation(animateSwipeUp);
+        }
 
         mSectionsPagerAdapter.notifyDataSetChanged();
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -197,8 +206,14 @@ public class CardLayoutFood extends AppCompatActivity {
                     if (frag != null) {
                         if (!(frag.getMoreInfo().getVisibility() == View.VISIBLE)) {
                             frag.changeVisibility(frag.getMoreInfo(), frag.getPlace());
+
                         } else {
                             frag.changeVisibility(frag.getPlace(), frag.getMoreInfo());
+                        }
+
+                        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
+                            prefs.edit().putInt(once, 1).commit();
+                            ((ViewGroup) message.getParent()).removeView(message);
                         }
                     }
                     return true;
@@ -228,19 +243,23 @@ public class CardLayoutFood extends AppCompatActivity {
                 }
             }
 
-        });
+        }
+
+        );
         mViewPager.setOnTouchListener(new View.OnTouchListener()
 
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                boolean eventConsumed = mGestureDetector.onTouchEvent(event);
-                if (eventConsumed) {
-                    return true;
-                } else
-                    return false;
-            }
-        });
+                                      {
+                                          @Override
+                                          public boolean onTouch(View v, MotionEvent event) {
+                                              boolean eventConsumed = mGestureDetector.onTouchEvent(event);
+                                              if (eventConsumed) {
+                                                  return true;
+                                              } else
+                                                  return false;
+                                          }
+                                      }
+
+        );
 
 
     }

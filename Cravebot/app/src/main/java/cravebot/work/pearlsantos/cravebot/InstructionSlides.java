@@ -1,5 +1,7 @@
 package cravebot.work.pearlsantos.cravebot;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -53,6 +55,16 @@ public class InstructionSlides extends AppCompatActivity {
                 InstructionSlides.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
             }
         });
+
+        ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(back,
+                PropertyValuesHolder.ofFloat("scaleX", 1.2f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.2f));
+        scaleDown.setDuration(310);
+
+        scaleDown.setRepeatCount(ObjectAnimator.INFINITE);
+        scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
+
+        scaleDown.start();
 
         mSectionsPagerAdapter = new CustomAdapter(getSupportFragmentManager());
 

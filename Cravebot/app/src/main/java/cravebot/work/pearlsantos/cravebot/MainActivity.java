@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean[] filterClicked;
     Context context = this;
     public static AlertDialog noInternet;
+    public static int nextAction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).create();
 
-        int nextAction = getIntent().getIntExtra(CheckingStart.WHAT_TO_DO, -1);
+        nextAction = getIntent().getIntExtra(CheckingStart.WHAT_TO_DO, -1);
         if(nextAction==2){
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
         }

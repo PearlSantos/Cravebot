@@ -110,7 +110,6 @@
                     android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_70sdp"
                     fresco:actualImageScaleType="fitCenter"
-                    fresco:failureImage="@color/grey_100"
                     fresco:progressBarAutoRotateInterval="1000"
                     fresco:progressBarImage="@mipmap/cravebot_badge"
                     fresco:progressBarImageScaleType="centerInside"
