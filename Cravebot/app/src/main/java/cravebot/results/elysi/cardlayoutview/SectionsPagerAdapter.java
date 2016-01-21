@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,7 +99,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             view = inflater.inflate(R.layout.fragment_card_layout_food, container, false);
             singleItem = items.get(getArguments().getInt(ARG_SECTION_NUMBER));
 
-            ((TextViewPlus) view.findViewById(R.id.foodName)).setText(singleItem.getItemName());
+            TextViewPlus foodName = (TextViewPlus) view.findViewById(R.id.foodName);
+            foodName.setText(singleItem.getItemName());
+//            if(singleItem.getItemName().length()>43){
+//                foodName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+//            }
             ((TextViewPlus) view.findViewById(R.id.restoName)).setText(singleItem.getRestoName());
             ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
@@ -110,7 +115,12 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             foodImage.setImageURI(food);
 
 
-            ((TextViewPlus) view.findViewById(R.id.foodNameInfo)).setText(singleItem.getItemName().trim());
+            TextViewPlus foodNameInfo = (TextViewPlus) view.findViewById(R.id.foodNameInfo);
+           foodNameInfo .setText(singleItem.getItemName().trim());
+//            if(singleItem.getItemName().length()>43){
+//                foodNameInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+//            }
+
             ((TextViewPlus) view.findViewById(R.id.restoNameInfo)).setText(singleItem.getRestoName().trim());
             ((TextViewPlus) view.findViewById(R.id.priceInfo)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 

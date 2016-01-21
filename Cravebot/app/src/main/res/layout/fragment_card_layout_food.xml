@@ -44,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="Food Name ffffffffffffffffffffggggggggggggggggggggggggggggggggggggggggggggg"
+                    android:text="Food Name"
                     android:lineSpacingExtra="-10dp"
                     android:paddingBottom="10dp"
                     android:textColor="@color/darkGray"
@@ -182,7 +182,7 @@
                     android:paddingBottom="10dp"
                     android:gravity="start"
                     android:textScaleX="0.6"
-                    android:marginBottom="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:text="RestoName"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/medFont" />
