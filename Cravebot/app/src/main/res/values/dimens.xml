@@ -6,6 +6,9 @@
     <dimen name="appbar_padding_top">8dp</dimen>
 
     <dimen name="bigFont">@dimen/_18sdp</dimen>
-    <dimen name="smallFont">@dimen/_14sdp</dimen>
+    <dimen name="smallFont">@dimen/_13sdp</dimen>
+    <dimen name="medFont">@dimen/_15sdp</dimen>
+
+    <dimen name="swipeTextBottom">45dp</dimen>
 
 </resources>

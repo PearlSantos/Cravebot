@@ -24,11 +24,11 @@
     <style name="textViewCustomFont1" parent="@android:style/Widget.TextView">
         <item name="font">fonts/BebasNeue.otf</item>
     </style>
+    <!--<style name="textViewCustomFont2" parent="@android:style/Widget.TextView">-->
+        <!--<item name="font">fonts/Avenir Next Condensed.ttc</item>-->
+    <!--</style>-->
     <style name="textViewCustomFont2" parent="@android:style/Widget.TextView">
-        <item name="font">fonts/Avenir Next Condensed.ttc</item>
-    </style>
-    <style name="textViewCustomFont3" parent="@android:style/Widget.TextView">
-        <item name="font">fonts/avenir_next_condensed.ttc</item>
+        <item name="font">fonts/AvenirNextLTPro-Regular.otf</item>
     </style>
 
     <style name="ProgressBarStyle" parent="@android:style/Widget.ProgressBar.Horizontal"/>

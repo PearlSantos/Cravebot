@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
@@ -50,6 +51,25 @@ public class RecyclerViewLayout extends AppCompatActivity {
         int margins = 40;
         boolean includeEdge = false;
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, margins, includeEdge));
+
+//        final ImageButton cardview = (ImageButton) findViewById(R.id.card_view_button);
+//        cardview.getBackground().clearColorFilter();
+//        cardview.invalidate();
+//        cardview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                cardview.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+//                cardview.invalidate();
+//                Intent i = new Intent(RecyclerViewLayout.this, CardLayoutFood.class);
+//                i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
+//                i.putExtra("position", 1);
+//                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                RecyclerViewLayout.this.startActivity(i);
+//                RecyclerViewLayout.this.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
+//                RecyclerViewLayout.this.finish();
+//            }
+//        });
+
 
     }
 
@@ -117,45 +137,7 @@ public class RecyclerViewLayout extends AppCompatActivity {
             String photo = APIFood + mDataset.get(position).getPhoto();
             Uri imageUri = Uri.parse(photo);
             holder.image.setImageURI(imageUri);
-//            ImageLoader.getInstance().displayImage(APIFood + photo, holder.image,
-//                    options, new SimpleImageLoadingListener() {
-//
-//                        @Override
-//                        public void onLoadingStarted(String url, View view) {
-//                            holder.progressBar.setProgress(0) ;
-//                            holder.progressBar.setVisibility(View.VISIBLE);
-//                        }
-//
-//                        @Override
-//                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-//                            holder.progressBar.setVisibility(View.GONE);
-//                        }
-//
-//                        @Override
-//                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//                            holder.progressBar.setVisibility(View.GONE);
-//                        }
-//                    }
-////                    , new ImageLoadingProgressListener() {
-////                @Override
-////                public void onProgressUpdate(String imageUri, View view, int current, int total) {
-////                    holder.progressBar.setProgress(Math.round(100.0f * current / total));
-////                }
-////            }
-//            );
-
         }
-
-//    public void addItem(ViewHolder dataObj, int index) {
-//        mDataset.add(dataObj);
-//        notifyItemInserted(index);
-//    }
-//
-//    public void deleteItem(int index) {
-//        mDataset.remove(index);
-//        notifyItemRemoved(index);
-//    }
-
         @Override
         public int getItemCount() {
             return mDataset.size();

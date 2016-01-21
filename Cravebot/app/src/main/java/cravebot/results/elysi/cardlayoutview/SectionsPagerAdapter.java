@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -113,6 +115,10 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             ((TextViewPlus) view.findViewById(R.id.priceInfo)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
             ((TextViewPlus) view.findViewById(R.id.description)).setText(singleItem.getDescription().trim());
+
+            SimpleDraweeView upButton = (SimpleDraweeView) view.findViewById(R.id.upGes);
+
+            upButton.setImageURI(Uri.parse("res:/" + R.drawable.up_button));
 
 
             restoLogo = (SimpleDraweeView) view.findViewById(R.id.restoLogo);

@@ -38,6 +38,7 @@ public class InstructionSlides extends AppCompatActivity {
         imgId.add(R.drawable.instruction_1);
         imgId.add(R.drawable.instruction_2);
         imgId.add(R.drawable.instruction_3);
+        imgId.add(R.drawable.instruction_4);
 
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);

@@ -109,8 +109,8 @@ public class CardLayoutFood extends AppCompatActivity {
                 });
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), sample);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
         FIRST_PAGE = sample.size() * LOOPS / 2;
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
         mViewPager.setCurrentItem(FIRST_PAGE);
@@ -120,52 +120,52 @@ public class CardLayoutFood extends AppCompatActivity {
         mViewPager.setClipChildren(false);
         int pos = getIntent().getIntExtra("position", -1);
         if (pos != -1) {
-            mViewPager.setCurrentItem(pos % sample.size(), false);
+            if(pos==1){
+                mViewPager.setCurrentItem(FIRST_PAGE);
+            }else {
+                mViewPager.setCurrentItem(pos % sample.size(), false);
+            }
         }
 
         prefs = getApplicationContext().getSharedPreferences
                 (CheckingStart.PREFS_NAME, Context.MODE_PRIVATE);
 
-        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
-            message = new LinearLayout(CardLayoutFood.this);
-            message.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER | Gravity.BOTTOM));
+//        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
+        message = new LinearLayout(CardLayoutFood.this);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER);
+        params.setMargins(0,0,0,(int)getResources().getDimension(R.dimen.swipeTextBottom));
+        message.setLayoutParams(params);
 
-            message.setOrientation(LinearLayout.VERTICAL);
-            message.setGravity(Gravity.CENTER);
-
-            SimpleDraweeView upButton = new SimpleDraweeView(CardLayoutFood.this);
-            upButton.setImageURI(Uri.parse("res:/" + R.drawable.up_button));
-
-            TextViewPlus swipeUp = new TextViewPlus(CardLayoutFood.this);
-            swipeUp.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/avenir_next_condensed.ttc"));
-            swipeUp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
-            swipeUp.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red_400));
-            swipeUp.setText("Swipe up to\nknow more!");
-
-            float density = getResources().getDisplayMetrics().density;
-            int params = (int) (45 * density + 0.5f);
-
-            upButton.setLayoutParams(new LinearLayout.LayoutParams(params, params, Gravity.CENTER_VERTICAL));
-            swipeUp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
+        message.setOrientation(LinearLayout.VERTICAL);
+        message.setGravity(Gravity.CENTER);
 
 
-            message.addView(upButton);
-            message.addView(swipeUp);
+
+        TextViewPlus swipeUp = new TextViewPlus(CardLayoutFood.this);
+        swipeUp.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Regular.otf"));
+        swipeUp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        swipeUp.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        swipeUp.setText("SWIPE UP FOR MORE INFO");
+        swipeUp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER));
+        swipeUp.setTextScaleX((float)0.8);
 
 
-            FrameLayout swipeUpMes = (FrameLayout) findViewById(R.id.swipeUpMes);
-            swipeUpMes.addView(message);
-            swipeUpMes.bringChildToFront(message);
+          message.addView(swipeUp);
 
-            System.out.println("DISPLAY");
 
-            TranslateAnimation animateSwipeUp = new TranslateAnimation(0, 0, -120, 0);
-            animateSwipeUp.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
-            animateSwipeUp.setRepeatCount(Animation.INFINITE);
-            message.startAnimation(animateSwipeUp);
-        }
+        FrameLayout swipeUpMes = (FrameLayout) findViewById(R.id.swipeUpMes);
+        swipeUpMes.addView(message);
+        swipeUpMes.bringChildToFront(message);
+
+        System.out.println("DISPLAY");
+
+//            TranslateAnimation animateSwipeUp = new TranslateAnimation(0, 0, -120, 0);
+//            animateSwipeUp.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+//            animateSwipeUp.setRepeatCount(Animation.INFINITE);
+//            message.startAnimation(animateSwipeUp);
+//        }
 
         mSectionsPagerAdapter.notifyDataSetChanged();
 
