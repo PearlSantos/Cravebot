@@ -84,11 +84,11 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/upGes"
-            android:layout_width="@dimen/_22sdp"
-            android:layout_height="@dimen/_7sdp"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_8sdp"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="@dimen/_13sdp"
-            fresco:actualImageScaleType="centerCrop"/>
+            fresco:actualImageScaleType="fitCenter"/>
 
     </FrameLayout>
 
@@ -128,8 +128,7 @@
                     fresco:progressBarAutoRotateInterval="1000"
                     fresco:progressBarImage="@mipmap/cravebot_badge"
                     fresco:progressBarImageScaleType="centerInside"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="@dimen/_10sdp"/>
+                    android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
@@ -150,11 +149,11 @@
                         style="@style/textViewCustomFont1"
                         android:textStyle="bold"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="2"
+                        android:text="Food Name"
                         android:lineSpacingExtra="-10dp"
                         android:paddingBottom="10dp"
-                        android:text="Food Name"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/bigFont" />
 
@@ -174,16 +173,14 @@
                 <cravebot.customstuff.TextViewPlus
                     android:id="@+id/restoNameInfo"
                     style="@style/textViewCustomFont2"
-                    android:textStyle="normal"
                     android:textAllCaps="true"
-                    android:layout_width="match_parent"
+                    android:textStyle="normal"
+                    android:textScaleX="0.6"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="-10dp"
-                    android:paddingBottom="10dp"
-                    android:gravity="start"
-                    android:textScaleX="0.6"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:text="RestoName"
+                    android:paddingBottom="20dp"
+                    android:text="Restaurant Name"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/medFont" />
 

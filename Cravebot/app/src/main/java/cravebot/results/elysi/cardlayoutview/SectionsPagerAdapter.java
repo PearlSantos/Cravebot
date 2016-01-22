@@ -60,14 +60,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-//        if (items != null && items.size() > 0)
-//        {
-//            return items.size()*LOOPS_COUNT; // simulate infinite by big number of products
-//        }
-//        else
-//        {
-//            return 1;
-//        }
         return items.size() * CardLayoutFood.LOOPS;
     }
 
@@ -101,9 +93,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
             TextViewPlus foodName = (TextViewPlus) view.findViewById(R.id.foodName);
             foodName.setText(singleItem.getItemName());
-//            if(singleItem.getItemName().length()>43){
-//                foodName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
-//            }
+            autoFitText(foodName, false);
+
             ((TextViewPlus) view.findViewById(R.id.restoName)).setText(singleItem.getRestoName());
             ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
@@ -116,10 +107,8 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
 
             TextViewPlus foodNameInfo = (TextViewPlus) view.findViewById(R.id.foodNameInfo);
-           foodNameInfo .setText(singleItem.getItemName().trim());
-//            if(singleItem.getItemName().length()>43){
-//                foodNameInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
-//            }
+            foodNameInfo.setText(singleItem.getItemName().trim());
+            autoFitText(foodNameInfo, true);
 
             ((TextViewPlus) view.findViewById(R.id.restoNameInfo)).setText(singleItem.getRestoName().trim());
             ((TextViewPlus) view.findViewById(R.id.priceInfo)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
@@ -250,6 +239,27 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 ((TextViewPlus) v.findViewById(R.id.priceOption)).setText(pri.get(position));
 
                 return v;
+            }
+        }
+
+        public void autoFitText(TextViewPlus text, boolean back) {
+            int length = text.length();
+            if (length > 43) {
+                text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+                text.setLineSpacing(-8, 1);
+                text.setPadding(0, 0, 0, 7);
+            } else if (length > 69) {
+                text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+                text.setLineSpacing(-6, 1);
+                text.setPadding(0, 0, 0, 5);
+            }
+            else if(length>93){
+                text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+                text.setLineSpacing(-4, 1);
+                text.setPadding(0, 0, 0, 3);
+                if(!back){
+                    text.setText(text.getText().toString().substring(0,89)+"...");
+                }
             }
         }
 
