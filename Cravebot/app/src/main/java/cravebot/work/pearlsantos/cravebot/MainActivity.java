@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean[] filterClicked;
     Context context = this;
     public static AlertDialog noInternet;
+    public static int nextAction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).create();
 
-        int nextAction = getIntent().getIntExtra(CheckingStart.WHAT_TO_DO, -1);
+        nextAction = getIntent().getIntExtra(CheckingStart.WHAT_TO_DO, -1);
         if(nextAction==2){
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
         }
@@ -237,7 +238,10 @@ public class MainActivity extends AppCompatActivity {
         // Handle your other action bar items...
         switch (item.getItemId()) {
             case R.id.tutorials:
-                MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
+                Intent tuts = new Intent(MainActivity.this, InstructionSlides.class);
+                tuts.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                MainActivity.this.startActivity(tuts);
+                MainActivity.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
                 break;
             case R.id.contact_info:
                 final Dialog dialog = new Dialog(this, R.style.DialogTheme);

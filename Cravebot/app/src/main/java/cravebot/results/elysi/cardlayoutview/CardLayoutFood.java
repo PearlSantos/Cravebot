@@ -1,30 +1,48 @@
 package cravebot.results.elysi.cardlayoutview;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
 import cravebot.R;
+import cravebot.customstuff.TextViewPlus;
 import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.OnSwipeListener;
 import cravebot.results.elysi.customobjects.PagerContainer;
 import cravebot.results.elysi.gridview.RecyclerViewLayout;
+import cravebot.work.pearlsantos.cravebot.CheckingStart;
 import cravebot.work.pearlsantos.cravebot.GoTask;
+import cravebot.work.pearlsantos.cravebot.MainActivity;
 
 public class CardLayoutFood extends AppCompatActivity {
 
@@ -39,6 +57,10 @@ public class CardLayoutFood extends AppCompatActivity {
     public ViewPager mViewPager;
     private ArrayList<FoodItem> sample;
     private PagerContainer mContainer;
+
+    private LinearLayout message;
+    private final String once = "SWIPE_UP";
+    private SharedPreferences prefs;
 
 
     public CardLayoutFood() {
@@ -68,7 +90,7 @@ public class CardLayoutFood extends AppCompatActivity {
                         int height = mContainer.getHeight();
                         int width = mContainer.getWidth();
 
-                        double heightSize = height * 0.9;
+                        double heightSize = height * 0.8;
                         height = (int) heightSize;
                         double widthSize = width * 0.85;
                         width = (int) widthSize;
@@ -87,35 +109,71 @@ public class CardLayoutFood extends AppCompatActivity {
                 });
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), sample);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
         FIRST_PAGE = sample.size() * LOOPS / 2;
-        //Necessary or the pager will only have one extra page to show
-        // make this at least however many pages you can see
-        // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
 
         mViewPager.setCurrentItem(FIRST_PAGE);
         mViewPager.setOffscreenPageLimit(3);
 
 
-        //If hardware acceleration is enabled, you should also remove
-        // clipping on the pager for its children.
         mViewPager.setClipChildren(false);
         int pos = getIntent().getIntExtra("position", -1);
         if (pos != -1) {
-            mViewPager.setCurrentItem(pos, false);
+            if(pos==1){
+                mViewPager.setCurrentItem(FIRST_PAGE);
+            }else {
+                mViewPager.setCurrentItem(pos % sample.size(), false);
+            }
         }
 
-        mSectionsPagerAdapter.notifyDataSetChanged();
+        prefs = getApplicationContext().getSharedPreferences
+                (CheckingStart.PREFS_NAME, Context.MODE_PRIVATE);
 
-//        ImageView background = (ImageView) findViewById(R.id.background);
-//        Picasso.with(getApplicationContext()).load(R.drawable.food_bg).into(background);
+//        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
+        message = new LinearLayout(CardLayoutFood.this);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER);
+        params.setMargins(0,0,0,(int)getResources().getDimension(R.dimen.swipeTextBottom));
+        message.setLayoutParams(params);
+
+        message.setOrientation(LinearLayout.VERTICAL);
+        message.setGravity(Gravity.CENTER);
+
+
+
+        TextViewPlus swipeUp = new TextViewPlus(CardLayoutFood.this);
+        swipeUp.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Regular.otf"));
+        swipeUp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        swipeUp.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        swipeUp.setText("SWIPE UP FOR MORE INFO");
+        swipeUp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER));
+        swipeUp.setTextScaleX((float)0.8);
+
+
+          message.addView(swipeUp);
+
+
+        FrameLayout swipeUpMes = (FrameLayout) findViewById(R.id.swipeUpMes);
+        swipeUpMes.addView(message);
+        swipeUpMes.bringChildToFront(message);
+
+        System.out.println("DISPLAY");
+
+//            TranslateAnimation animateSwipeUp = new TranslateAnimation(0, 0, -120, 0);
+//            animateSwipeUp.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
+//            animateSwipeUp.setRepeatCount(Animation.INFINITE);
+//            message.startAnimation(animateSwipeUp);
+//        }
+
+        mSectionsPagerAdapter.notifyDataSetChanged();
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 finish();
             }
         });
@@ -148,8 +206,15 @@ public class CardLayoutFood extends AppCompatActivity {
                     if (frag != null) {
                         if (!(frag.getMoreInfo().getVisibility() == View.VISIBLE)) {
                             frag.changeVisibility(frag.getMoreInfo(), frag.getPlace());
+
                         } else {
                             frag.changeVisibility(frag.getPlace(), frag.getMoreInfo());
+                        }
+
+                        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
+                            prefs.edit().putInt(once, 1).commit();
+                            message.clearAnimation();
+                            ((ViewGroup) message.getParent()).removeView(message);
                         }
                     }
                     return true;
@@ -179,19 +244,23 @@ public class CardLayoutFood extends AppCompatActivity {
                 }
             }
 
-        });
+        }
+
+        );
         mViewPager.setOnTouchListener(new View.OnTouchListener()
 
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                boolean eventConsumed = mGestureDetector.onTouchEvent(event);
-                if (eventConsumed) {
-                    return true;
-                } else
-                    return false;
-            }
-        });
+                                      {
+                                          @Override
+                                          public boolean onTouch(View v, MotionEvent event) {
+                                              boolean eventConsumed = mGestureDetector.onTouchEvent(event);
+                                              if (eventConsumed) {
+                                                  return true;
+                                              } else
+                                                  return false;
+                                          }
+                                      }
+
+        );
 
 
     }

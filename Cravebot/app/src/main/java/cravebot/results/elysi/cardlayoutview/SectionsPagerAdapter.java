@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -96,7 +99,11 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             view = inflater.inflate(R.layout.fragment_card_layout_food, container, false);
             singleItem = items.get(getArguments().getInt(ARG_SECTION_NUMBER));
 
-            ((TextViewPlus) view.findViewById(R.id.foodName)).setText(singleItem.getItemName());
+            TextViewPlus foodName = (TextViewPlus) view.findViewById(R.id.foodName);
+            foodName.setText(singleItem.getItemName());
+//            if(singleItem.getItemName().length()>43){
+//                foodName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+//            }
             ((TextViewPlus) view.findViewById(R.id.restoName)).setText(singleItem.getRestoName());
             ((TextViewPlus) view.findViewById(R.id.price)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
@@ -108,11 +115,20 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
             foodImage.setImageURI(food);
 
 
-            ((TextViewPlus) view.findViewById(R.id.foodNameInfo)).setText(singleItem.getItemName().trim());
+            TextViewPlus foodNameInfo = (TextViewPlus) view.findViewById(R.id.foodNameInfo);
+           foodNameInfo .setText(singleItem.getItemName().trim());
+//            if(singleItem.getItemName().length()>43){
+//                foodNameInfo.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+//            }
+
             ((TextViewPlus) view.findViewById(R.id.restoNameInfo)).setText(singleItem.getRestoName().trim());
             ((TextViewPlus) view.findViewById(R.id.priceInfo)).setText("P " + String.format("%.2f", singleItem.getPrice()).trim());
 
             ((TextViewPlus) view.findViewById(R.id.description)).setText(singleItem.getDescription().trim());
+
+            SimpleDraweeView upButton = (SimpleDraweeView) view.findViewById(R.id.upGes);
+
+            upButton.setImageURI(Uri.parse("res:/" + R.drawable.up_button));
 
 
             restoLogo = (SimpleDraweeView) view.findViewById(R.id.restoLogo);
@@ -137,28 +153,6 @@ public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
                 final ListView listviewOptions = (ListView) view.findViewById(R.id.listView_options);
                 listviewOptions.setAdapter(new CustomListAdapter(options, priceOptions));
 
-                listviewOptions.setOnScrollListener(new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(AbsListView view, int scrollState) {
-                        if (listviewOptions.getLastVisiblePosition() == listviewOptions.getAdapter().getCount() -1 &&
-                                listviewOptions.getChildAt(listviewOptions.getChildCount() - 1).getBottom() <= listviewOptions.getHeight())
-                        {
-                            //It is scrolled all the way down here
-                            listviewOptions.setEnabled(false);
-                        }
-                        else if (listviewOptions.getFirstVisiblePosition() == 0 &&
-                                listviewOptions.getChildAt(0).getTop() >= 0)
-                        {
-                            //It is scrolled all the way up here
-                            listviewOptions.setEnabled(false);
-                        }
-                    }
-
-                    @Override
-                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                    }
-                });
             }
 
 

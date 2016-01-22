@@ -146,6 +146,8 @@ public class GoTask extends AsyncTask<String, Void, ArrayList<FoodItem>> {
         //progressDialog.setTitle("GETTING FOOD ITEMS");
         progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         progressDialog.setMessage("Please wait . . .");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         // progressDialog = ProgressDialog.show(context.getWindow().getContext(), "GETTING FOOD ITEMS", "Please wait . . .", false, false);
         //Display the progress dialog

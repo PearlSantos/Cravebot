@@ -1,5 +1,9 @@
 package cravebot.work.pearlsantos.cravebot;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,17 +38,34 @@ public class InstructionSlides extends AppCompatActivity {
         imgId.add(R.drawable.instruction_1);
         imgId.add(R.drawable.instruction_2);
         imgId.add(R.drawable.instruction_3);
+        imgId.add(R.drawable.instruction_4);
 
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
         back = (Button) findViewById(R.id.goBack);
+        back.getBackground().clearColorFilter();
+        back.invalidate();
+        back.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf"));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                back.getBackground().setColorFilter(0xFF6666, PorterDuff.Mode.SRC_ATOP);
+                back.invalidate();
                 finish();
+                InstructionSlides.this.overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
             }
         });
+
+        ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(back,
+                PropertyValuesHolder.ofFloat("scaleX", 1.2f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.2f));
+        scaleDown.setDuration(310);
+
+        scaleDown.setRepeatCount(ObjectAnimator.INFINITE);
+        scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
+
+        scaleDown.start();
 
         mSectionsPagerAdapter = new CustomAdapter(getSupportFragmentManager());
 

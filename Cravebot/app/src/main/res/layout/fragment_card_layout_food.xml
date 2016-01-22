@@ -21,7 +21,7 @@
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/foodImage"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_260sdp"
+                android:layout_height="@dimen/_270sdp"
                 android:layout_gravity="center"
                 fresco:actualImageScaleType="centerCrop"
                 fresco:failureImage="@color/darkGray"
@@ -40,11 +40,13 @@
                 <cravebot.customstuff.TextViewPlus
                     android:id="@+id/foodName"
                     style="@style/textViewCustomFont1"
+                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:paddingBottom="@dimen/_5sdp"
                     android:text="Food Name"
+                    android:lineSpacingExtra="-10dp"
+                    android:paddingBottom="10dp"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/bigFont" />
 
@@ -65,15 +67,28 @@
             <cravebot.customstuff.TextViewPlus
                 android:id="@+id/restoName"
                 style="@style/textViewCustomFont2"
+                android:textAllCaps="true"
+                android:textStyle="normal"
+                android:textScaleX="0.6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:lineSpacingExtra="-10dp"
+                android:paddingBottom="10dp"
                 android:layout_marginLeft="@dimen/_11sdp"
                 android:text="Restaurant Name"
                 android:textColor="@color/darkGray"
-                android:textSize="@dimen/smallFont" />
+                android:textSize="@dimen/medFont" />
 
 
         </LinearLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/upGes"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_7sdp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/_13sdp"
+            fresco:actualImageScaleType="centerCrop"/>
 
     </FrameLayout>
 
@@ -110,7 +125,6 @@
                     android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_70sdp"
                     fresco:actualImageScaleType="fitCenter"
-                    fresco:failureImage="@color/grey_100"
                     fresco:progressBarAutoRotateInterval="1000"
                     fresco:progressBarImage="@mipmap/cravebot_badge"
                     fresco:progressBarImageScaleType="centerInside"
@@ -134,10 +148,12 @@
                     <cravebot.customstuff.TextViewPlus
                         android:id="@+id/foodNameInfo"
                         style="@style/textViewCustomFont1"
+                        android:textStyle="bold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:paddingBottom="@dimen/_5sdp"
+                        android:lineSpacingExtra="-10dp"
+                        android:paddingBottom="10dp"
                         android:text="Food Name"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/bigFont" />
@@ -158,13 +174,18 @@
                 <cravebot.customstuff.TextViewPlus
                     android:id="@+id/restoNameInfo"
                     style="@style/textViewCustomFont2"
+                    android:textStyle="normal"
+                    android:textAllCaps="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lineSpacingExtra="-10dp"
+                    android:paddingBottom="10dp"
                     android:gravity="start"
-                    android:paddingBottom="@dimen/_10sdp"
+                    android:textScaleX="0.6"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:text="RestoName"
                     android:textColor="@color/darkGray"
-                    android:textSize="@dimen/smallFont" />
+                    android:textSize="@dimen/medFont" />
 
 
                 <cravebot.customstuff.TextViewPlus
@@ -174,6 +195,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:paddingBottom="@dimen/_13sdp"
+                    android:textStyle="normal"
                     android:text="Description"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/smallFont" />
