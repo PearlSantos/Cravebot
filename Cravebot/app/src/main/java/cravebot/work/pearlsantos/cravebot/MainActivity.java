@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
         }
 
-        items = new String[]{"BEEF", "BEVERAGES", "BURGERS + SANDWICHES", "CHICKEN", "DESSERTS + PASTRIES", "FRUITS AND VEGETABLES", "NOODLES + SOUP", "PIZZA + PASTA", "PORK", "SEAFOOD", "SET MEALS", "SNACKS", "WHAT'S HOT"};
+        items = new String[]{"BEEF", "BEVERAGES", "BURGERS + SANDWICHES", "CHICKEN", "DESSERTS + PASTRIES", "FRUITS AND VEGETABLES", "NOODLES + SOUP", "PIZZA + PASTA", "PORK", "SEAFOOD", "SET MEALS", "SNACKS"};
 //        imgRes = new Integer[]{R.drawable.beef,
 //                R.drawable.beverages,
 //                R.drawable.burger_sandwiches,
@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
 //                R.drawable.whats_hot_button};
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer);
-
         ImageView background = (ImageView) findViewById(R.id.background);
         background.setImageURI(Uri.parse("res:/" + R.mipmap.background));
 
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 //        View listHeaderView = inflater.inflate(R.layout.header_view,null, false);
 //
 //        mDrawerList.addHeaderView(listHeaderView);
-        filterClicked = new boolean[items.length-1];
+        filterClicked = new boolean[items.length];
         for (int i = 0; i < items.length-1; i++) {
             filterClicked[i] = true;
         }
@@ -136,21 +135,17 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CardView cView = (CardView) view.findViewById(R.id.containerCard);
 
-                if(!(items[position].equals("WHAT'S HOT"))){
-                    if (!filterClicked[position]) {
-                        cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
-                        filterClicked[position] = true;
-                        Log.d("filter", Integer.toString(position) + " " + filterClicked[position]);
-                    } else {
-                        cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
-                        filterClicked[position] = false;
-                        Log.d("filter", Integer.toString(position) + " " + filterClicked[position]);
-                    }
+
+                if (!filterClicked[position]) {
+                    cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
+                    filterClicked[position] = true;
+                    Log.d("filter", Integer.toString(position) + " " + filterClicked[position]);
+                } else {
+                    cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
+                    filterClicked[position] = false;
+                    Log.d("filter", Integer.toString(position) + " " + filterClicked[position]);
                 }
-               else{
-                    //anuman ang gusto mong mangyari sa WHAT'S HOT
-                    }
-                }
+            }
 
         });
 
@@ -326,13 +321,12 @@ class CustomListAdapter extends ArrayAdapter<String> {
         cardView = (CardView) rowView.findViewById(R.id.containerCard);
 
         textView.setText(itemName[pos]);
-        if(!(itemName[pos].equals("WHAT'S HOT")))
-            cardView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
-        else
-            cardView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appYellow)));
+        //cardView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
+
 
         return rowView;
 
     }
+
 
 }
