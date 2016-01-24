@@ -33,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     Context context = this;
     public static AlertDialog noInternet;
     public static int nextAction;
+    TextView min;
+    TextView max;
+    boolean selectAll = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.
-                mipmap.ic_sidebar_button);
+                mipmap.ic_menu2);
 
         SimpleDraweeView backgroundToolbar = (SimpleDraweeView) findViewById(R.id.backgroundToolbar);
         backgroundToolbar.setImageURI(Uri.parse("res:/" + R.mipmap.background));
@@ -86,63 +90,33 @@ public class MainActivity extends AppCompatActivity {
                 }).create();
 
         nextAction = getIntent().getIntExtra(CheckingStart.WHAT_TO_DO, -1);
-        if(nextAction==2){
+        if (nextAction == 2) {
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
         }
 
         items = new String[]{"BEEF", "BEVERAGES", "BURGERS + SANDWICHES", "CHICKEN", "DESSERTS + PASTRIES", "FRUITS AND VEGETABLES", "NOODLES + SOUP", "PIZZA + PASTA", "PORK", "SEAFOOD", "SET MEALS", "SNACKS"};
-//        imgRes = new Integer[]{R.drawable.beef,
-//                R.drawable.beverages,
-//                R.drawable.burger_sandwiches,
-//                R.drawable.chicken,
-//                R.drawable.desserts_pastries,
-//                R.drawable.fruits_vegetables,
-//                R.drawable.noodles_soup,
-//                R.drawable.pizza_pasta,
-//                R.drawable.pork,
-//                R.drawable.seafood,
-//                R.drawable.setmeals,
-//                R.drawable.snacks,
-//                R.drawable.whats_hot};
-//        imgRes2 = new Integer[]{R.mipmap.beef_g,
-//                R.mipmap.beverages_g,
-//                R.mipmap.burgers_sandwiches_g,
-//                R.mipmap.chicken_g,
-//                R.mipmap.desserts_pastries_g,
-//                R.mipmap.fruits_vegetables_g,
-//                R.mipmap.noodles_soup_g,
-//                R.mipmap.pizza_pasta_g,
-//                R.mipmap.pork_g,
-//                R.mipmap.seafood_g,
-//                R.mipmap.set_meals_g,
-//                R.mipmap.snacks_g,
-//                R.drawable.whats_hot_button};
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer);
         ImageView background = (ImageView) findViewById(R.id.background);
         background.setImageURI(Uri.parse("res:/" + R.mipmap.background));
 
         mDrawerList.setAdapter(new CustomListAdapter(this, items));
-//        LayoutInflater inflater = getLayoutInflater();
-//        View listHeaderView = inflater.inflate(R.layout.header_view,null, false);
-//
-//        mDrawerList.addHeaderView(listHeaderView);
+
         filterClicked = new boolean[items.length];
-        for (int i = 0; i < items.length-1; i++) {
-            filterClicked[i] = true;
+        for (int i = 0; i < items.length; i++) {
+            filterClicked[i] = false;
         }
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CardView cView = (CardView) view.findViewById(R.id.containerCard);
-
-
+                TextView tView = (TextView) view.findViewById(R.id.itemText);
                 if (!filterClicked[position]) {
-                    cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
+                    tView.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
                     filterClicked[position] = true;
                     Log.d("filter", Integer.toString(position) + " " + filterClicked[position]);
                 } else {
-                    cView.setCardBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
+                    tView.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
                     filterClicked[position] = false;
                     Log.d("filter", Integer.toString(position) + " " + filterClicked[position]);
                 }
@@ -158,12 +132,16 @@ public class MainActivity extends AppCompatActivity {
                 R.string.drawer_close  /* "close drawer" description */
         ) {
 
-            /** Called when a drawer has settled in a completely closed state. */
+            /**
+             * Called when a drawer has settled in a completely closed state.
+             */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
             }
 
-            /** Called when a drawer has settled in a completely open state. */
+            /**
+             * Called when a drawer has settled in a completely open state.
+             */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
             }
@@ -172,23 +150,30 @@ public class MainActivity extends AppCompatActivity {
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        // create RangeSeekBar as Integer range between 20 and 75
-        final RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(0, 999, this);
+        // create RangeSeekBar as Integer range between 499 to 500
+        final RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(0, 10, this);
+        min = (TextView) findViewById(R.id.minValue);
+        max = (TextView) findViewById(R.id.maxValue);
+        min.setText("PHP 0");
+        max.setText("PHP 500");
         seekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
-                // handle changed range values
-
+                int mMinValue = seekBar.getSelectedMinValue()*50;
+                int mMaxValue = seekBar.getSelectedMaxValue()*50;
+                min.setText("PHP " + mMinValue + "");
+                max.setText("PHP " + mMaxValue + "");
             }
         });
 
 // add RangeSeekBar to pre-defined layout
         ImageButton goButton = (ImageButton) findViewById(R.id.goButton);
+        LinearLayout valueSpace = (LinearLayout) findViewById(R.id.displayBudgetValues);
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double min = seekBar.getSelectedMinValue();
-                double max = seekBar.getSelectedMaxValue();
+                double min = seekBar.getSelectedMinValue()*50;
+                double max = seekBar.getSelectedMaxValue()*50;
                 Log.d("MainActivity", "button pressed");
                 new GoTask(context, filterClicked, min, max).execute("test");
             }
@@ -196,16 +181,45 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
         RelativeLayout.LayoutParams seekParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         seekParam.addRule(RelativeLayout.BELOW, goButton.getId());
+        seekParam.addRule(RelativeLayout.ABOVE, valueSpace.getId());
         seekParam.setMargins(5, 0, 5, 0);
         layout.addView(seekBar, seekParam);
+
+        //setting the select all button to toggle
+
+        final ImageButton selectAllButton = (ImageButton) findViewById(R.id.selectAllButton);
+        selectAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!selectAll) {
+                    selectAll = true;
+                    selectAllButton.setImageResource(R.drawable.select_all_on);
+                    //what happens when select all is clicked
+                } else {
+                    selectAll = false;
+                    selectAllButton.setImageResource(R.drawable.select_all_off);
+                    //what happens when select all is turned off
+
+                }
+            }
+        });
+
+        CardView whatsHot = (CardView) findViewById(R.id.whatsHot);
+        whatsHot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //what do you want What's Hot to display
+
+                }
+            }
+        );
 
 
     }
 
 
-    // Set the adapter for the list view
-    //TO-DO: create an adapter that helps with the listview contaning only images
-    // Set the list's click listener
+
+
 
 
     @Override

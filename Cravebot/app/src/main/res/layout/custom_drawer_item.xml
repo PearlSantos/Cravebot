@@ -6,18 +6,16 @@
     <android.support.v7.widget.CardView
         android:id="@+id/containerCard"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="1dp"
-        card:cardBackgroundColor="@color/appGreen">
+        android:layout_marginRight="10dp">
     <cravebot.customstuff.TextViewPlus
         style="@style/textViewCustomFont1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="@color/appRed"
         android:textColor="@color/white"
         android:shadowColor="@color/black"
-        android:text="Hello"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="1"

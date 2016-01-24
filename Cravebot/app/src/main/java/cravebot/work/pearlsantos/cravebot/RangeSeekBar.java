@@ -34,10 +34,10 @@ import cravebot.R;
  */
 public class RangeSeekBar<T extends Number> extends ImageView {
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.mipmap.max_slider);
-    private Bitmap thumbPressedImage = BitmapFactory.decodeResource(getResources(), R.drawable.seek_thumb_pressed);
-    private int maxThumb = R.mipmap.max_slider;
-    private int minThumb = R.mipmap.min_slider;
+    private Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.drawable.max_tick);
+    private Bitmap thumbImage2 = BitmapFactory.decodeResource(getResources(), R.drawable.min_tick);
+//    private int maxThumb = R.drawable.max_tick;
+//    private int minThumb = R.drawable.min_tick;
     private final float thumbWidth = thumbImage.getWidth();
     private final float thumbHalfWidth = 0.5f * thumbWidth;
     private final float thumbHalfHeight = 0.5f * thumbImage.getHeight();
@@ -387,10 +387,12 @@ public class RangeSeekBar<T extends Number> extends ImageView {
 //        canvas.drawRect(rect, paint);
 
         // draw minimum thumb
-        drawThumb(normalizedToScreen(normalizedMinValue),(0.5f * getHeight()) - lineHeight, canvas, writeOnDrawable(minThumb, "PHP" + (int) (normalizedMinValue * absoluteMaxValuePrim) + "", thumbHalfHeight + thumbHalfHeight/2).getBitmap());
+        drawThumb(normalizedToScreen(normalizedMinValue),(0.5f * getHeight()) - lineHeight, canvas, thumbImage2);
+//        "PHP" + (int) (normalizedMaxValue * absoluteMaxValuePrim) + ""
 
         // draw maximum thumb
-        drawThumb(normalizedToScreen(normalizedMaxValue),(float) (( 0.5f * (getHeight() + lineHeight)) - thumbImage.getHeight()), canvas, writeOnDrawable(maxThumb, "PHP" + (int) (normalizedMaxValue * absoluteMaxValuePrim) + "", thumbHalfHeight).getBitmap());
+        drawThumb(normalizedToScreen(normalizedMaxValue),(float) (( 0.5f * (getHeight() + lineHeight)) - thumbImage.getHeight() - 10), canvas, thumbImage);
+//        "PHP" + (int) (normalizedMaxValue * absoluteMaxValuePrim) + ""
     }
 
     /**
@@ -620,21 +622,28 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         }
     }
 
+//    public int returnCurrentMaximumValue(){
+//        return (int) (normalizedMaxValue * absoluteMaxValuePrim);
+//    }
+//    public int returnCurrentMinimumValue(){
+//        return (int) (normalizedMinValue * absoluteMaxValuePrim);
+//    }
 
-    public BitmapDrawable writeOnDrawable(int drawableId, String text, float yCoord){
 
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), drawableId).copy(Bitmap.Config.ARGB_8888, true);
-
-        Paint paint = new Paint();
-        Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(), "fonts/avenir_next_condensed.ttc");
-        paint.setTypeface(custom_font);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE); //Change this if you want other color of text
-        paint.setTextSize(23); //Change this if you want bigger/smaller font
-
-        Canvas canvas = new Canvas(bm);
-        canvas.drawText(text, bm.getWidth()/8, yCoord, paint); //Change the position of the text here
-
-        return new BitmapDrawable(bm);
-    }
+//    public BitmapDrawable writeOnDrawable(int drawableId, String text, float yCoord){
+//
+//        Bitmap bm = BitmapFactory.decodeResource(getResources(), drawableId).copy(Bitmap.Config.ARGB_8888, true);
+//
+//        Paint paint = new Paint();
+//        Typeface custom_font = Typeface.createFromAsset(getContext().getAssets(), "fonts/avenir_next_condensed.ttc");
+//        paint.setTypeface(custom_font);
+//        paint.setStyle(Paint.Style.FILL);
+//        paint.setColor(Color.WHITE); //Change this if you want other color of text
+//        paint.setTextSize(23); //Change this if you want bigger/smaller font
+//
+//        Canvas canvas = new Canvas(bm);
+//        canvas.drawText(text, bm.getWidth()/8, yCoord, paint); //Change the position of the text here
+//
+//        return new BitmapDrawable(bm);
+//    }
 }

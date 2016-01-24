@@ -307,4 +307,5 @@
     <color name="appGreen">#3DB766</color>
     <color name="appRed">#DC383D</color>
     <color name="appOrange">#F1582D</color>
+    <color name="appGray">#898989</color>
 </resources>
