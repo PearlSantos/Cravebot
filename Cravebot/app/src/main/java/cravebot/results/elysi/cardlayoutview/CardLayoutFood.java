@@ -211,11 +211,11 @@ public class CardLayoutFood extends AppCompatActivity {
                             frag.changeVisibility(frag.getPlace(), frag.getMoreInfo());
                         }
 
-                        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
-                            prefs.edit().putInt(once, 1).commit();
-                            message.clearAnimation();
-                            ((ViewGroup) message.getParent()).removeView(message);
-                        }
+//                        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
+//                            prefs.edit().putInt(once, 1).commit();
+//                            message.clearAnimation();
+//                            ((ViewGroup) message.getParent()).removeView(message);
+//                        }
                     }
                     return true;
                 } else if (d == Direction.down) {
