@@ -195,10 +195,22 @@ public class MainActivity extends AppCompatActivity {
                     selectAll = true;
                     selectAllButton.setImageResource(R.drawable.select_all_on);
                     //what happens when select all is clicked
+                    for(int i =0; i < mDrawerList.getChildCount(); i++){
+                        View someView = mDrawerList.getChildAt(i);
+                        TextView textView = (TextView) someView.findViewById(R.id.itemText);
+                        textView.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
+                        filterClicked[i] = true;
+                    }
                 } else {
                     selectAll = false;
                     selectAllButton.setImageResource(R.drawable.select_all_off);
                     //what happens when select all is turned off
+                    for(int i =0; i < mDrawerList.getChildCount(); i++){
+                        View someView = mDrawerList.getChildAt(i);
+                        TextView textView = (TextView) someView.findViewById(R.id.itemText);
+                        textView.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
+                        filterClicked[i] = false;
+                    }
 
                 }
             }
