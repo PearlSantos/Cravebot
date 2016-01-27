@@ -200,18 +200,24 @@ public class MainActivity extends AppCompatActivity {
                 if (!selectAll) {
                     selectAll = true;
                     selectAllButton.setImageResource(R.drawable.select_all_on);
-                    for(int i = 0; i < mDrawerList.getChildCount(); i++){
-                        View thisView = mDrawerList.getChildAt(i);
-                        TextView text = (TextView) thisView.findViewById(R.id.itemText);
-                        text.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
+
+                    //what happens when select all is clicked
+                    for(int i =0; i < mDrawerList.getChildCount(); i++){
+                        View someView = mDrawerList.getChildAt(i);
+                        TextView textView = (TextView) someView.findViewById(R.id.itemText);
+                        textView.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
+                        filterClicked[i] = true;
                     }
                 } else {
                     selectAll = false;
                     selectAllButton.setImageResource(R.drawable.select_all_off);
-                    for(int i = 0; i < mDrawerList.getChildCount(); i++) {
-                        View thisView = mDrawerList.getChildAt(i);
-                        TextView text = (TextView) thisView.findViewById(R.id.itemText);
-                        text.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
+                   
+                    //what happens when select all is turned off
+                    for(int i =0; i < mDrawerList.getChildCount(); i++){
+                        View someView = mDrawerList.getChildAt(i);
+                        TextView textView = (TextView) someView.findViewById(R.id.itemText);
+                        textView.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
+                        filterClicked[i] = false;
                     }
                 }
             }
@@ -221,7 +227,8 @@ public class MainActivity extends AppCompatActivity {
         whatsHot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //what do you want What's Hot to display
+                
+				//what do you want What's Hot to display
 
                 }
             }
