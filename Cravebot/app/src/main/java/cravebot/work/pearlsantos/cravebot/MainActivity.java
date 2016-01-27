@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
         title.setTypeface(custom_font);
 
-        
+        //Dialog if device has no net
         noInternet = new AlertDialog.Builder(MainActivity.this)
                 .setTitle("No Internet Connection")
                 .setMessage("Please connect to the internet to use the application's services.")
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).create();
 
+        //If it is the first installation, show InstructionSlides first
         nextAction = getIntent().getIntExtra(CheckingStart.WHAT_TO_DO, -1);
         if (nextAction == 2) {
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
