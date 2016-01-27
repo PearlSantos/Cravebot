@@ -34,10 +34,10 @@ import cravebot.R;
  */
 public class RangeSeekBar<T extends Number> extends ImageView {
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	//initializing the thumbImages
     private Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.drawable.max_tick);
     private Bitmap thumbImage2 = BitmapFactory.decodeResource(getResources(), R.drawable.min_tick);
-//    private int maxThumb = R.drawable.max_tick;
-//    private int minThumb = R.drawable.min_tick;
+	//initializing the dimensions
     private final float thumbWidth = thumbImage.getWidth();
     private final float thumbHalfWidth = 0.5f * thumbWidth;
     private final float thumbHalfHeight = 0.5f * thumbImage.getHeight();

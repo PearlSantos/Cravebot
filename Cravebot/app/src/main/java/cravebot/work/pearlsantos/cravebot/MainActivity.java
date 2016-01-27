@@ -1,6 +1,6 @@
 package cravebot.work.pearlsantos.cravebot;
 
-
+//importing needed widgets from internal and external libraries
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -37,45 +37,42 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.core.ImagePipeline;
-
 import cravebot.R;
 
 public class MainActivity extends AppCompatActivity {
-//    Integer[] imgRes;
-//    Integer[] imgRes2;
-    String[] items;
-    DrawerLayout mDrawerLayout;
-    ListView mDrawerList;
-    ActionBarDrawerToggle mDrawerToggle;
-    ActionBar mActionBar;
-    private boolean[] filterClicked;
+    String[] items; //item name
+    DrawerLayout mDrawerLayout; //DrawerLayout for the NavDrawer
+    ListView mDrawerList; //
+    ActionBarDrawerToggle mDrawerToggle; //toggle listener for the menu icon
+    ActionBar mActionBar; 
+    private boolean[] filterClicked; //boolean array that states whether a filter is clicked
     Context context = this;
     public static AlertDialog noInternet;
-    public static int nextAction;
-    TextView min;
-    TextView max;
-    boolean selectAll = false;
+    public static int nextAction; 
+    TextView min; //the TextView that holds the minimum value
+    TextView max; //the TextView that holds the maximum value
+    boolean selectAll = false; 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("MainActivity", "activity created");
         setContentView(R.layout.activity_main);
+		//setting up the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.
                 mipmap.ic_menu2);
-
+		//setting up the fresco image
         SimpleDraweeView backgroundToolbar = (SimpleDraweeView) findViewById(R.id.backgroundToolbar);
         backgroundToolbar.setImageURI(Uri.parse("res:/" + R.mipmap.background));
 
-
+		//setting the toolbar title and style
         TextView title = (TextView) toolbar.findViewById(R.id.title);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
         title.setTypeface(custom_font);
@@ -93,23 +90,29 @@ public class MainActivity extends AppCompatActivity {
         if (nextAction == 2) {
             MainActivity.this.startActivity(new Intent(MainActivity.this, InstructionSlides.class));
         }
-
+		
+		//setting the array of items
         items = new String[]{"BEEF", "BEVERAGES", "BURGERS + SANDWICHES", "CHICKEN", "DESSERTS + PASTRIES", "FRUITS AND VEGETABLES", "NOODLES + SOUP", "PIZZA + PASTA", "PORK", "SEAFOOD", "SET MEALS", "SNACKS"};
-
+		
+		//initializing the drawer layout and listview
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer);
         ImageView background = (ImageView) findViewById(R.id.background);
         background.setImageURI(Uri.parse("res:/" + R.mipmap.background));
 
         mDrawerList.setAdapter(new CustomListAdapter(this, items));
-
+		
+		//putting values in the filterClicked boolean array
         filterClicked = new boolean[items.length];
         for (int i = 0; i < items.length; i++) {
             filterClicked[i] = false;
         }
+		
+		//setting the list's listener
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				//changes the filter's background upon click and also its corresponding value in the filterClicked boolean array
                 TextView tView = (TextView) view.findViewById(R.id.itemText);
                 if (!filterClicked[position]) {
                     tView.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
@@ -150,8 +153,9 @@ public class MainActivity extends AppCompatActivity {
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        // create RangeSeekBar as Integer range between 499 to 500
+        // create RangeSeekBar as Integer range between 0 to 10
         final RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(0, 10, this);
+		//initializing the textView's for min and max
         min = (TextView) findViewById(R.id.minValue);
         max = (TextView) findViewById(R.id.maxValue);
         min.setText("PHP 0");
@@ -159,25 +163,27 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener<Integer>() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Integer minValue, Integer maxValue) {
-                int mMinValue = seekBar.getSelectedMinValue()*50;
+                int mMinValue = seekBar.getSelectedMinValue()*50; //to ensure the intervals of 50
                 int mMaxValue = seekBar.getSelectedMaxValue()*50;
                 min.setText("PHP " + mMinValue + "");
                 max.setText("PHP " + mMaxValue + "");
             }
         });
 
-// add RangeSeekBar to pre-defined layout
         ImageButton goButton = (ImageButton) findViewById(R.id.goButton);
         LinearLayout valueSpace = (LinearLayout) findViewById(R.id.displayBudgetValues);
+		//adding the listener to the Go Button
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+				//determines the selected values for min and max and sending it to the GoTask method
                 double min = seekBar.getSelectedMinValue()*50;
                 double max = seekBar.getSelectedMaxValue()*50;
                 Log.d("MainActivity", "button pressed");
                 new GoTask(context, filterClicked, min, max).execute("test");
             }
         });
+		// adding the RangeSeekBar to our layout
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content_frame);
         RelativeLayout.LayoutParams seekParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         seekParam.addRule(RelativeLayout.BELOW, goButton.getId());
@@ -194,12 +200,19 @@ public class MainActivity extends AppCompatActivity {
                 if (!selectAll) {
                     selectAll = true;
                     selectAllButton.setImageResource(R.drawable.select_all_on);
-                    //what happens when select all is clicked
+                    for(int i = 0; i < mDrawerList.getChildCount(); i++){
+                        View thisView = mDrawerList.getChildAt(i);
+                        TextView text = (TextView) thisView.findViewById(R.id.itemText);
+                        text.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appGreen)));
+                    }
                 } else {
                     selectAll = false;
                     selectAllButton.setImageResource(R.drawable.select_all_off);
-                    //what happens when select all is turned off
-
+                    for(int i = 0; i < mDrawerList.getChildCount(); i++) {
+                        View thisView = mDrawerList.getChildAt(i);
+                        TextView text = (TextView) thisView.findViewById(R.id.itemText);
+                        text.setBackgroundColor(Color.parseColor(context.getResources().getString(R.string.appRed)));
+                    }
                 }
             }
         });
