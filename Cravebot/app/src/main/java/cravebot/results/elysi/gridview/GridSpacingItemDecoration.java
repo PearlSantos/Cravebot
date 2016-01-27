@@ -6,6 +6,7 @@ import android.view.View;
 
 /**
  * Created by elysi on 1/16/2016.
+ * Determines the spacing between the images in the RecyclerViewLayout
  */
 public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 

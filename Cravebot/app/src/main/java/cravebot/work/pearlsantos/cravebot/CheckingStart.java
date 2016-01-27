@@ -18,6 +18,9 @@ import cravebot.R;
 
 /**
  * Created by elysi on 1/2/2016.
+ *
+ * This class checks if the application has been opened for the very first time, if it's normal run,
+ * or if a new version has been installed
  */
 public class CheckingStart extends AsyncTask<Void, Void, Integer> {
     private Context c;

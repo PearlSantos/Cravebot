@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 /**
  * Created by elysi on 12/28/2015.
+ *
+ * This class is an extension of TextView. This is created so that the fonts of the TextView could easily be changed.
  */
 public class TextViewPlus extends TextView {
     public TextViewPlus(Context context) {

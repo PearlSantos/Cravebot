@@ -34,18 +34,25 @@ import cravebot.results.elysi.customobjects.SmartFragmentStatePagerAdapter;
 import cravebot.results.elysi.gridview.RecyclerViewLayout;
 import cravebot.work.pearlsantos.cravebot.GoTask;
 
+/**
+ * Created by Elysia Villadarez
+ * This class creates and edits the ViewPager for What's Hot filter
+ * NOTE: THIS CLASS IS UNTESTED AND MAY CONTAIN ERRORS
+ *
+ **/
+
 public class CardLayoutHot extends AppCompatActivity {
 
     private CustomPromosAdapter mSectionsPagerAdapter;
     private GestureDetector mGestureDetector;
 
+    //These variables are for infinite scrolling of the ViewPager
     public final static int LOOPS = 1000;
     public static int FIRST_PAGE;
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+
     public ViewPager mViewPager;
     private ArrayList<String> items;
+    //This contains a ViewPager
     private PagerContainer mContainer;
 
 
@@ -60,12 +67,14 @@ public class CardLayoutHot extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         setContentView(R.layout.activity_card_layout_food);
 
+        //Getting ArrayList<String> from GoTask()
         //items = getIntent().getParcelableArrayListExtra(GoTask.LIST_KEY);
 
         mContainer = (PagerContainer) findViewById(R.id.pager_container);
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
+        //This is for setting the size of the ViewPager inside the PagerContainer
         mContainer.getViewTreeObserver().
                 addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @SuppressLint("NewApi")
@@ -95,29 +104,23 @@ public class CardLayoutHot extends AppCompatActivity {
                 });
 
         mSectionsPagerAdapter = new CustomPromosAdapter(getSupportFragmentManager(), items);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
         FIRST_PAGE = items.size() * LOOPS / 2;
-        //Necessary or the pager will only have one extra page to show
-        // make this at least however many pages you can see
-        // mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mViewPager.setCurrentItem(FIRST_PAGE);
+
         mViewPager.setOffscreenPageLimit(3);
 
-
-        //If hardware acceleration is enabled, you should also remove
-        // clipping on the pager for its children.
         mViewPager.setClipChildren(false);
+
+        //If user is from RecyclerViewLayout class, this checks what FoodItem they clicked and
+        // set that as the current item of the ViewPager
         int pos = getIntent().getIntExtra("position", -1);
         if (pos != -1) {
             mViewPager.setCurrentItem(pos, false);
         }
 
         mSectionsPagerAdapter.notifyDataSetChanged();
-
-//        ImageView background = (ImageView) findViewById(R.id.background);
-//        Picasso.with(getApplicationContext()).load(R.drawable.food_bg).into(background);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

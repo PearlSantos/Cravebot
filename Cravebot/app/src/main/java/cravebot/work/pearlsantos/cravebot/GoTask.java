@@ -301,12 +301,14 @@ public class GoTask extends AsyncTask<String, Void, ArrayList<FoodItem>> {
                 toast.show();
             }
         } else {
+            //Show dialog for no internet
             MainActivity.noInternet.show();
         }
 
     }
 
 
+    //Checks if the device has internect connection
     public boolean hasActiveInternetConnection() {
         if (isNetworkAvailable()) {
             try {

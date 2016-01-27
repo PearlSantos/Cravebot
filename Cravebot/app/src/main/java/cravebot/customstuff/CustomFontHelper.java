@@ -10,6 +10,8 @@ import cravebot.R;
 
 /**
  * Created by elysi on 12/28/2015.
+ *
+ * This class is for creating a custom font in TextViewPlus
  */
 public class CustomFontHelper {
     /**

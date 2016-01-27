@@ -6,6 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by elysi on 12/23/2015.
  * Edited by christofferkho 12/29/2015
+ * This is the object that takes in input from the database
  */
 public class FoodItem implements Parcelable {
     private String restoName, restoLogo, notes, itemName, description, option1, price1, option2, price2,

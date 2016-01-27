@@ -7,6 +7,7 @@ import java.util.Hashtable;
 
 /**
  * Created by elysi on 12/28/2015.
+ * This class caches the used fonts to save memory
  */
 public class FontCache {
 

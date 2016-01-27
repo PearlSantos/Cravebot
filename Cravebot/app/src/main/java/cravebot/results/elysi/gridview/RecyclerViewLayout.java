@@ -30,6 +30,7 @@ import cravebot.work.pearlsantos.cravebot.GoTask;
 
 /**
  * Created by elysi on 1/16/2016.
+ * This class is a RecyclerView that acts as a GridView
  */
 public class RecyclerViewLayout extends AppCompatActivity {
     private ArrayList<FoodItem> items;
@@ -47,32 +48,16 @@ public class RecyclerViewLayout extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         adapter = new MyRecyclerViewAdapter(getApplicationContext(), items, RecyclerViewLayout.this);
         mRecyclerView.setAdapter(adapter);
+
+        //Set margins/spaces between items
         int spanCount = 3;
         int margins = 40;
         boolean includeEdge = false;
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, margins, includeEdge));
 
-//        final ImageButton cardview = (ImageButton) findViewById(R.id.card_view_button);
-//        cardview.getBackground().clearColorFilter();
-//        cardview.invalidate();
-//        cardview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                cardview.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-//                cardview.invalidate();
-//                Intent i = new Intent(RecyclerViewLayout.this, CardLayoutFood.class);
-//                i.putParcelableArrayListExtra(GoTask.LIST_KEY, items);
-//                i.putExtra("position", 1);
-//                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                RecyclerViewLayout.this.startActivity(i);
-//                RecyclerViewLayout.this.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
-//                RecyclerViewLayout.this.finish();
-//            }
-//        });
-
-
     }
 
+    // Adapter for RecyclerView
     public class MyRecyclerViewAdapter extends RecyclerView
             .Adapter<MyRecyclerViewAdapter
             .ViewHolder> {
@@ -85,14 +70,14 @@ public class RecyclerViewLayout extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             public SimpleDraweeView image;
-            public ProgressBar progressBar;
 
             public ViewHolder(View itemView) {
                 super(itemView);
+
                 image = (SimpleDraweeView) itemView.findViewById(R.id.sdvImage);
                 image.clearColorFilter();
                 image.invalidate();
-                // progressBar = (ProgressBar) itemView.findViewById(R.id.progress);
+
                 int width = mRecyclerView.getWidth();
                 double widthSize = width / 3.3;
                 width = (int) widthSize;
@@ -101,6 +86,7 @@ public class RecyclerViewLayout extends AppCompatActivity {
                 itemView.setOnClickListener(this);
             }
 
+            //Setting function for clicking an item
             @Override
             public void onClick(View v) {
                 image.setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);

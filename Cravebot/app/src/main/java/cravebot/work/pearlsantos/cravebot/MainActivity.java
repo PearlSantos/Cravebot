@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
         title.setTypeface(custom_font);
 
+        
         noInternet = new AlertDialog.Builder(MainActivity.this)
                 .setTitle("No Internet Connection")
                 .setMessage("Please connect to the internet to use the application's services.")

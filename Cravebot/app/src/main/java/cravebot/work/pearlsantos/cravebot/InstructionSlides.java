@@ -22,6 +22,10 @@ import java.util.ArrayList;
 
 import cravebot.R;
 
+/**
+ * This class contains a ViewPager that shows a series of instrucions on how to use the app
+ */
+
 public class InstructionSlides extends AppCompatActivity {
 
     private CustomAdapter mSectionsPagerAdapter;
@@ -34,6 +38,7 @@ public class InstructionSlides extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction_slides);
 
+        //The instruction slide images
         imgId = new ArrayList<>();
         imgId.add(R.drawable.instruction_1);
         imgId.add(R.drawable.instruction_2);
@@ -43,6 +48,7 @@ public class InstructionSlides extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
+        //Finishing the instructions and go back to homepage
         back = (Button) findViewById(R.id.goBack);
         back.getBackground().clearColorFilter();
         back.invalidate();
@@ -57,6 +63,7 @@ public class InstructionSlides extends AppCompatActivity {
             }
         });
 
+        //Animating button
         ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(back,
                 PropertyValuesHolder.ofFloat("scaleX", 1.2f),
                 PropertyValuesHolder.ofFloat("scaleY", 1.2f));
@@ -73,6 +80,7 @@ public class InstructionSlides extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
 
+        // To make back button visible only at last page of ViewPager
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -97,7 +105,7 @@ public class InstructionSlides extends AppCompatActivity {
 
     }
 
-
+    //Adapter of ViewPager
     public class CustomAdapter extends FragmentPagerAdapter {
 
         public CustomAdapter(FragmentManager fm) {
@@ -116,6 +124,7 @@ public class InstructionSlides extends AppCompatActivity {
 
     }
 
+    //Fragment that contains the instruction slides
     public static class Instructions extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
 

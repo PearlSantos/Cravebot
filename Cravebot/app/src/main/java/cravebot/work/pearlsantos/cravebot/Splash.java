@@ -16,6 +16,7 @@ import cravebot.R;
 
 /**
  * Created by elysi on 12/31/2015.
+ * This class shows a Splash Screen with the logo of Cravebot
  */
 
 public class Splash extends AppCompatActivity {
@@ -35,6 +36,7 @@ public class Splash extends AppCompatActivity {
         cravebot = (SimpleDraweeView) findViewById(R.id.cravebot);
         final FrameLayout splashLayout = (FrameLayout) findViewById(R.id.splashLayout);
 
+        //Setting size of the CraveBot logo
         splashLayout.getViewTreeObserver().
                 addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @SuppressLint("NewApi")
@@ -62,6 +64,7 @@ public class Splash extends AppCompatActivity {
         cravebot.setImageURI(Uri.parse("res:/" + R.drawable.cravebot_start));
 
 
+        //Show Splash Screen for a few seconds
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

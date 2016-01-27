@@ -1,14 +1,9 @@
 package cravebot.results.elysi.cardlayoutview;
 
-import android.animation.Animator;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -22,15 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
@@ -40,27 +29,26 @@ import cravebot.results.elysi.customobjects.FoodItem;
 import cravebot.results.elysi.customobjects.OnSwipeListener;
 import cravebot.results.elysi.customobjects.PagerContainer;
 import cravebot.results.elysi.gridview.RecyclerViewLayout;
-import cravebot.work.pearlsantos.cravebot.CheckingStart;
 import cravebot.work.pearlsantos.cravebot.GoTask;
-import cravebot.work.pearlsantos.cravebot.MainActivity;
 
+/**
+ * Created by Elysia Villadarez
+ * This class creates and edits the ViewPager for FoodItems
+ * This also has the GestureDetector that allows detects the direction of swipes
+ **/
 public class CardLayoutFood extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private GestureDetector mGestureDetector;
 
+    //These variables are for infinite scrolling of the ViewPager
     public final static int LOOPS = 1000;
     public static int FIRST_PAGE;
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+
     public ViewPager mViewPager;
     private ArrayList<FoodItem> sample;
+    //This contains a ViewPager
     private PagerContainer mContainer;
-
-    private LinearLayout message;
-    private final String once = "SWIPE_UP";
-    private SharedPreferences prefs;
 
 
     public CardLayoutFood() {
@@ -74,12 +62,14 @@ public class CardLayoutFood extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         setContentView(R.layout.activity_card_layout_food);
 
+        //Getting ArrayList<FoodItem> from GoTask()
         sample = getIntent().getParcelableArrayListExtra(GoTask.LIST_KEY);
 
         mContainer = (PagerContainer) findViewById(R.id.pager_container);
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
 
+        //This is for setting the size of the ViewPager inside the PagerContainer
         mContainer.getViewTreeObserver().
                 addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @SuppressLint("NewApi")
@@ -118,6 +108,9 @@ public class CardLayoutFood extends AppCompatActivity {
 
 
         mViewPager.setClipChildren(false);
+
+        //If user is from RecyclerViewLayout class, this checks what FoodItem they clicked and
+        // set that as the current item of the ViewPager
         int pos = getIntent().getIntExtra("position", -1);
         if (pos != -1) {
             if(pos==1){
@@ -127,21 +120,15 @@ public class CardLayoutFood extends AppCompatActivity {
             }
         }
 
-        prefs = getApplicationContext().getSharedPreferences
-                (CheckingStart.PREFS_NAME, Context.MODE_PRIVATE);
 
-//        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
-        message = new LinearLayout(CardLayoutFood.this);
+        //Message to the user to swipe up
+        LinearLayout message = new LinearLayout(CardLayoutFood.this);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER);
-        params.setMargins(0,0,0,(int)getResources().getDimension(R.dimen.swipeTextBottom));
+        params.setMargins(0, 0, 0, (int) getResources().getDimension(R.dimen.swipeTextBottom));
         message.setLayoutParams(params);
-
         message.setOrientation(LinearLayout.VERTICAL);
         message.setGravity(Gravity.CENTER);
-
-
-
         TextViewPlus swipeUp = new TextViewPlus(CardLayoutFood.this);
         swipeUp.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/AvenirNextLTPro-Regular.otf"));
         swipeUp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
@@ -149,27 +136,16 @@ public class CardLayoutFood extends AppCompatActivity {
         swipeUp.setText("SWIPE UP FOR MORE INFO");
         swipeUp.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.CENTER));
-        swipeUp.setTextScaleX((float)0.8);
-
-
-          message.addView(swipeUp);
-
-
+        swipeUp.setTextScaleX((float) 0.8);
+        message.addView(swipeUp);
         FrameLayout swipeUpMes = (FrameLayout) findViewById(R.id.swipeUpMes);
         swipeUpMes.addView(message);
         swipeUpMes.bringChildToFront(message);
 
-        System.out.println("DISPLAY");
-
-//            TranslateAnimation animateSwipeUp = new TranslateAnimation(0, 0, -120, 0);
-//            animateSwipeUp.setDuration(getResources().getInteger(android.R.integer.config_longAnimTime));
-//            animateSwipeUp.setRepeatCount(Animation.INFINITE);
-//            message.startAnimation(animateSwipeUp);
-//        }
-
         mSectionsPagerAdapter.notifyDataSetChanged();
 
 
+        //Exit button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +154,7 @@ public class CardLayoutFood extends AppCompatActivity {
             }
         });
 
-
+        //Setting function for the GridView button below
         final ImageButton gridview = (ImageButton) findViewById(R.id.grid_view_button);
         gridview.getBackground().clearColorFilter();
         gridview.invalidate();
@@ -195,6 +171,13 @@ public class CardLayoutFood extends AppCompatActivity {
             }
         });
 
+
+        /**
+         *Detecting swipes of users
+         * Swipe Up: change layout
+         * Swipe Down: exit
+         * Swipe Left/Right: Next/Previous of ViewPager
+         */
         mGestureDetector = new GestureDetector(this, new OnSwipeListener(CardLayoutFood.this, sample) {
             @Override
             public boolean onSwipe(Direction d) {
@@ -210,12 +193,6 @@ public class CardLayoutFood extends AppCompatActivity {
                         } else {
                             frag.changeVisibility(frag.getPlace(), frag.getMoreInfo());
                         }
-
-//                        if (MainActivity.nextAction == 2 && prefs.getInt(once, -1) == -1) {
-//                            prefs.edit().putInt(once, 1).commit();
-//                            message.clearAnimation();
-//                            ((ViewGroup) message.getParent()).removeView(message);
-//                        }
                     }
                     return true;
                 } else if (d == Direction.down) {
@@ -247,9 +224,7 @@ public class CardLayoutFood extends AppCompatActivity {
         }
 
         );
-        mViewPager.setOnTouchListener(new View.OnTouchListener()
-
-                                      {
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
                                           @Override
                                           public boolean onTouch(View v, MotionEvent event) {
                                               boolean eventConsumed = mGestureDetector.onTouchEvent(event);
